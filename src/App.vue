@@ -25,5 +25,9 @@
       color: #42b983;
     }
   }
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
 }
 </style>
