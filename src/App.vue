@@ -1,16 +1,34 @@
 <template>
-  <div class="container mx-auto">
+  <div id="app">
+    <site-header></site-header>
     <router-view />
   </div>
 </template>
 
+<script>
+import SiteHeader from '@/components/SiteHeader.vue';
+
+export default {
+  components: {
+    SiteHeader
+  }
+}
+</script>
+
+
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,700|EB+Garamond:400,700');
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  font-size: 18px;
+}
+
 body {
+  @apply mb-12;
   font-family: 'Work Sans', sans-serif;
+  background: config('colors.bg');
 }
 </style>
