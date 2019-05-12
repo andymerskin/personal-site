@@ -129,6 +129,12 @@ let colors = {
   'pink-lightest': '#ffebef',
 }
 
+let theme = {
+  'bg': '#FFF9F4'
+}
+
+colors = Object.assign(colors, theme);
+
 module.exports = {
 
   /*
@@ -146,6 +152,10 @@ module.exports = {
 
   colors: colors,
 
+  ease: {
+    'easeInQuart': 'cubic-bezier(0.895, 0.03, 0.685, 0.22)',
+    'easeOutQuart': 'cubic-bezier(0.165, 0.84, 0.44, 1)'
+  },
 
   /*
   |-----------------------------------------------------------------------------
@@ -209,6 +219,7 @@ module.exports = {
       'sans-serif',
     ],
     'serif': [
+      'EB Garamond',
       'Constantia',
       'Lucida Bright',
       'Lucidabright',
@@ -888,7 +899,7 @@ module.exports = {
   modules: {
     appearance: ['responsive'],
     backgroundAttachment: ['responsive'],
-    backgroundColors: ['responsive', 'hover', 'focus'],
+    backgroundColors: ['responsive', 'hover', 'focus', 'active'],
     backgroundPosition: ['responsive'],
     backgroundRepeat: ['responsive'],
     backgroundSize: ['responsive'],
