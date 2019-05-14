@@ -30,5 +30,7 @@ body {
   @apply mb-12;
   font-family: 'Work Sans', sans-serif;
   background: config('colors.bg');
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>
