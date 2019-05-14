@@ -13,6 +13,9 @@
         <h2 class="text-lg sm:text-2xl md:text-3xl font-serif font-normal text-black text-center leading-normal mt-6 md:mt-8">I'm a <span class="font-sans role-title font-bold">UI/UX Designer & Engineer</span> skilled in the art of creating digital experiences that are backed by thoughtful research, delightful user interactions, unified visual language, and well organized and optimized code.</h2>
         <contact-info class="mt-8 md:mt-12"></contact-info>
       </div>
+      <div id="work" class="w-full px-4 mt-12 md:mt-24">
+        <work></work>
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@
 <script>
 import ContactInfo from '@/components/ContactInfo.vue'
 import UiIllustration from '@/components/UiIllustration.vue'
+import Work from '@/components/Work.vue'
 
 const headlines = [
   'Have your cake and eat it too—it\'s no lie.',
@@ -39,7 +43,8 @@ export default {
   },
   components: {
     ContactInfo,
-    UiIllustration
+    UiIllustration,
+    Work
   },
   mounted() {
     this.startHeadlineRotation()
