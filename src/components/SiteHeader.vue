@@ -1,5 +1,5 @@
 <template>
-  <header class="header flex justify-between items-center py-4 px-4 fixed pin-t pin-x">
+  <header class="header flex justify-between items-center py-4 px-4 fixed pin-t pin-x" :style="headerCssVars">
     <span class="text-grey-darkest">Andy Merskin</span>
     <label for="menu-checkbox" class="menu-button cursor-pointer md:hidden">
       <i class="fas fa-bars"></i>
@@ -39,8 +39,43 @@
 </template>
 
 <script>
+import { clamp } from 'lodash';
+
 export default {
+  data() {
+    return {
+      scrollY: 0,
+      height: 0
+    }
+  },
+  computed: {
+    headerCssVars() {
+      const max = this.height / 4
+      const scrollProgress = this.scrollY / max
+      const maxShadowAlpha = 0.15;
+      return {
+        '--bg-alpha': clamp(scrollProgress, 0, 1),
+        '--shadow-alpha': clamp(scrollProgress * maxShadowAlpha, 0, maxShadowAlpha)
+      }
+    }
+  },
+  created() {
+    this.handleScroll()
+    this.handleResize()
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
+  },
   methods: {
+    handleScroll() {
+      window.requestAnimationFrame(() => {
+        this.scrollY = window.scrollY
+      })
+    },
+    handleResize() {
+      window.requestAnimationFrame(() => {
+        this.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      })
+    },
     closeMenu() {
       this.$refs.menuCheckbox.checked = false;
     }
@@ -49,11 +84,12 @@ export default {
 </script>
 
 <style lang="scss">
-// Set SCSS var since Tailwind vars aren't easily extracted
-$bg: #FFF9F4;
-
 .header {
-  background-color: rgba($bg, 0.6);
+  --bg-alpha: 0.6;
+  --shadow-alpha: 0.2;
+  background-color: rgba(255, 255, 255, var(--bg-alpha));
+  box-shadow: rgba(0,0,0,var(--shadow-alpha)) 0 5px 10px 0;
+  z-index: 1;
 }
 
 .nav {
