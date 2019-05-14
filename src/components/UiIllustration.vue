@@ -118,8 +118,10 @@
 </template>
 
 <script>
-import { TweenMax, Power3, Sine } from 'gsap/all';
+import { TweenMax, CSSPlugin, Power3, Sine } from 'gsap/all';
 import { shuffle } from 'lodash';
+
+const gsapPlugins = [ CSSPlugin ];
 
 export default {
   data() {
@@ -195,5 +197,11 @@ export default {
 </script>
 
 <style>
-
+#window-1,
+#window-2,
+#list,
+#buttons,
+#sprinkles * {
+  will-change: transform, opacity;
+}
 </style>
