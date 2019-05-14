@@ -1,12 +1,12 @@
 <template>
   <div id="landing">
     <div class="container mx-auto">
-      <div class="w-full md:w-2/3 lg:w-1/2 mx-auto mt-8 px-4 md:px-0">
+      <div id="intro" class="w-full md:w-2/3 lg:w-1/2 mx-auto mt-8 px-4 md:px-0">
         <ui-illustration></ui-illustration>
       </div>
       <div class="w-full px-4">
         <transition appear name="fade-up" mode="out-in">
-          <h1 class="headline flex justify-center items-center text-center text-3xl md:text-5xl font-bold md:font-normal tracking-tight text-grey-darkest mt-4"
+          <h1 class="headline flex justify-center items-center text-center text-3xl md:text-5xl font-bold tracking-tight text-grey-darkest mt-4"
             :key="headline"
             @click="advanceHeadline()">{{headline}}</h1>
         </transition>
