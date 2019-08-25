@@ -21,6 +21,7 @@ export default [
     id: 'spotr',
     name: 'spotr',
     description: 'A powerful and minimal search library for static websites with small datasets.',
+    logo: require('@/assets/spotr.svg'),
     backgroundColor: ['#3490DC', '#4DC0B5'],
     color: '#fff',
     textShadow: true,
