@@ -23,7 +23,10 @@
           delightful user interactions, unified visual language, and well
           organized and optimized code.
         </h2>
-        <contact-info class="mt-8 md:mt-12" />
+        <h3 class="landing-job bg-white text-base md:text-lg font-sans font-bold text-grey-darkest text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
+          I am currently looking for a mid-to-senior-level Frontend Engineering position—full stack is great too!
+          <contact-info class="mt-4 md:mt-8" />
+        </h3>
       </div>
       <div id="work" class="w-full px-4 mt-12 md:mt-24">
         <work />
@@ -93,6 +96,11 @@ export default {
 .headline {
   @apply leading-tight;
   min-height: 2.5em;
+}
+
+.landing-job {
+  @apply rounded-lg;
+  background-color: darken(#FFF9F4, 3%);
 }
 
 .fade-up-leave-to {
