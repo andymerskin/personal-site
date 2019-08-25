@@ -1,21 +1,25 @@
 <template>
   <div id="work">
     <div class="work-hero relative w-full">
-      <div ref="headerBg"
+      <div
+        ref="headerBg"
         class="work-hero-bg absolute pin"
         :style="workHeroStyles"></div>
-      <div class="work-hero-cover absolute pin flex justify-center items-center">
-        <img ref="headerIcon"
+      <div
+        class="work-hero-cover absolute pin flex justify-center items-center">
+        <img
+          ref="headerIcon"
           :src="current.cover"
           class="work-hero-cover-image"
-          :alt="`${current.name} Logo`">
+          :alt="`${current.name} Logo`"/>
       </div>
       <!-- <div class="work-hero-cover absolute pin"
         :style="workCoverStyles"
         ref="headerIcon"></div> -->
     </div>
     <div class="container mx-auto mt-16">
-      <h1 ref="headerText" 
+      <h1
+        ref="headerText"
         class="text-center text-3xl md:text-5xl font-bold tracking-tight text-grey-darkest"
         v-html="current.name"></h1>
     </div>
@@ -23,10 +27,10 @@
 </template>
 
 <script>
-import { TweenMax, Power4, CSSPlugin } from 'gsap/all';
+import { TweenMax, Power4, CSSPlugin } from 'gsap/all'
 import work from '@/work.js'
 
-const gsapPlugins = [ CSSPlugin ];
+const gsapPlugins = [CSSPlugin]
 
 export default {
   data() {
@@ -54,7 +58,7 @@ export default {
       const bgColorIsArray = Array.isArray(item.backgroundColor)
 
       if (bgColorIsArray) {
-        const [start, end] = item.backgroundColor;
+        const [start, end] = item.backgroundColor
         background = `linear-gradient(45deg, ${start}, ${end})`
       } else {
         background = item.backgroundColor
@@ -65,7 +69,7 @@ export default {
       }
     },
     workHeroBgColor() {
-      const bg = this.current.backgroundColor;
+      const bg = this.current.backgroundColor
       const bgColorIsArray = Array.isArray(bg)
       return bgColorIsArray ? bg[0] : bg
     }
@@ -83,16 +87,21 @@ export default {
       const duration = f => 0.3 * f
       const delay = f => 0.1 * f
 
-      TweenMax.fromTo(bg, duration(2), {
-        // boxShadow: '0 0 0 2px transparent'
-        opacity: 0
-      }, {
-        // boxShadow: `0 0 0 2px ${boxShadowColor}`,
-        opacity: 1,
-        ease: Power4.easeOut,
-        delay: delay(3)
-      })
-      
+      TweenMax.fromTo(
+        bg,
+        duration(2),
+        {
+          // boxShadow: '0 0 0 2px transparent'
+          opacity: 0
+        },
+        {
+          // boxShadow: `0 0 0 2px ${boxShadowColor}`,
+          opacity: 1,
+          ease: Power4.easeOut,
+          delay: delay(3)
+        }
+      )
+
       TweenMax.from(bg, duration(3), {
         scale: 0.8,
         // backgroundColor: 'transparent',
@@ -100,16 +109,20 @@ export default {
         delay: delay(4)
       })
 
-      TweenMax.fromTo(icon, duration(4), {
-        opacity: 0,
-        y: '50%'
-      },
-      {
-        opacity: 1,
-        y: '25%',
-        ease: Power4.easeOut,
-        delay: delay(5)
-      })
+      TweenMax.fromTo(
+        icon,
+        duration(4),
+        {
+          opacity: 0,
+          y: '50%'
+        },
+        {
+          opacity: 1,
+          y: '25%',
+          ease: Power4.easeOut,
+          delay: delay(5)
+        }
+      )
 
       TweenMax.from(text, duration(5), {
         opacity: 0,

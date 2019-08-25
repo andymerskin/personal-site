@@ -8,8 +8,23 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
-    'vue/html-closing-bracket-newline': 'off',
-    'vue/html-self-closing': 'off'
+    'vue/html-closing-bracket-newline': [
+      'warn',
+      {
+        singleline: 'never',
+        multiline: 'never'
+      }
+    ],
+    'vue/html-self-closing': [
+      'warn',
+      {
+        html: {
+          void: 'any',
+          normal: 'any',
+          component: 'always'
+        }
+      }
+    ]
   },
 
   parserOptions: {
@@ -18,9 +33,8 @@ module.exports = {
 
   extends: [
     'plugin:vue/recommended',
-    'plugin:prettier/recommended',
     'prettier/vue'
   ],
 
   plugins: ['prettier']
-};
+}

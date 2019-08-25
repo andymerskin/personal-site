@@ -1,14 +1,11 @@
 <template>
   <header
     class="header flex justify-between items-center py-4 px-4 fixed pin-t pin-x"
-    :style="headerStyles"
-  >
+    :style="headerStyles">
     <span class="header-title text-sm sm:text-base">
       <router-link
         :to="{ name: 'landing' }"
-        class="no-underline font-bold hover:underline"
-        >Andy Merskin</router-link
-      >
+        class="no-underline font-bold hover:underline">Andy Merskin</router-link>
       <span v-html="headerRouteName" />
     </span>
     <label for="menu-checkbox" class="menu-button cursor-pointer md:hidden">
@@ -20,13 +17,11 @@
       type="checkbox"
       class="menu-checkbox hidden"
       role="button"
-      @change="handleChecked"
-    />
+      @change="handleChecked"/>
     <nav
       ref="nav"
       class="nav"
-      :class="{ 'nav-transition-in': navTransitionIn }"
-    >
+      :class="{ 'nav-transition-in': navTransitionIn }">
       <button class="pin-t pin-r absolute w-8 h-8 mt-2 mr-2 md:hidden">
         <i class="fas fa-times text-2xl text-grey" @click="closeMenu()" />
       </button>
@@ -43,8 +38,7 @@
           <a
             href="https://www.github.com/docmars/"
             target="_blank"
-            title="Andy Merskin on GitHub"
-          >
+            title="Andy Merskin on GitHub">
             <i class="fab fa-github" />GitHub
           </a>
         </li>
@@ -52,8 +46,7 @@
           <a
             href="https://codepen.io/andymerskin/"
             target="_blank"
-            title="Andy Merskin on CodePen"
-          >
+            title="Andy Merskin on CodePen">
             <i class="fab fa-codepen" />CodePen
           </a>
         </li>
@@ -61,8 +54,7 @@
           <a
             href="https://www.linkedin.com/in/andymerskin/"
             target="_blank"
-            title="Andy Merskin on LinkedIn"
-          >
+            title="Andy Merskin on LinkedIn">
             <i class="fab fa-linkedin" />LinkedIn
           </a>
         </li>

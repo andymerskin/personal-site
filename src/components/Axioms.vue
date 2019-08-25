@@ -4,7 +4,9 @@
     <div class="flex flex-wrap">
       <!-- <div class="axiom p-2 my-4 w-full md:w-1/2 lg:w-1/3" v-for="axiom in axioms"> -->
       <div v-for="axiom in axioms" :key="axiom" class="axiom p-2 my-4 w-full">
-        <div class="py-4 font-bold text-grey-darkest text-2xl md:text-3xl lg:text-5xl" v-html="axiom"></div>
+        <div
+          class="py-4 font-bold text-grey-darkest text-2xl md:text-3xl lg:text-5xl"
+          v-html="axiom"></div>
       </div>
     </div>
   </div>
@@ -33,6 +35,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -1,6 +1,19 @@
 <template>
   <div class="flex flex-wrap">
-    <router-link
+    <a v-for="item in work"
+      :key="item.name"
+      :href="item.href"
+      target="_blank"
+      class="work-item w-full md:w-1/2 xl:w-1/3 px-2 lg:px-3 mb-4 lg:mb-6">
+      <div class="work-item-card flex flex-col items-center p-4">
+        <div class="work-item-logo h-24">
+          <img v-if="item.logo" :src="item.logo" :alt="item.name" class="h-full">
+        </div>
+        <div class="work-item-name font-bold text-xl text-grey-darkest mt-4">{{item.name}}</div>
+        <div class="work-item-description font-sans text-base text-grey-darkest leading-normal mt-4">{{item.description}}</div>
+      </div>
+    </a>
+    <!-- <router-link
       v-for="item in work"
       :key="item.name"
       :to="{ name: 'work', params: { id: item.id } }"
@@ -8,10 +21,17 @@
       @mousedown="setSelectedItem(item)">
       <div class="work-item">
         <div class="work-item-bg" :style="computeBgStyle(item)"></div>
-        <span v-if="!item.cover" class="work-item-name text-4xl sm:text-2xl md:text-4xl lg:text-2xl xl:text-4xl font-bold" :style="{ color: item.color }" v-html="item.name"></span>
-        <div v-else class="work-item-cover" :style="computeCoverStyle(item)"></div>
+        <span
+          v-if="!item.cover"
+          class="work-item-name text-4xl sm:text-2xl md:text-4xl lg:text-2xl xl:text-4xl font-bold"
+          :style="{ color: item.color }"
+          v-html="item.name"></span>
+        <div
+          v-else
+          class="work-item-cover"
+          :style="computeCoverStyle(item)"></div>
       </div>
-    </router-link>
+    </router-link> -->
   </div>
 </template>
 
@@ -37,7 +57,7 @@ export default {
       const bgColorIsArray = Array.isArray(item.backgroundColor)
 
       if (bgColorIsArray) {
-        const [start, end] = item.backgroundColor;
+        const [start, end] = item.backgroundColor
         background = `linear-gradient(45deg, ${start}, ${end})`
       } else {
         background = item.backgroundColor
@@ -64,52 +84,18 @@ export default {
 
 <style lang="scss">
 .work-item {
-  position: relative;
-  padding-top: percentage(2/3);
-  text-shadow: 0 3px 3px rgba(black, 0.15);
-  transition: all 0.3s ease;
-  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+
+.work-item-card {
+  @apply rounded-lg;
+  border: 1px solid rgba(#684F1D, 0.1);
+  transition: all 0.3s config('ease.easeOutQuart');
 
   &:hover {
-    .work-item-bg:not(.scaleFull) {
-      @apply shadow-lg;
-      transform: scale(1.05);
-    }
-
-    .work-item-cover,
-    .work-item-name {
-      transform: scale(1.15);
-      transition: all 1.2s config('ease.easeOutQuart');
-    }
+    @apply bg-white shadow-lg;
+    border-color: rgba(#684F1D, 0.2);
   }
 }
-
-.work-item-bg,
-.work-item-cover {
-  @apply absolute pin;
-}
-
-.work-item-bg {
-  @apply rounded-lg shadow;
-  transition: all 0.3s config('ease.easeOutQuart');
-  will-change: transform;
-}
-
-.work-item-cover,
-.work-item-name {
-  transition: all 0.3s config('ease.easeOutQuart');
-  will-change: transform;
-}
-
-.work-item-name {
-  @apply absolute pin flex justify-center items-center;
-}
-
-// .scaleFull {
-//   transform: scale(100);
-//   box-shadow: none;
-//   transition: all 2s ease;
-//   z-index: 1;
-// }
 </style>
-
