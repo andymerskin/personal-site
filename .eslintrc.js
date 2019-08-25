@@ -1,22 +1,40 @@
 module.exports = {
   root: true,
+
   env: {
     node: true
   },
-  extends: ["plugin:vue/essential", "@vue/prettier"],
+
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    "prettier/prettier": [
-      "warn",
+    'no-console': 'off',
+    'no-debugger': 'off',
+    'vue/html-closing-bracket-newline': [
+      'warn',
       {
-        singleQuote: true,
-        semi: false,
-        trailingComma: 'none'
+        singleline: 'never',
+        multiline: 'never'
+      }
+    ],
+    'vue/html-self-closing': [
+      'warn',
+      {
+        html: {
+          void: 'any',
+          normal: 'any',
+          component: 'always'
+        }
       }
     ]
   },
+
   parserOptions: {
-    parser: "babel-eslint"
-  }
-};
+    parser: 'babel-eslint'
+  },
+
+  extends: [
+    'plugin:vue/recommended',
+    'prettier/vue'
+  ],
+
+  plugins: ['prettier']
+}

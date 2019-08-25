@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Landing from './views/Landing.vue'
+import Work from './views/Work.vue'
 
 Vue.use(Router)
 
@@ -12,11 +13,11 @@ export default new Router({
       path: '/',
       name: 'landing',
       component: Landing
+    },
+    {
+      path: '/work/:id',
+      name: 'work',
+      component: Work
     }
-    // {
-    //   path: '/work/:id',
-    //   name: 'work',
-    //   component: Work
-    // }
   ]
 })
