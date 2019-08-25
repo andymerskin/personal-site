@@ -2,7 +2,7 @@ export default [
   {
     id: 'utb',
     name: 'Unite the Bride',
-    description: 'Website and brand for a non-profit that rescues the oppressed, redeems the broken, and restores the hurting.',
+    description: 'Website + brand for a non-profit that rescues the oppressed, redeems the broken, and restores the hurting.',
     logo: require('@/assets/utb-logo.svg'),
     backgroundColor: '#fff',
     href: 'https://unitethebride.com'
@@ -10,7 +10,7 @@ export default [
   {
     id: 'spriggan',
     name: 'Spriggan',
-    description: 'The Celtic sprite generator to spriten the load for designers, because the future is Sprite.',
+    description: 'A Celtic sprite generator to spriten the load for designers, because the future is sprite.',
     logo: require('@/assets/spriggan-256.png'),
     backgroundColor: '#3D4852',
     color: '#fff',

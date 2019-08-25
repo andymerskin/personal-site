@@ -27,7 +27,7 @@ body {
 }
 
 body {
-  @apply mb-12;
+  @apply mb-8;
   font-family: 'Work Sans', sans-serif;
   background: config('colors.bg');
   -webkit-font-smoothing: antialiased;

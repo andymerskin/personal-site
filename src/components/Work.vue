@@ -1,8 +1,9 @@
 <template>
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap -mx-2 lg:-mx-3">
     <a v-for="item in work"
       :key="item.name"
       :href="item.href"
+      :title="'Check out ' + item.name"
       target="_blank"
       class="work-item w-full md:w-1/2 xl:w-1/3 px-2 lg:px-3 mb-4 lg:mb-6">
       <div class="work-item-card flex flex-col items-center p-4">
@@ -13,25 +14,6 @@
         <div class="work-item-description font-sans text-base text-grey-darkest leading-normal mt-4">{{item.description}}</div>
       </div>
     </a>
-    <!-- <router-link
-      v-for="item in work"
-      :key="item.name"
-      :to="{ name: 'work', params: { id: item.id } }"
-      class="w-full sm:w-1/2 lg:w-1/3 px-2 lg:px-3 mb-4 lg:mb-6"
-      @mousedown="setSelectedItem(item)">
-      <div class="work-item">
-        <div class="work-item-bg" :style="computeBgStyle(item)"></div>
-        <span
-          v-if="!item.cover"
-          class="work-item-name text-4xl sm:text-2xl md:text-4xl lg:text-2xl xl:text-4xl font-bold"
-          :style="{ color: item.color }"
-          v-html="item.name"></span>
-        <div
-          v-else
-          class="work-item-cover"
-          :style="computeCoverStyle(item)"></div>
-      </div>
-    </router-link> -->
   </div>
 </template>
 

@@ -28,6 +28,7 @@
       <div id="work" class="w-full px-4 mt-12 md:mt-24">
         <work />
       </div>
+      <div class="px-4 mt-12 text-xs text-grey-darkest text-center">&copy; {{year}} Andy Merskin</div>
     </div>
   </div>
 </template>
@@ -62,6 +63,9 @@ export default {
   computed: {
     headline() {
       return this.headlines[this.headlineIndex % this.headlines.length]
+    },
+    year() {
+      return new Date().getFullYear()
     }
   },
   mounted() {
