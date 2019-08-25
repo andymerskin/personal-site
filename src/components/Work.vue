@@ -19,46 +19,11 @@
 
 <script>
 import work from '@/work.js'
-// :to="{ name: 'work', params: { id: item.id } }"
+
 export default {
   data() {
     return {
-      work,
-      selectedItem: null
-    }
-  },
-  methods: {
-    setSelectedItem(item) {
-      this.selectedItem = item
-    },
-    isSelectedItem(item) {
-      return item === this.selectedItem
-    },
-    computeBgStyle(item) {
-      let background = ''
-      const bgColorIsArray = Array.isArray(item.backgroundColor)
-
-      if (bgColorIsArray) {
-        const [start, end] = item.backgroundColor
-        background = `linear-gradient(45deg, ${start}, ${end})`
-      } else {
-        background = item.backgroundColor
-      }
-
-      return {
-        background
-      }
-    },
-    computeCoverStyle(item) {
-      let background = ''
-
-      if (item.cover) {
-        background = `url('${item.cover}') no-repeat center/auto 80%`
-      }
-
-      return {
-        background
-      }
+      work
     }
   }
 }
@@ -79,5 +44,13 @@ export default {
     @apply bg-white shadow-lg;
     border-color: rgba(#684F1D, 0.2);
   }
+
+  &:hover .work-item-logo {
+    transform: scale(1.066);
+  }
+}
+
+.work-item-logo {
+  transition: transform 0.6s config('ease.easeOutQuart');
 }
 </style>
