@@ -24,7 +24,7 @@
           organized and optimized code.
         </h2>
         <h3 class="landing-job bg-white text-base md:text-lg font-sans font-bold text-grey-darkest text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
-          I am currently looking for a mid-to-senior-level Frontend Engineering position—full stack is great too!
+          I am currently looking for a senior-level Frontend Engineering position—full stack is great too!
           <contact-info class="mt-4 md:mt-8" />
         </h3>
       </div>
