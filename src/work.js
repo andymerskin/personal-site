@@ -13,7 +13,7 @@ export default [
     description: 'Website + brand for a non-profit that rescues the oppressed, redeems the broken, and restores the hurting.',
     logo: require('@/assets/utb-logo.svg'),
     backgroundColor: '#fff',
-    href: 'https://unitethebride.com'
+    href: '/sites/utb-v1/'
   },
   {
     id: 'spriggan',
