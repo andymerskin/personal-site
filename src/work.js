@@ -1,11 +1,19 @@
 export default [
   {
+    id: 'adhesion',
+    name: 'Adhesion',
+    description: 'Marketing website build for IHS Markit Digital\'s end-to-end platform for managing data-driven digital advertising.',
+    logo: require('@/assets/ihs-markit-logo.svg'),
+    backgroundColor: '#A3D145',
+    href: 'https://www.markitdigital.com/products/ads/'
+  },
+  {
     id: 'utb',
     name: 'Unite the Bride',
     description: 'Website + brand for a non-profit that rescues the oppressed, redeems the broken, and restores the hurting.',
     logo: require('@/assets/utb-logo.svg'),
     backgroundColor: '#fff',
-    href: 'https://unitethebride.com'
+    href: '/sites/utb-v1/'
   },
   {
     id: 'spriggan',
