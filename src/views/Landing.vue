@@ -19,11 +19,12 @@
           class="text-lg sm:text-2xl md:text-3xl font-sans font-normal text-black text-left leading-normal mt-6 md:mt-8">
           I'm a
           <span class="font-bold">designer & engineer</span>
-          creating digital experiences that are backed by thoughtful research,
+          at <a href="https://www.cybergrx.com/" class="link">CyberGRX</a> creating digital experiences that are backed by thoughtful research,
           delightful user interactions, unified visual language, and well
           organized and optimized code.
         </h2>
-        <h3 class="landing-job bg-white text-base md:text-lg font-sans font-bold text-grey-darkest text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
+        <h3 v-if="lookingForWork"
+        class="landing-job bg-white text-base md:text-lg font-sans font-bold text-grey-darkest text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
           I am currently looking for a mid-to-senior-level Frontend Engineering position—full stack is great too!
           <contact-info class="mt-4 md:mt-8" />
         </h3>
@@ -60,7 +61,7 @@ export default {
     return {
       headlines,
       headlineIndex: 0,
-      headlineInterval: null
+      headlineInterval: null,
     }
   },
   computed: {
@@ -103,6 +104,11 @@ export default {
   background-color: darken(#FFF9F4, 3%);
 }
 
+.link {
+  @apply text-blue-600;
+  background-color: color-mod(theme('colors.blue.500') a(20%));
+}
+
 .fade-up-leave-to {
   opacity: 0;
   transform: translateY(-33%);
@@ -119,10 +125,10 @@ export default {
 }
 
 .fade-up-leave-active {
-  transition: all 0.3s config('ease.easeInQuart');
+  @apply transition-all duration-300 ease-in-quart;
 }
 
 .fade-up-enter-active {
-  transition: all 1s config('ease.easeOutQuart');
+  @apply transition-all duration-1000 ease-out-quart;
 }
 </style>

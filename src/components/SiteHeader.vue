@@ -1,11 +1,11 @@
 <template>
   <header
-    class="header flex justify-between items-center py-4 px-4 fixed pin-t pin-x"
+    class="header flex justify-between items-center py-4 px-4 fixed top-0 inset-x-0"
     :style="headerStyles">
     <span class="header-title text-sm sm:text-base">
       <router-link
         :to="{ name: 'landing' }"
-        class="no-underline font-bold hover:underline">Andy Merskin</router-link>
+        class="font-bold hover:underline">Andy Merskin</router-link>
       <span v-html="headerRouteName" />
     </span>
     <label for="menu-checkbox" class="menu-button cursor-pointer md:hidden">
@@ -22,7 +22,7 @@
       ref="nav"
       class="nav"
       :class="{ 'nav-transition-in': navTransitionIn }">
-      <button class="pin-t pin-r absolute w-8 h-8 mt-2 mr-2 md:hidden">
+      <button class="top-0 right-0 absolute w-8 h-8 mt-2 mr-2 md:hidden">
         <i class="fas fa-times text-2xl text-grey" @click="closeMenu()" />
       </button>
       <ul ref="navItems" class="nav-items list-reset">
@@ -185,13 +185,12 @@ export default {
 
 <style lang="scss">
 .header {
+  @apply text-gray-800 transition-colors duration-300 ease-in-out;
   --bg-alpha: 0.6;
   --shadow-alpha: 0.2;
-  color: config('colors.grey-darkest');
   background-color: rgba(255, 255, 255, var(--bg-alpha));
   box-shadow: rgba(0, 0, 0, var(--shadow-alpha)) 0 5px 10px 0;
   z-index: 1;
-  transition: color 0.3s ease;
 }
 
 .header a {
@@ -199,19 +198,19 @@ export default {
 }
 
 .nav {
-  @apply w-full bg-white shadow px-4 py-4 absolute pin-t pin-x;
+  @apply w-full bg-white shadow px-4 py-4 absolute top-0 inset-x-0;
   opacity: 0;
   transform: translateY(-100%);
 }
 
 .nav-transition-in {
-  transition: all 0.15s config('ease.easeInQuart');
+  @apply transition-all duration-150 ease-in-quart;
 }
 
 .menu-checkbox:checked + .nav {
+  @apply transition-all duration-300 ease-out-quart;
   opacity: 1;
   transform: translateY(0);
-  transition: all 0.3s config('ease.easeOutQuart');
 }
 
 .nav-items li {
@@ -219,8 +218,7 @@ export default {
 }
 
 .nav-items a {
-  @apply py-4 no-underline inline-flex flex-row-reverse items-center;
-  color: config('colors.grey-darkest');
+  @apply py-4 inline-flex flex-row-reverse items-center text-gray-800;
 
   i {
     @apply ml-2;
