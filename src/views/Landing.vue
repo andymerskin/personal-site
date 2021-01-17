@@ -41,6 +41,7 @@
 import ContactInfo from '@/components/ContactInfo.vue'
 import UiIllustration from '@/components/UiIllustration.vue'
 import Work from '@/components/Work.vue'
+import config from '@/config'
 
 const headlines = [
   `Hi, I'm Andy 👋`,
@@ -62,6 +63,7 @@ export default {
       headlines,
       headlineIndex: 0,
       headlineInterval: null,
+      lookingForWork: config.lookingForWork || false
     }
   },
   computed: {
