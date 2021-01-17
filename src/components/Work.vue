@@ -36,9 +36,7 @@ export default {
 }
 
 .work-item-card {
-  @apply rounded-lg;
-  border: 1px solid rgba(#684F1D, 0.1);
-  transition: all 0.3s config('ease.easeOutQuart');
+  @apply rounded-lg transition-all duration-300 ease-out-quart;
 
   &:hover {
     @apply bg-white shadow-lg;
@@ -46,11 +44,11 @@ export default {
   }
 
   &:hover .work-item-logo {
-    transform: scale(1.066);
+    transform: scale(1.1);
   }
 }
 
 .work-item-logo {
-  transition: transform 0.6s config('ease.easeOutQuart');
+  @apply transition-all duration-1000 ease-out-quart;
 }
 </style>

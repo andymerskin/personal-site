@@ -17,7 +17,7 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,700|EB+Garamond:400,700');
-@tailwind preflight;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -27,9 +27,9 @@ body {
 }
 
 body {
-  @apply mb-8;
+  @apply mb-8 text-gray-800;
   font-family: 'Work Sans', sans-serif;
-  background: config('colors.bg');
+  background: theme('colors.bg');
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

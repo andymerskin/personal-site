@@ -3,19 +3,16 @@
     <div class="work-hero relative w-full">
       <div
         ref="headerBg"
-        class="work-hero-bg absolute pin"
+        class="work-hero-bg absolute inset-0"
         :style="workHeroStyles"></div>
       <div
-        class="work-hero-cover absolute pin flex justify-center items-center">
+        class="work-hero-cover absolute inset-0 flex justify-center items-center">
         <img
           ref="headerIcon"
           :src="current.cover"
           class="work-hero-cover-image"
           :alt="`${current.name} Logo`"/>
       </div>
-      <!-- <div class="work-hero-cover absolute pin"
-        :style="workCoverStyles"
-        ref="headerIcon"></div> -->
     </div>
     <div class="container mx-auto mt-16">
       <h1
