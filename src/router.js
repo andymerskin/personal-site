@@ -14,10 +14,10 @@ export default new Router({
       name: 'landing',
       component: Landing
     },
-    {
-      path: '/work/:id',
-      name: 'work',
-      component: Work
-    }
+    // {
+    //   path: '/work/:id',
+    //   name: 'work',
+    //   component: Work
+    // }
   ]
 })
