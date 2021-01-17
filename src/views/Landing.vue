@@ -16,7 +16,7 @@
           </h1>
         </transition>
         <h2
-          class="text-lg sm:text-2xl md:text-3xl font-sans font-normal text-black text-left leading-normal mt-6 md:mt-8">
+          class="text-lg sm:text-2xl md:text-3xl font-sans font-normal text-left leading-normal mt-6 md:mt-8">
           I'm a
           <span class="font-bold">designer & engineer</span>
           at <a href="https://www.cybergrx.com/" class="link">CyberGRX</a> creating digital experiences that are backed by thoughtful research,
@@ -24,8 +24,8 @@
           organized and optimized code.
         </h2>
         <h3 v-if="lookingForWork"
-        class="landing-job bg-white text-base md:text-lg font-sans font-bold text-grey-darkest text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
-          I am currently looking for a mid-to-senior-level Frontend Engineering position—full stack is great too!
+        class="landing-job bg-white text-base md:text-lg font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
+          I am currently looking for a senior-level Frontend Engineering position—full stack is great too!
           <contact-info class="mt-4 md:mt-8" />
         </h3>
       </div>
