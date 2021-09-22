@@ -1,11 +1,29 @@
 export default [
   {
+    id: 'ft',
+    name: 'Markets Data & Research',
+    description: 'My team designed the market research tools & visualizations for The FT, including World Markets, Advanced Charting, Quick View, and many others.',
+    logo: require('@/assets/brand-ft-logo-landscape-coloured.svg'),
+    backgroundColor: '#fcd0af',
+    classes: 'ft',
+    href: 'https://markets.ft.com/data/'
+  },
+  {
     id: 'adhesion',
     name: 'Adhesion',
     description: 'Marketing website build for IHS Markit Digital\'s end-to-end platform for managing data-driven digital advertising.',
     logo: require('@/assets/ihs-markit-logo.svg'),
     backgroundColor: '#A3D145',
     href: 'https://www.markitdigital.com/products/ads/'
+  },
+  {
+    id: 'securio',
+    name: 'Securio',
+    description: 'Design + code exercise for a fake cyber-sec company to practice creating data visualizations, and another excuse to use Tailwind.',
+    logo: require('@/assets/securio.svg'),
+    backgroundColor: '#fff',
+    classes: 'securio',
+    href: '/sites/securio/'
   },
   {
     id: 'utb',
