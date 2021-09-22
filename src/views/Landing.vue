@@ -19,9 +19,7 @@
           class="text-lg sm:text-2xl md:text-3xl font-sans font-normal text-left leading-normal mt-6 md:mt-8">
           I'm a
           <span class="font-bold">designer & engineer</span>
-          at <a href="https://www.cybergrx.com/" class="link">CyberGRX</a> creating digital experiences that are backed by thoughtful research,
-          delightful user interactions, unified visual language, and well
-          organized and optimized code.
+          at <a :href="currentWorkplace.link" class="link">{{currentWorkplace.name}}</a> creating responsive digital experiences, backed by thoughtful research, delightful user interactions, uniﬁed visual language, and well organized and optimized front-end architecture.
         </h2>
         <h3 v-if="lookingForWork"
         class="landing-job bg-white text-base md:text-lg font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
@@ -63,7 +61,8 @@ export default {
       headlines,
       headlineIndex: 0,
       headlineInterval: null,
-      lookingForWork: config.lookingForWork || false
+      lookingForWork: config.lookingForWork || false,
+      currentWorkplace: config.currentWorkplace || {},
     }
   },
   computed: {

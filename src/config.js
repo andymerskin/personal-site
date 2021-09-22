@@ -1,3 +1,7 @@
 export default {
-  lookingForWork: false
+  lookingForWork: true,
+  currentWorkplace: {
+    name: 'CyberGRX',
+    link: 'https://www.cybergrx.com/'
+  }
 }
