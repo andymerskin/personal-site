@@ -3,10 +3,10 @@
     <div class="container mx-auto">
       <div
         id="intro"
-        class="w-full md:w-2/3 lg:w-1/2 mx-auto mt-8 px-4 md:px-0">
+        class="w-full md:w-2/3 lg:w-2/3 xl:w-1/2 mx-auto mt-8 px-4 md:px-0">
         <ui-illustration />
       </div>
-      <div class="w-full px-4">
+      <div class="w-full px-4 lg:px-20">
         <transition appear name="fade-up" mode="out-in">
           <h1
             :key="headline"
@@ -16,16 +16,14 @@
           </h1>
         </transition>
         <h2
-          class="text-lg sm:text-2xl md:text-3xl font-sans font-normal text-left leading-normal mt-6 md:mt-8">
+          class="description text-left mt-6 md:mt-8">
           I'm a
           <span class="font-bold">designer & engineer</span>
-          at <a href="https://www.cybergrx.com/" class="link">CyberGRX</a> creating digital experiences that are backed by thoughtful research,
-          delightful user interactions, unified visual language, and well
-          organized and optimized code.
+          at <a :href="currentWorkplace.link" class="link">{{currentWorkplace.name}}</a> creating responsive digital experiences, backed by thoughtful research, delightful user interactions, uniﬁed visual language, and well organized and optimized front-end architecture.
         </h2>
         <h3 v-if="lookingForWork"
-        class="landing-job bg-white text-base md:text-lg font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
-          I am currently looking for a senior-level Frontend Engineering position—full stack is great too!
+        class="landing-job bg-white text-base md:text-xl font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
+          I am currently looking for a senior-level UX/UI/Front-end Engineer position!
           <contact-info class="mt-4 md:mt-8" />
         </h3>
       </div>
@@ -47,7 +45,7 @@ const headlines = [
   `Hi, I'm Andy 👋`,
   'UI/UX Designer & Engineer.',
   "Have your 🎂 and eat it too—it's no lie.",
-  '¿Design & code, por qué no los dos?',
+  '¿Design & code, por qué no los dos? 🤷🏼‍♂️',
   "It's the best of both worlds. 🦄"
 ]
 
@@ -63,7 +61,8 @@ export default {
       headlines,
       headlineIndex: 0,
       headlineInterval: null,
-      lookingForWork: config.lookingForWork || false
+      lookingForWork: config.lookingForWork || false,
+      currentWorkplace: config.currentWorkplace || {},
     }
   },
   computed: {
@@ -99,6 +98,19 @@ export default {
 .headline {
   @apply leading-tight;
   min-height: 2.5em;
+}
+
+.description {
+  @apply text-lg sm:text-2xl md:text-3xl font-sans font-normal;
+  line-height: 1.75rem !important;
+  
+  @screen sm {
+    line-height: 2.25rem !important;
+  }
+
+  @screen md {
+    line-height: 3rem !important;
+  }
 }
 
 .landing-job {

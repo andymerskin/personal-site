@@ -7,8 +7,8 @@
       target="_blank"
       class="work-item w-full md:w-1/2 xl:w-1/3 px-2 lg:px-3 mb-4 lg:mb-6">
       <div class="work-item-card flex flex-col items-center p-4">
-        <div class="work-item-logo h-24">
-          <img v-if="item.logo" :src="item.logo" :alt="item.name" class="h-full">
+        <div class="work-item-logo flex items-center h-24">
+          <img v-if="item.logo" :src="item.logo" :alt="item.name" class="work-item-logo-image h-full" :class="[item.classes]">
         </div>
         <div class="work-item-name font-bold text-xl text-grey-darkest mt-4">{{item.name}}</div>
         <div class="work-item-description font-sans text-base text-grey-darkest leading-normal mt-4">{{item.description}}</div>
@@ -50,5 +50,15 @@ export default {
 
 .work-item-logo {
   @apply transition-all duration-1000 ease-out-quart;
+}
+
+.work-item-logo-image {
+  &.securio {
+    @apply h-10;
+  }
+
+  &.ft {
+    @apply h-16;
+  }
 }
 </style>
