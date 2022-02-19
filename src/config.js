@@ -1,7 +1,8 @@
 export default {
-  lookingForWork: true,
+  lookingForWork: false,
   currentWorkplace: {
-    name: 'CyberGRX',
-    link: 'https://www.cybergrx.com/'
+    name: 'Living Security',
+    title: 'Senior UX Engineer',
+    link: 'https://www.livingsecurity.com/'
   }
 }
