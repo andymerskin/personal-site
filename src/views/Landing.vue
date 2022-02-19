@@ -1,9 +1,7 @@
 <template>
   <div id="landing">
     <div class="container mx-auto">
-      <div
-        id="intro"
-        class="w-full md:w-2/3 lg:w-2/3 xl:w-1/2 mx-auto mt-8 px-4 md:px-0">
+      <div id="intro" class="w-full md:w-2/3 lg:w-2/3 xl:w-1/2 mx-auto mt-8 px-4 md:px-0">
         <ui-illustration />
       </div>
       <div class="w-full px-4 lg:px-20">
@@ -11,14 +9,14 @@
           <h1
             :key="headline"
             class="headline flex justify-center items-center text-center text-3xl md:text-5xl font-bold tracking-tight text-grey-darkest mt-4"
-            @click="advanceHeadline()">
-            {{ headline }}
-          </h1>
+            @click="advanceHeadline()"
+          >{{ headline }}</h1>
         </transition>
-        <h2
-          class="description text-left mt-6 md:mt-8">
+        <h2 class="description text-left mt-6 md:mt-8">
           I'm a
           <span class="font-bold">{{ currentWorkplace.title }}</span>
+          at
+          <a :href="currentWorkplace.link" class="link">{{ currentWorkplace.name }}</a> creating responsive digital experiences, backed by thoughtful research, delightful user interactions, uniﬁed visual language, and well organized and optimized front-end architecture.
         </h2>
         <h3
           class="landing-job bg-white text-base md:text-xl font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16"
@@ -33,7 +31,7 @@
       <div id="work" class="w-full px-4 mt-12 md:mt-24">
         <work />
       </div>
-      <div class="px-4 mt-12 text-xs text-grey-darkest text-center">&copy; {{year}} Andy Merskin</div>
+      <div class="px-4 mt-12 text-xs text-grey-darkest text-center">&copy; {{ year }} Andy Merskin</div>
     </div>
   </div>
 </template>
@@ -106,7 +104,7 @@ export default {
 .description {
   @apply text-lg sm:text-2xl md:text-3xl font-sans font-normal;
   line-height: 1.75rem !important;
-  
+
   @screen sm {
     line-height: 2.25rem !important;
   }
@@ -118,12 +116,12 @@ export default {
 
 .landing-job {
   @apply rounded-lg;
-  background-color: darken(#FFF9F4, 3%);
+  background-color: darken(#fff9f4, 3%);
 }
 
 .link {
   @apply text-blue-600;
-  background-color: color-mod(theme('colors.blue.500') a(20%));
+  background-color: color-mod(theme("colors.blue.500") a(20%));
 }
 
 .fade-up-leave-to {
