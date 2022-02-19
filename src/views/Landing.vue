@@ -20,10 +20,14 @@
           I'm a
           <span class="font-bold">{{ currentWorkplace.title }}</span>
         </h2>
-        <h3 v-if="lookingForWork"
-        class="landing-job bg-white text-base md:text-xl font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
-          Do you need a senior-level UX/UI/Front-end Engineer?
-          <contact-info class="mt-4 md:mt-8" />
+        <h3
+          class="landing-job bg-white text-base md:text-xl font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16"
+        >
+          <div v-if="lookingForWork">
+            Do you need a senior-level UX/UI/Front-end Engineer?
+            <contact-info class="mt-4 md:mt-8" />
+          </div>
+          <div v-else>🙅‍♂️ I am not currently looking for new work - thank you for your interest!</div>
         </h3>
       </div>
       <div id="work" class="w-full px-4 mt-12 md:mt-24">
