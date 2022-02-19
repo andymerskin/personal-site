@@ -18,8 +18,7 @@
         <h2
           class="description text-left mt-6 md:mt-8">
           I'm a
-          <span class="font-bold">designer & engineer</span>
-          at <a :href="currentWorkplace.link" class="link">{{currentWorkplace.name}}</a> creating responsive digital experiences, backed by thoughtful research, delightful user interactions, uniﬁed visual language, and well organized and optimized front-end architecture.
+          <span class="font-bold">{{ currentWorkplace.title }}</span>
         </h2>
         <h3 v-if="lookingForWork"
         class="landing-job bg-white text-base md:text-xl font-sans font-bold text-center leading-normal px-4 py-4 md:py-8 mt-12 md:mt-16">
