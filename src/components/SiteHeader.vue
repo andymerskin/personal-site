@@ -36,7 +36,7 @@
         </li>-->
         <li>
           <a
-            href="https://www.github.com/docmars/"
+            href="https://www.github.com/andymerskin/"
             target="_blank"
             title="Andy Merskin on GitHub">
             <i class="fab fa-github" />GitHub

@@ -41,7 +41,7 @@ export default [
     backgroundColor: '#3D4852',
     color: '#fff',
     textShadow: true,
-    href: 'https://github.com/docmars/spriggan'
+    href: 'https://github.com/andymerskin/spriggan'
   },
   {
     id: 'spotr',
@@ -51,6 +51,6 @@ export default [
     backgroundColor: ['#3490DC', '#4DC0B5'],
     color: '#fff',
     textShadow: true,
-    href: 'https://github.com/docmars/spotr'
+    href: 'https://github.com/andymerskin/spotr'
   }
 ]
