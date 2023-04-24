@@ -2,7 +2,7 @@ export default {
   lookingForWork: false,
   currentWorkplace: {
     name: 'Living Security',
-    title: 'Senior UX Engineer',
+    title: 'Principal UX/UI Engineer',
     link: 'https://www.livingsecurity.com/'
   }
 }
