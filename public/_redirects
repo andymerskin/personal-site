@@ -4,4 +4,4 @@
 
 # darksky-vue
 /sites/weather/* https://andymerskin-darksky-vue.netlify.app/:splat 200!
-/sites/weather/api/* https://api.pirateweather.net/:splat 200!
+# /sites/weather/api/* https://api.pirateweather.net/:splat 200!
