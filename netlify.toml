@@ -1,0 +1,7 @@
+[[build]]
+  command = "sed -i \"s|PIRATE_WEATHER_API_KEY|${VITE_PIRATE_WEATHER_API_KEY}|g\" netlify.toml && yarn build"
+
+[[redirects]]
+  from = "/sites/weather/api/*"
+  to = "https://api.pirateweather.net/forecast/PIRATE_WEATHER_API_KEY/:splat"
+  status = 200
