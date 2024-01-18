@@ -3,5 +3,5 @@
 /sites/chartographer/* https://cocky-jackson-f42d40.netlify.app/:splat 200!
 
 # darksky-vue
-/sites/weather/* https://andymerskin-darksky-vue.netlify.app/index.html 200
+/sites/weather/* https://andymerskin-darksky-vue.netlify.app/index.html 200!
 /sites/weather/api/* https://api.pirateweather.net/:splat 200
