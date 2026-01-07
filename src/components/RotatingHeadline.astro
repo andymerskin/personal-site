@@ -1,0 +1,28 @@
+---
+const headlines = [
+  `Hi, I'm Andy 👋`,
+  "Software Engineer & Designer.",
+  "Have your 🎂 and eat it too, it's no lie.",
+  "¿Design & code, por qué no los dos? 🤷🏼‍♂️",
+  "It's the best of both worlds. 🦄",
+];
+---
+
+<div data-rotating-headline-root data-headlines={JSON.stringify(headlines)}>
+  <h1 class="text-5xl font-bold tracking-tight min-h-24">
+    <span class="sr-only">{headlines[0]}</span>
+    <span aria-hidden="true" data-rotating-headline-text>{headlines[0]}</span>
+  </h1>
+
+  <script>
+    import "../scripts/rotatingHeadline.ts";
+  </script>
+</div>
+
+<style>
+  [data-rotating-headline-text] {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+</style>
+
