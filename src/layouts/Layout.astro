@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import SideNav from "../components/SideNav.astro";
+
+export interface Props {
+  title?: string;
+  titleTemplate?: (pageTitle: string, baseTitle: string) => string;
+}
+
+const BASE_TITLE = "Andy Merskin";
+
+const { title, titleTemplate } = Astro.props;
+
+const fullTitle = title
+  ? (titleTemplate?.(title, BASE_TITLE) ?? `${BASE_TITLE} • ${title}`)
+  : BASE_TITLE;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <div class="mx-auto max-w-5xl px-4 py-8">
+      <header class="mb-8 md:hidden">
+        <h1 class="text-xl font-bold mb-4">{BASE_TITLE}</h1>
+        <SideNav orientation="horizontal" />
+      </header>
+
+      <div class="md:flex md:gap-10">
+        <aside class="hidden md:block md:w-40 lg:w-48">
+          <h1 class="text-xl font-bold mb-4">{BASE_TITLE}</h1>
+          <SideNav orientation="vertical" />
+        </aside>
+
+        <main class="min-w-0 flex-1">
+          <slot />
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

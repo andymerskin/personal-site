@@ -1,0 +1,54 @@
+---
+export interface Props {
+  orientation?: "horizontal" | "vertical";
+  class?: string;
+}
+
+const { orientation = "vertical", class: className } = Astro.props;
+
+const items = [
+  { href: "/hello", label: "Hello" },
+  { href: "/work", label: "Work" },
+  { href: "/blog", label: "Blog" },
+  { href: "/thoughts", label: "Thoughts" },
+] as const;
+
+const normalizePathname = (pathname: string) => {
+  if (pathname === "/") return "/";
+  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+};
+
+const current = normalizePathname(Astro.url.pathname);
+---
+
+<nav aria-label="Primary" class={className}>
+  <ul
+    class:list={[
+      "gap-3 text-sm",
+      orientation === "horizontal" ? "flex flex-wrap" : "flex flex-col",
+    ]}
+  >
+    {
+      items.map((item) => {
+        const isActive = normalizePathname(item.href) === current;
+
+        return (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                "inline-flex items-center py-1",
+                isActive
+                  ? "font-semibold underline underline-offset-4"
+                  : "text-slate/70",
+              ]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
