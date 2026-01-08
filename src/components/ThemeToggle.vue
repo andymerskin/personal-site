@@ -7,11 +7,6 @@
     aria-label="Toggle theme"
   >
     <i
-      class="ri-computer-fill text-base leading-none"
-      data-mode-icon="system"
-      aria-hidden="true"
-    />
-    <i
       class="ri-sun-fill text-base leading-none"
       data-mode-icon="light"
       aria-hidden="true"
@@ -27,21 +22,23 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
-type Mode = "system" | "light" | "dark";
+type Mode = "light" | "dark";
 
 const STORAGE_KEY = "themeMode";
 const EVENT_NAME = "themeModeChange";
 
 function isMode(x: unknown): x is Mode {
-  return x === "system" || x === "light" || x === "dark";
+  return x === "light" || x === "dark";
 }
 
-function readMode(): Mode {
+function readPreference(): Mode | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return isMode(raw) ? raw : "system";
+    // Legacy: treat "system" as unset (follow system preference).
+    if (raw === "system") return null;
+    return isMode(raw) ? raw : null;
   } catch {
-    return "system";
+    return null;
   }
 }
 
@@ -58,8 +55,7 @@ function systemPrefersDark(): boolean {
 }
 
 function apply(mode: Mode) {
-  const isDark = mode === "dark" || (mode === "system" && systemPrefersDark());
-  document.body.classList.toggle("dark", isDark);
+  document.body.classList.toggle("dark", mode === "dark");
   document.body.dataset.themeMode = mode;
 }
 
@@ -67,28 +63,29 @@ function dispatch(mode: Mode) {
   window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: { mode } }));
 }
 
-const mode = ref<Mode>("system");
+const mode = ref<Mode>("light");
+const hasPreference = ref(false);
 
 function setMode(next: Mode) {
   mode.value = next;
+  hasPreference.value = true;
   writeMode(next);
   apply(next);
   dispatch(next);
 }
 
 function cycle() {
-  const next: Mode =
-    mode.value === "system"
-      ? "light"
-      : mode.value === "light"
-      ? "dark"
-      : "system";
+  const next: Mode = mode.value === "light" ? "dark" : "light";
   setMode(next);
 }
 
 let mql: MediaQueryList | undefined;
 const onSystemChange = () => {
-  if (mode.value === "system") apply("system");
+  // Only follow system changes when the user hasn't set a preference.
+  if (hasPreference.value) return;
+  const next: Mode = systemPrefersDark() ? "dark" : "light";
+  mode.value = next;
+  apply(next);
 };
 
 const onExternalModeChange = (evt: Event) => {
@@ -96,11 +93,19 @@ const onExternalModeChange = (evt: Event) => {
   const next = e.detail?.mode;
   if (isMode(next)) {
     mode.value = next;
+    hasPreference.value = true;
     apply(next);
   }
 };
 
 onMounted(() => {
+  const pref = readPreference();
+  hasPreference.value = pref !== null;
+  mode.value =
+    pref ??
+    ((document.body?.dataset?.themeMode === "dark" ? "dark" : "light") as Mode);
+  apply(mode.value);
+
   mql = window.matchMedia?.("(prefers-color-scheme: dark)");
   if (mql) {
     if (mql.addEventListener) mql.addEventListener("change", onSystemChange);

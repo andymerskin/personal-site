@@ -1,12 +1,21 @@
 (() => {
   const STORAGE_KEY = "themeMode";
-  const MODES = /** @type {const} */ (["system", "light", "dark"]);
+  const MODES = /** @type {const} */ (["light", "dark"]);
 
-  /** @returns {"system" | "light" | "dark"} */
-  function readMode() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    // @ts-ignore - keep tiny and robust in inline script
-    return MODES.includes(raw) ? raw : "system";
+  /**
+   * @returns {"light" | "dark" | null}
+   * Returns null when the user has no saved preference (follow system).
+   */
+  function readPreference() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      // Treat legacy "system" as unset.
+      if (raw === "system") return null;
+      // @ts-ignore - keep tiny and robust in inline script
+      return MODES.includes(raw) ? raw : null;
+    } catch {
+      return null;
+    }
   }
 
   function systemPrefersDark() {
@@ -15,15 +24,15 @@
     );
   }
 
-  /** Apply the effective theme to the current <body>. */
-  function apply() {
-    const mode = readMode();
-    const isDark = mode === "dark" || (mode === "system" && systemPrefersDark());
-    document.body.classList.toggle("dark", isDark);
-    document.body.dataset.themeMode = mode;
+  /** Apply the effective theme to the given <body>. */
+  function applyToBody(body) {
+    const pref = readPreference();
+    const effectiveMode = pref ?? (systemPrefersDark() ? "dark" : "light");
+    body.classList.toggle("dark", effectiveMode === "dark");
+    body.dataset.themeMode = effectiveMode;
   }
 
-  apply();
+  applyToBody(document.body);
 
   // Astro client-side navigation swaps in a new document. Apply theme to the
   // incoming <body> *before* it renders to prevent flashes.
@@ -33,10 +42,7 @@
     const newBody = event?.newDocument?.body;
     if (!newBody) return;
 
-    const mode = readMode();
-    const isDark = mode === "dark" || (mode === "system" && systemPrefersDark());
-    newBody.classList.toggle("dark", isDark);
-    newBody.dataset.themeMode = mode;
+    applyToBody(newBody);
   });
 })();
 

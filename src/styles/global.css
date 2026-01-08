@@ -14,9 +14,15 @@ body {
   display: none;
 }
 
-body:not([data-theme-mode]) [data-theme-toggle] [data-mode-icon="system"],
-body[data-theme-mode="system"] [data-theme-toggle] [data-mode-icon="system"],
 body[data-theme-mode="light"] [data-theme-toggle] [data-mode-icon="light"],
 body[data-theme-mode="dark"] [data-theme-toggle] [data-mode-icon="dark"] {
+  display: inline-block;
+}
+
+/* Fallback if data-theme-mode isn't set yet for any reason. */
+body:not([data-theme-mode]):not(.dark)
+  [data-theme-toggle]
+  [data-mode-icon="light"],
+body:not([data-theme-mode]).dark [data-theme-toggle] [data-mode-icon="dark"] {
   display: inline-block;
 }
