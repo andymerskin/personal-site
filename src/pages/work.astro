@@ -1,8 +1,103 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import type { ImageMetadata } from "astro";
+
+import ftMarketsLogo from "../images/work/brand-ft-logo-landscape-coloured.svg";
+import lsLogoLight from "../images/work/ls-logo-light.png";
+import processUnityLogo from "../images/work/process-unity.png";
+import utbLogo from "../images/work/utb-logo.svg";
+
+type WorkItem = {
+  title: string;
+  type: string;
+  year: string;
+  href: string;
+  classes?: string;
+  logo: ImageMetadata;
+};
+
+const workItems: WorkItem[] = [
+  {
+    title: "Living Security Unify HRM",
+    type: "Engineering & Design",
+    year: "2021–2025",
+    href: "https://www.livingsecurity.com/platform",
+    logo: lsLogoLight,
+  },
+  {
+    title: "ProcessUnity TPRM (formerly CyberGRX)",
+    type: "Engineering & Design",
+    year: "2019–2021",
+    href: "https://www.processunity.com/third-party-risk-management/",
+    logo: processUnityLogo,
+  },
+  {
+    title: "Financial Times Markets Data & Research",
+    type: "Designs",
+    year: "2015–2016",
+    href: "https://markets.ft.com/data",
+    logo: ftMarketsLogo,
+  },
+  {
+    title: "Unite the Bride",
+    type: "Engineering & Design",
+    year: "2018",
+    href: "https://www.andymerskin.com/sites/utb-v1/",
+    logo: utbLogo,
+  },
+];
 ---
 
 <Layout title="Work">
   <h1 class="text-3xl font-bold tracking-tight">Work</h1>
-  <p class="mt-4">Placeholder for projects, case studies, and selected work.</p>
+
+  <section class="mt-8">
+    <ul class="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3">
+      {
+        workItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="group block focus:outline-none"
+              aria-label={item.title}
+            >
+              <div
+                class:list={[
+                  "aspect-square w-full rounded-lg overflow-hidden",
+                  "dark:bg-white bg-neutral-100",
+                  "ring-1 ring-neutral-200/70 dark:ring-neutral-700/60",
+                  "transition",
+                  "group-hover:ring-neutral-300/80 dark:group-hover:ring-neutral-600/70",
+                  "group-focus-visible:ring-2 group-focus-visible:ring-amber-500 group-focus-visible:ring-offset-2",
+                  "ring-offset-white dark:ring-offset-neutral-950",
+                  item.classes,
+                ]}
+              >
+                <div class="flex h-full w-full items-center justify-center p-6">
+                  <img
+                    src={item.logo.src}
+                    alt=""
+                    class="max-h-[60%] max-w-[85%] object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <div class="text-sm font-semibold leading-snug">
+                  <span class="group-hover:underline group-hover:underline-offset-4 decoration-amber-500/80">
+                    {item.title}
+                  </span>
+                </div>
+                <div class="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  {item.type} • {item.year}
+                </div>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Layout>
