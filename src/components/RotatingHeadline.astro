@@ -1,4 +1,10 @@
 ---
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
 const headlines = [
   `Hi, I'm Andy 👋`,
   "Software Engineer & Designer.",
@@ -8,8 +14,12 @@ const headlines = [
 ];
 ---
 
-<div data-rotating-headline-root data-headlines={JSON.stringify(headlines)}>
-  <h1 class="text-5xl font-bold tracking-tight min-h-24">
+<div
+  data-rotating-headline-root
+  data-headlines={JSON.stringify(headlines)}
+  class={className}
+>
+  <h1 class="text-4xl leading-tight font-bold tracking-tight min-h-30">
     <span class="sr-only">{headlines[0]}</span>
     <span aria-hidden="true" data-rotating-headline-text>{headlines[0]}</span>
   </h1>
@@ -25,4 +35,3 @@ const headlines = [
     will-change: transform, opacity;
   }
 </style>
-
