@@ -48,6 +48,16 @@ body:not([data-theme-mode]).dark [data-theme-toggle] [data-mode-icon="dark"] {
     transform: rotate(-30deg);
   }
 }
+
+@keyframes rocking-alert {
+  from {
+    transform: rotate(-2deg) skew(-3deg);
+  }
+  to {
+    transform: rotate(2deg) skew(3deg);
+  }
+}
+
 /**
  * Utilities
  */
