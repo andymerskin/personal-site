@@ -2,17 +2,17 @@
   <button
     type="button"
     data-theme-toggle
-    class="text-sm opacity-66 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:focus-visible:ring-slate-500 cursor-pointer"
+    class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 cursor-pointer"
     @click="cycle"
     aria-label="Toggle theme"
   >
     <i
-      class="ri-sun-fill text-base leading-none"
+      class="ri-sun-fill text-2xl leading-none text-amber-500 animate-[spin_30s_linear_infinite]"
       data-mode-icon="light"
       aria-hidden="true"
     />
     <i
-      class="ri-moon-fill text-base leading-none"
+      class="ri-moon-fill text-2xl leading-none text-indigo-500 animate-[rocking-moon_3s_ease-in-out_alternate_infinite]"
       data-mode-icon="dark"
       aria-hidden="true"
     />

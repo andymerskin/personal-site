@@ -26,3 +26,15 @@ body:not([data-theme-mode]):not(.dark)
 body:not([data-theme-mode]).dark [data-theme-toggle] [data-mode-icon="dark"] {
   display: inline-block;
 }
+
+/**
+ * Animations
+ */
+@keyframes rocking-moon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-30deg);
+  }
+}

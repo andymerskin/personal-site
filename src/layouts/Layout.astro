@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import SideNav from "../components/SideNav.astro";
+import ThemeToggle from "../components/ThemeToggle.vue";
 import themeModeInline from "../scripts/themeModeInline.js?raw";
 
 export interface Props {
@@ -27,18 +28,24 @@ const fullTitle = title
     <title>{fullTitle}</title>
   </head>
   <body
-    class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 transition-colors duration-300 ease-in-out"
+    class="bg-primary text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 transition-colors duration-300 ease-in-out"
   >
     <script is:inline set:html={themeModeInline} />
-    <div class="mx-auto max-w-5xl px-4 py-16">
+    <div class="mx-auto max-w-5xl px-4 pt-16 pb-32">
       <header class="mb-8 md:hidden">
-        <h1 class="text-xl font-bold mb-8">{BASE_TITLE}</h1>
+        <div class="flex items-center gap-2 mb-8">
+          <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+          <ThemeToggle client:load class="relative top-0.5" />
+        </div>
         <SideNav orientation="horizontal" />
       </header>
 
       <div class="md:flex md:gap-10">
-        <aside class="hidden md:block md:w-40 lg:w-48">
-          <h1 class="text-xl font-bold mb-8">{BASE_TITLE}</h1>
+        <aside class="hidden md:block md:w-40 lg:w-56">
+          <div class="flex items-center gap-2 mb-8">
+            <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+            <ThemeToggle client:load class="relative top-0.5" />
+          </div>
           <SideNav orientation="vertical" />
         </aside>
 
