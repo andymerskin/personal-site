@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import RotatingHeadline from "../components/RotatingHeadline.astro";
+import TestimonialsList from "../components/TestimonialsList.astro";
 ---
 
 <Layout title="Principal Software Engineer & Designer">
@@ -11,4 +12,9 @@ import RotatingHeadline from "../components/RotatingHeadline.astro";
     research, delightful user interactions, unified visual language, and well
     organized & optimized architecture.
   </p>
+  <hr class="my-12 border-neutral-200 dark:border-neutral-800" />
+
+  <!-- Testimonials -->
+  <h2 class="text-2xl font-bold -rotate-1">Happy teams lead to happy users!</h2>
+  <TestimonialsList class="mt-8" />
 </Layout>

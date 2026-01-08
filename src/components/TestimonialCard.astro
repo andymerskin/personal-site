@@ -1,0 +1,36 @@
+---
+export interface Props {
+  author: string;
+  photo: ImageMetadata;
+  job: string;
+}
+
+const { author, photo: photoProp, job } = Astro.props;
+
+const photo = new URL(photoProp.src, Astro.url).toString();
+---
+
+<div class="group flex items-start gap-4 even:flex-row-reverse relative">
+  <img
+    src={photo}
+    alt={author}
+    class="w-16 h-16 mt-3 rounded-full absolute group-odd:left-2 group-even:right-2"
+  />
+  <div
+    class="p-6 group-odd:pl-10 group-even:pr-10 group-odd:ml-12 group-even:mr-12 rounded-lg bg-shade-primary/3 dark:bg-neutral-900"
+  >
+    <blockquote class="text-sm font-medium leading-relaxed space-y-4">
+      <slot />
+    </blockquote>
+    <div class="mt-2 flex items-center gap-4 group-even:flex-row-reverse">
+      <div
+        class="font-display text-2xl font-bold"
+      >
+        {author}
+      </div>
+      <div class="relative top-0.5 text-sm text-neutral-500 dark:text-neutral-400">
+        {job}
+      </div>
+    </div>
+  </div>
+</div>
