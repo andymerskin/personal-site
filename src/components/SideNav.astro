@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from "./ThemeToggle.vue";
+
 export interface Props {
   orientation?: "horizontal" | "vertical";
   class?: string;
@@ -7,7 +9,7 @@ export interface Props {
 const { orientation = "vertical", class: className } = Astro.props;
 
 const items = [
-  { href: "/hello", label: "Hello" },
+  { href: "/hello", label: "Hello!" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
   { href: "/thoughts", label: "Thoughts" },
@@ -24,8 +26,8 @@ const current = normalizePathname(Astro.url.pathname);
 <nav aria-label="Primary" class={className}>
   <ul
     class:list={[
-      "gap-3 text-sm",
-      orientation === "horizontal" ? "flex flex-wrap" : "flex flex-col",
+      "gap-x-6 gap-y-3 text-sm",
+      orientation === "horizontal" ? "flex flex-wrap items-center" : "flex flex-col",
     ]}
   >
     {
@@ -37,9 +39,9 @@ const current = normalizePathname(Astro.url.pathname);
             <a
               href={item.href}
               class:list={[
-                "inline-flex items-center py-1",
+                "inline-flex items-center py-1 hover:opacity-100",
                 isActive
-                  ? "font-semibold underline underline-offset-4"
+                  ? "font-semibold underline underline-offset-4 decoration-amber-500 decoration-2"
                   : "opacity-66",
               ]}
               aria-current={isActive ? "page" : undefined}
@@ -50,5 +52,8 @@ const current = normalizePathname(Astro.url.pathname);
         );
       })
     }
+    <li>
+      <ThemeToggle client:load />
+    </li>
   </ul>
 </nav>

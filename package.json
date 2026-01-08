@@ -9,9 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vue": "^5.1.4",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.7",
     "gsap": "^3.14.2",
-    "tailwindcss": "^4.1.18"
+    "remixicon": "^4.8.0",
+    "tailwindcss": "^4.1.18",
+    "vue": "^3.5.26"
   }
 }

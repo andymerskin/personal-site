@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import SideNav from "../components/SideNav.astro";
+import themeModeInline from "../scripts/themeModeInline.js?raw";
 
 export interface Props {
   title?: string;
@@ -25,16 +26,17 @@ const fullTitle = title
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
   </head>
-  <body>
-    <div class="mx-auto max-w-5xl px-4 py-8">
+  <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+    <script is:inline set:html={themeModeInline} />
+    <div class="mx-auto max-w-5xl px-4 py-16">
       <header class="mb-8 md:hidden">
-        <h1 class="text-xl font-bold mb-4">{BASE_TITLE}</h1>
+        <h1 class="text-xl font-bold mb-8">{BASE_TITLE}</h1>
         <SideNav orientation="horizontal" />
       </header>
 
       <div class="md:flex md:gap-10">
         <aside class="hidden md:block md:w-40 lg:w-48">
-          <h1 class="text-xl font-bold mb-4">{BASE_TITLE}</h1>
+          <h1 class="text-xl font-bold mb-8">{BASE_TITLE}</h1>
           <SideNav orientation="vertical" />
         </aside>
 
