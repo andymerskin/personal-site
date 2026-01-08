@@ -1,6 +1,4 @@
 ---
-import ThemeToggle from "./ThemeToggle.vue";
-
 export interface Props {
   orientation?: "horizontal" | "vertical";
   class?: string;
@@ -8,12 +6,46 @@ export interface Props {
 
 const { orientation = "vertical", class: className } = Astro.props;
 
+type LinkItem = {
+  readonly href: string;
+  readonly label: string;
+  readonly external?: boolean;
+};
+
+type IconItem = {
+  readonly href: string;
+  readonly icon: string;
+  readonly label: string;
+  readonly external?: boolean;
+};
+
 const items = [
   { href: "/hello", label: "Hello!" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
   { href: "/thoughts", label: "Thoughts" },
-] as const;
+] as const satisfies LinkItem[];
+
+const externalItems = [
+  {
+    href: "https://github.com/andymerskin",
+    icon: "ri-github-fill",
+    label: "GitHub",
+    external: true,
+  },
+  {
+    href: "https://codepen.io/andymerskin",
+    icon: "ri-codepen-fill",
+    label: "CodePen",
+    external: true,
+  },
+  {
+    href: "https://www.linkedin.com/in/andymerskin/",
+    icon: "ri-linkedin-fill",
+    label: "LinkedIn",
+    external: true,
+  },
+] as const satisfies IconItem[];
 
 const normalizePathname = (pathname: string) => {
   if (pathname === "/") return "/";
@@ -23,26 +55,39 @@ const normalizePathname = (pathname: string) => {
 const current = normalizePathname(Astro.url.pathname);
 ---
 
-<nav aria-label="Primary" class={className}>
+<nav
+  aria-label="Primary"
+  class:list={[className, "flex flex-wrap justify-between md:block"]}
+>
   <ul
     class:list={[
-      "gap-x-6 gap-y-3 text-sm",
-      orientation === "horizontal" ? "flex flex-wrap items-center" : "flex flex-col",
+      "gap-x-6 gap-y-3",
+      orientation === "horizontal"
+        ? "flex flex-wrap items-center"
+        : "flex flex-col",
     ]}
   >
     {
       items.map((item) => {
-        const isActive = normalizePathname(item.href) === current;
+        const itemPath =
+          "external" in item && item.external
+            ? item.href
+            : normalizePathname(item.href);
+        const isActive =
+          "external" in item && item.external
+            ? current.startsWith(itemPath)
+            : itemPath === current ||
+              (itemPath !== "/" && current.startsWith(`${itemPath}/`));
 
         return (
           <li>
             <a
-              href={item.href}
+              href={itemPath}
               class:list={[
                 "inline-flex items-center py-1 hover:opacity-100",
                 isActive
-                  ? "font-semibold underline underline-offset-4 decoration-amber-500 decoration-2"
-                  : "opacity-66",
+                  ? "font-bold underline underline-offset-4 decoration-amber-500 decoration-2"
+                  : "font-medium opacity-66",
               ]}
               aria-current={isActive ? "page" : undefined}
             >
@@ -52,8 +97,23 @@ const current = normalizePathname(Astro.url.pathname);
         );
       })
     }
-    <li>
-      <ThemeToggle client:load />
-    </li>
+  </ul>
+  <hr class="hidden md:block my-6 border-neutral-300 dark:border-neutral-600" />
+  <ul class="flex items-center gap-x-3">
+    {
+      externalItems.map((item) => {
+        return (
+          <li>
+            <a
+              href={item.href}
+              class="inline-flex items-center py-1 opacity-66 hover:opacity-100"
+              aria-label={item.label}
+            >
+              <i class:list={[item.icon, "text-2xl"]} />
+            </a>
+          </li>
+        );
+      })
+    }
   </ul>
 </nav>
