@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import Button from "../../components/Button.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("work");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
+const { Content } = await render(entry);
+---
+
+<Layout title={entry.data.title}>
+  <header>
+    <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
+    <div class="flex gap-1 mt-2 text-sm">
+      <nav class="inline">
+        <a
+          class="opacity-70 hover:opacity-100 underline-offset-4 hover:underline"
+          href="/work">Work</a
+        >
+      </nav>
+      •
+      <span class="text-neutral-600 dark:text-neutral-400">
+        {entry.data.type}
+      </span>
+      •
+      <span class="text-neutral-600 dark:text-neutral-400">
+        {entry.data.year}
+      </span>
+    </div>
+  </header>
+
+  <section class="mt-8">
+    <div
+      class:list={[
+        "w-full max-w-md rounded-lg overflow-hidden",
+        "bg-neutral-100 dark:bg-white",
+        "ring-1 ring-neutral-200/70 dark:ring-neutral-700/60",
+        entry.data.classes,
+      ]}
+    >
+      <div class="flex items-center justify-center p-10">
+        <img
+          src={entry.data.logo.src}
+          alt=""
+          class="max-h-20 w-auto object-contain"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <div
+      class="mt-8 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 [&_p]:mt-4 [&_a]:underline [&_a]:underline-offset-4"
+    >
+      <Content />
+    </div>
+
+    <div class="mt-8">
+      <a href={entry.data.externalUrl}>
+        <Button>
+          Visit project
+          <span aria-hidden="true">→</span>
+        </Button>
+      </a>
+    </div>
+  </section>
+</Layout>
