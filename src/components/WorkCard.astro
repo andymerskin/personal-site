@@ -12,13 +12,10 @@ const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
   >
     <div
       class:list={[
-        "aspect-4/3 w-full rounded-lg overflow-hidden",
-        // "bg-shade-primary/2 dark:bg-white",
-        // "ring-1 ring-shade-primary/5 dark:ring-neutral-700/60",
-        "transition",
-        "group-hover:ring-shade-primary/10 dark:group-hover:ring-neutral-600/70",
-        "group-focus-visible:ring-2 group-focus-visible:ring-amber-500 group-focus-visible:ring-offset-2",
-        "ring-offset-white dark:ring-offset-neutral-950",
+        "aspect-3/2 w-full rounded-lg overflow-hidden",
+        "bg-shade-primary/2 dark:bg-white",
+        "inset-ring-1 inset-ring-shade-primary/5 dark:inset-ring-0",
+        "group-hover:ring-2 group-hover:ring-offset-2 group-hover:ring-neutral-800 group-hover:inset-ring-2 group-hover:inset-ring-shade-primary/10 dark:group-hover:ring-2 dark:group-hover:inset-ring-2 dark:group-hover:inset-ring-neutral-800",
         entry.data.classes,
       ]}
     >
