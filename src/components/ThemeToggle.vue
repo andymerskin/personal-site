@@ -6,11 +6,13 @@
     @click="cycle"
     aria-label="Toggle theme"
   >
-    <i
-      class="ri-sun-fill text-2xl leading-none text-amber-500 animate-[spin_30s_linear_infinite]"
-      data-mode-icon="light"
-      aria-hidden="true"
-    />
+    <span class="inline-block animate-[shining-sun_1s_ease-in-out_alternate_infinite]">
+      <i
+        class="ri-sun-fill text-2xl leading-none text-amber-500 animate-[spin_30s_linear_infinite]"
+        data-mode-icon="light"
+        aria-hidden="true"
+      />
+    </span>
     <i
       class="ri-moon-fill text-2xl leading-none text-indigo-500 animate-[rocking-moon_3s_ease-in-out_alternate_infinite]"
       data-mode-icon="dark"
