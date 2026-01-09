@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import SideNav from "../components/SideNav.astro";
-import ThemeToggle from "../components/ThemeToggle.vue";
+import ThemeToggle from "../components/ThemeToggle.astro";
 
 export interface Props {
   title?: string;
@@ -18,14 +18,36 @@ const fullTitle = title
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme-ready="true">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      try {
+        const doc = document.documentElement;
+        const stored = localStorage.getItem("themeMode");
+        const mode =
+          stored === "dark" ? "dark" : stored === "light" ? "light" : undefined;
+        if (mode) {
+          doc.classList.toggle("dark", mode === "dark");
+          doc.dataset.themeMode = mode;
+        } else {
+          doc.classList.remove("dark");
+          delete doc.dataset.themeMode;
+        }
+      } catch (err) {
+        console.warn("Theme init failed", err);
+      } finally {
+        document.documentElement.dataset.themeReady = "true";
+      }
+    </script>
     <title>{fullTitle}</title>
-    <script src="../scripts/themeMode.ts"></script>
   </head>
   <body
     class="bg-primary text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 transition-colors duration-300 ease-in-out"
@@ -34,7 +56,7 @@ const fullTitle = title
       <header class="mb-8 md:hidden">
         <div class="flex items-center gap-2 mb-8">
           <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
-          <ThemeToggle client:load class="relative top-0.5" />
+          <ThemeToggle />
         </div>
         <SideNav orientation="horizontal" />
       </header>
@@ -43,7 +65,7 @@ const fullTitle = title
         <aside class="hidden md:block md:w-40 lg:w-56">
           <div class="flex items-center gap-2 mb-8">
             <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
-            <ThemeToggle client:load class="relative top-0.5" />
+            <ThemeToggle />
           </div>
           <SideNav orientation="vertical" />
         </aside>

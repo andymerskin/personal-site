@@ -1,0 +1,103 @@
+<style is:inline>
+  [data-theme-toggle] {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  [data-theme-toggle] [data-icon] {
+    display: none;
+  }
+
+  html:not(.dark) [data-theme-toggle] [data-icon="light"] {
+    display: inline-flex;
+  }
+
+  html.dark [data-theme-toggle] [data-icon="dark"] {
+    display: inline-flex;
+  }
+</style>
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Toggle theme"
+  class="relative top-0.5 inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 cursor-pointer"
+>
+  <span
+    data-icon="light"
+    class="inline-flex animate-[shining-sun_1s_ease-in-out_alternate_infinite]"
+    aria-hidden="true"
+  >
+    <i
+      class="ri-sun-fill text-2xl leading-none text-amber-500 animate-[spin_30s_linear_infinite]"
+    ></i>
+  </span>
+  <span
+    data-icon="dark"
+    class="inline-flex animate-[rocking-moon_3s_ease-in-out_alternate_infinite]"
+    aria-hidden="true"
+  >
+    <i class="ri-moon-fill text-2xl leading-none text-indigo-500"></i>
+  </span>
+</button>
+
+<script is:inline>
+  (() => {
+    if (window.__themeToggleInit) return;
+    window.__themeToggleInit = true;
+
+    const STORAGE_KEY = "themeMode";
+    const doc = document.documentElement;
+    let buttons = [];
+
+    const getStored = () => {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored === "dark" || stored === "light") return stored;
+      } catch {
+        /* ignore */
+      }
+      return undefined;
+    };
+
+    const getCurrentMode = () => {
+      const datasetMode = doc.dataset.themeMode;
+      if (datasetMode === "dark" || datasetMode === "light") return datasetMode;
+      const stored = getStored();
+      if (stored) return stored;
+      return doc.classList.contains("dark") ? "dark" : "light";
+    };
+
+    const apply = (mode) => {
+      const isDark = mode === "dark";
+      doc.classList.toggle("dark", isDark);
+      doc.dataset.themeMode = mode;
+      buttons.forEach((btn) => btn.setAttribute("data-theme-state", mode));
+      try {
+        localStorage.setItem(STORAGE_KEY, mode);
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const init = () => {
+      buttons = Array.from(document.querySelectorAll("[data-theme-toggle]"));
+      if (!buttons.length) return;
+
+      apply(getCurrentMode());
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const next = btn.getAttribute("data-theme-state") === "dark" ? "light" : "dark";
+          apply(next);
+        });
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>
