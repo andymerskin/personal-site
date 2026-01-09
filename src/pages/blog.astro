@@ -10,5 +10,5 @@ const posts = (await getCollection("blog")).sort(
 
 <Layout title="Blog">
   <h1 class="text-5xl font-bold tracking-tight">Blog</h1>
-  <BlogPosts {posts} client:only />
+  <BlogPosts {posts} client:only="vue" />
 </Layout>
