@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"blog"> };
+const { Content } = await render(entry);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+---
+
+<Layout title={entry.data.title}>
+  <header>
+    <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
+    <div class="flex gap-2 mt-2 text-sm">
+      <nav class="inline">
+        <a
+          class="opacity-70 hover:opacity-100 underline-offset-4 hover:underline"
+          href="/blog"
+        >
+          Blog
+        </a>
+      </nav>
+      •
+      <span class="text-neutral-600 dark:text-neutral-400">
+        {formatDate(entry.data.pubDate)}
+      </span>
+    </div>
+  </header>
+
+  {
+    entry.data.image && (
+      <div class="mt-6 w-full overflow-hidden rounded-lg aspect-video">
+        <img
+          src={entry.data.image.src}
+          alt={entry.data.title}
+          class="h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+
+  <article
+    class="mt-8 text-base leading-relaxed text-neutral-700 dark:text-neutral-300 [&_p]:mt-4 [&_a]:underline [&_a]:underline-offset-4"
+  >
+    <Content />
+  </article>
+</Layout>
