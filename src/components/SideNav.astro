@@ -57,7 +57,7 @@ const current = normalizePathname(Astro.url.pathname);
 
 <nav
   aria-label="Primary"
-  class:list={[className, "flex flex-wrap justify-between md:block"]}
+  class:list={[className, "flex flex-wrap justify-between md:block space-y-6"]}
 >
   <ul
     class:list={[
@@ -98,8 +98,7 @@ const current = normalizePathname(Astro.url.pathname);
       })
     }
   </ul>
-  <hr class="hidden md:block my-6 border-neutral-300 dark:border-neutral-600" />
-  <ul class="flex items-center gap-x-3">
+  <hr class="hidden md:block border-neutral-300 dark:border-neutral-700" />  <ul class="flex items-center gap-x-3">
     {
       externalItems.map((item) => {
         return (
@@ -116,4 +115,9 @@ const current = normalizePathname(Astro.url.pathname);
       })
     }
   </ul>
+  <footer>
+    <p class="text-sm text-neutral-600 dark:text-neutral-400">
+      &copy; {new Date().getFullYear()} Andy Merskin
+    </p>
+  </footer>
 </nav>
