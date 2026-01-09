@@ -7,8 +7,8 @@ const { class: className } = Astro.props;
 
 const headlines = [
   `Hey! I'm Andy 👋`,
-  "Software Engineer & Designer. Project planner. Team unifier.",
-  "Well, a little bit of everything.",
+  "Software Engineer & Designer. Solution architect. Team unifier.",
+  "Well, a little bit of everything...",
   "Have your 🎂 and eat it too, it's no lie.",
   "Project planning & coordination comes naturally.",
   "I'll sweat the details, while you focus on the big picture.",
@@ -23,7 +23,7 @@ const headlines = [
   data-headlines={JSON.stringify(headlines)}
   class={className}
 >
-  <h1 class="text-4xl leading-tight font-bold tracking-tight min-h-30">
+  <h1 class="text-5xl leading-tight font-bold tracking-tight min-h-40">
     <span class="sr-only">{headlines[0]}</span>
     <span aria-hidden="true" data-rotating-headline-text>{headlines[0]}</span>
   </h1>
