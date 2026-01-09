@@ -1,8 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ThoughtsList from "../components/ThoughtsList.vue";
+import { getCollection } from "astro:content";
+
+const thoughts = (await getCollection("thoughts")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 ---
 
 <Layout title="Thoughts">
-  <h1 class="text-3xl font-bold tracking-tight">Thoughts</h1>
-  <p class="mt-4">Placeholder for shorter notes and ideas.</p>
+  <ThoughtsList {thoughts} client:only="vue" />
 </Layout>
