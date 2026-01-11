@@ -9,7 +9,9 @@ type Instance = {
 const instances = new Map<HTMLElement, Instance>();
 
 function prefersReducedMotion() {
-  return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  return (
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
+  );
 }
 
 function parseHeadlines(root: HTMLElement): string[] {
@@ -17,7 +19,9 @@ function parseHeadlines(root: HTMLElement): string[] {
   if (!raw) return [];
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((x) => typeof x === "string") : [];
+    return Array.isArray(parsed)
+      ? parsed.filter((x) => typeof x === "string")
+      : [];
   } catch {
     return [];
   }
@@ -99,5 +103,3 @@ function cleanupAll() {
 initAll();
 window.addEventListener?.("astro:page-load", initAll);
 window.addEventListener?.("astro:before-swap", cleanupAll, { once: true });
-
-

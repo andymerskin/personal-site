@@ -3,12 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import WorkCard from "../components/WorkCard.astro";
 import { getCollection } from "astro:content";
 
-const preferredOrder = [
-  "unify",
-  "processunity",
-  "ft",
-  "utb",
-] as const;
+const preferredOrder = ["unify", "processunity", "ft", "utb"] as const;
 
 const workItems = (await getCollection("work")).sort((a, b) => {
   const aIdx = preferredOrder.indexOf(a.id as (typeof preferredOrder)[number]);
@@ -25,12 +20,8 @@ const workItems = (await getCollection("work")).sort((a, b) => {
   <h1 class="text-5xl font-bold tracking-tight">Work</h1>
 
   <section class="mt-8">
-    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-8">
-      {
-        workItems.map((entry) => (
-          <WorkCard entry={entry} />
-        ))
-      }
+    <ul class="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2">
+      {workItems.map((entry) => <WorkCard entry={entry} />)}
     </ul>
   </section>
 </Layout>

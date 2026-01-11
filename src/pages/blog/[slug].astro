@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Prose from "../../components/Prose.astro";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -25,10 +26,10 @@ const formatDate = (date: Date) =>
 <Layout title={entry.data.title}>
   <header>
     <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
-    <div class="flex gap-2 mt-2 text-sm">
+    <div class="mt-2 flex gap-2 text-sm">
       <nav class="inline">
         <a
-          class="opacity-70 hover:opacity-100 underline-offset-4 hover:underline"
+          class="underline-offset-4 opacity-70 hover:underline hover:opacity-100"
           href="/blog"
         >
           Blog
@@ -43,7 +44,7 @@ const formatDate = (date: Date) =>
 
   {
     entry.data.image && (
-      <div class="mt-6 w-full overflow-hidden rounded-lg aspect-video">
+      <div class="mt-6 aspect-video w-full overflow-hidden rounded-lg">
         <img
           src={entry.data.image.src}
           alt={entry.data.title}
@@ -55,9 +56,9 @@ const formatDate = (date: Date) =>
     )
   }
 
-  <article
-    class="mt-8 text-base leading-relaxed text-neutral-700 dark:text-neutral-300 [&_p]:mt-4 [&_a]:underline [&_a]:underline-offset-4"
-  >
-    <Content />
-  </article>
+  <div class="mt-8">
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
 </Layout>

@@ -22,7 +22,9 @@ const headlines = [
   data-headlines={JSON.stringify(headlines)}
   class={className}
 >
-  <h1 class="text-4xl lg:text-5xl leading-tight font-bold tracking-tight min-h-40">
+  <h1
+    class="min-h-40 text-4xl leading-tight font-bold tracking-tight lg:text-5xl"
+  >
     <span class="sr-only">{headlines[0]}</span>
     <span aria-hidden="true" data-rotating-headline-text>{headlines[0]}</span>
   </h1>

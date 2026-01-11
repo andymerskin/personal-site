@@ -3,10 +3,10 @@
     <article
       v-for="(post, index) in displayedPosts"
       :key="post.id"
-      class="flex gap-4 blog-post"
+      class="blog-post flex gap-4"
       :class="{ 'animate-in': index >= lastAnimatedIndex }"
     >
-      <div class="flex flex-col gap-2 w-2/3">
+      <div class="flex w-2/3 flex-col gap-2">
         <a
           :href="`/blog/${post.id}/`"
           class="text-2xl font-bold tracking-tight underline-offset-4 hover:underline"
@@ -31,7 +31,7 @@
       </div>
       <div class="w-1/3">
         <a v-if="post.data.image" :href="`/blog/${post.id}/`" class="block">
-          <div class="overflow-hidden rounded-lg aspect-3/2">
+          <div class="aspect-3/2 overflow-hidden rounded-lg">
             <img
               :src="post.data.image.src"
               :alt="post.data.title"
@@ -93,7 +93,7 @@ const loadMorePosts = async () => {
   const currentLength = displayedPosts.value.length;
   const nextPosts = props.posts.slice(
     currentLength,
-    currentLength + BATCH_SIZE
+    currentLength + BATCH_SIZE,
   );
 
   if (nextPosts.length === 0) {
@@ -125,7 +125,7 @@ const animateNewPosts = async () => {
         duration: 0.6,
         ease: "power3.out",
         stagger: 0.1,
-      }
+      },
     );
   }
 };
@@ -142,7 +142,7 @@ const setupIntersectionObserver = () => {
     },
     {
       rootMargin: "100px",
-    }
+    },
   );
 
   observer.value.observe(sentinel.value);
@@ -172,7 +172,7 @@ watch(
       await loadMorePosts();
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 

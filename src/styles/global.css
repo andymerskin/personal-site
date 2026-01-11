@@ -5,8 +5,9 @@
 
 @theme {
   --color-primary: #fff9f4;
-  --font-sans: "Work Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans:
+    "Work Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "Caveat", cursive;
 }
 
@@ -109,7 +110,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility text-tint-* {
   color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   color: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -117,7 +118,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility text-shade-* {
   color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   color: color-mix(in oklab, white, black calc(--value(integer) * 1%));
@@ -126,7 +127,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility bg-tint-* {
   background-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   background-color: color-mix(
@@ -138,7 +139,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility bg-shade-* {
   background-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   background-color: color-mix(
@@ -151,7 +152,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility border-tint-* {
   border-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   border-color: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -159,7 +160,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility border-shade-* {
   border-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   border-color: color-mix(in oklab, white, black calc(--value(integer) * 1%));
@@ -168,7 +169,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility decoration-tint-* {
   text-decoration-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   text-decoration-color: color-mix(
@@ -180,7 +181,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility decoration-shade-* {
   text-decoration-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   text-decoration-color: color-mix(
@@ -193,7 +194,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility outline-tint-* {
   outline-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   outline-color: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -201,7 +202,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility outline-shade-* {
   outline-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   outline-color: color-mix(in oklab, white, black calc(--value(integer) * 1%));
@@ -210,7 +211,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility shadow-tint-* {
   --tw-shadow-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   --tw-shadow-color: color-mix(
@@ -222,7 +223,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility shadow-shade-* {
   --tw-shadow-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   --tw-shadow-color: color-mix(
@@ -235,7 +236,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility inset-shadow-tint-* {
   --tw-inset-shadow-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   --tw-inset-shadow-color: color-mix(
@@ -247,7 +248,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility inset-shadow-shade-* {
   --tw-inset-shadow-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   --tw-inset-shadow-color: color-mix(
@@ -260,7 +261,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility ring-tint-* {
   --tw-ring-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   --tw-ring-color: color-mix(
@@ -272,7 +273,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility ring-shade-* {
   --tw-ring-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   --tw-ring-color: color-mix(
@@ -285,7 +286,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility inset-ring-tint-* {
   --tw-inset-ring-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   --tw-inset-ring-color: color-mix(
@@ -297,7 +298,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility inset-ring-shade-* {
   --tw-inset-ring-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   --tw-inset-ring-color: color-mix(
@@ -310,7 +311,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility accent-tint-* {
   accent-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   accent-color: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -318,7 +319,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility accent-shade-* {
   accent-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   accent-color: color-mix(in oklab, white, black calc(--value(integer) * 1%));
@@ -327,7 +328,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility caret-tint-* {
   caret-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   caret-color: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -335,7 +336,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility caret-shade-* {
   caret-color: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   caret-color: color-mix(in oklab, white, black calc(--value(integer) * 1%));
@@ -344,7 +345,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility fill-tint-* {
   fill: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   fill: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -352,7 +353,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility fill-shade-* {
   fill: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   fill: color-mix(in oklab, white, black calc(--value(integer) * 1%));
@@ -361,7 +362,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility stroke-tint-* {
   stroke: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     white calc(--modifier(integer) * 1%)
   );
   stroke: color-mix(in oklab, black, white calc(--value(integer) * 1%));
@@ -369,7 +370,7 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 @utility stroke-shade-* {
   stroke: color-mix(
     in oklab,
-    --value(--color- *, [ *]),
+    --value(--color-*, [*]),
     black calc(--modifier(integer) * 1%)
   );
   stroke: color-mix(in oklab, white, black calc(--value(integer) * 1%));

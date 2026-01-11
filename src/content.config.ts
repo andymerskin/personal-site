@@ -34,4 +34,3 @@ const thoughts = defineCollection({
 });
 
 export const collections = { work, blog, thoughts };
-

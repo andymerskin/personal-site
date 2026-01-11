@@ -16,11 +16,13 @@ import TestimonialsList from "../components/TestimonialsList.astro";
 
   <!-- Rocker alert -->
   <div
-    class="animate-[rocking-alert_5s_ease-in-out_alternate_infinite] px-8 mt-16"
+    class="mt-16 animate-[rocking-alert_5s_ease-in-out_alternate_infinite] px-8"
   >
-    <div class="p-8 bg-cyan-100 dark:bg-cyan-700/40 rounded-lg relative alert-glow">
+    <div
+      class="alert-glow relative rounded-lg bg-cyan-100 p-8 dark:bg-cyan-700/40"
+    >
       <p
-        class="flex flex-col items-center text-center md:flex-row md:text-left gap-4 font-display text-4xl leading-tight font-bold"
+        class="font-display flex flex-col items-center gap-4 text-center text-4xl leading-tight font-bold md:flex-row md:text-left"
       >
         <span
           >Need a fresh frontend for your B2B SaaS product <em>FAST?!</em><span
@@ -35,17 +37,17 @@ import TestimonialsList from "../components/TestimonialsList.astro";
   <hr class="my-16 border-neutral-300 dark:border-neutral-700" />
 
   <!-- Testimonials -->
-  <h2 class="text-2xl font-bold -rotate-1">Happy teams lead to happy users!</h2>
+  <h2 class="-rotate-1 text-2xl font-bold">Happy teams lead to happy users!</h2>
   <TestimonialsList class="mt-8" />
 </Layout>
 
 <style>
   @reference "tailwindcss";
 
-  .alert-glow:before {    
+  .alert-glow:before {
     @variant dark {
       --max-opacity: 0.33;
-      @apply absolute w-1/2 h-0 left-1/2 top-1/2 z-[-1] -translate-x-1/2 -translate-y-1/2 scale-y-33 bg-transparent;
+      @apply absolute top-1/2 left-1/2 z-[-1] h-0 w-1/2 -translate-x-1/2 -translate-y-1/2 scale-y-33 bg-transparent;
       content: "";
       box-shadow: 0 0 320px 128px var(--color-orange-400);
       animation: alert-glow 3s ease-in-out infinite;

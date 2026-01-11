@@ -8,7 +8,7 @@
         <span>Tag</span>
         <select
           v-model="selectedTag"
-          class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-800 transition focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-1 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-neutral-200"
+          class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-800 transition focus:ring-2 focus:ring-neutral-900 focus:ring-offset-1 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-neutral-200"
         >
           <option value="All">All</option>
           <option v-for="tag in availableTags" :key="tag" :value="tag">
@@ -22,15 +22,17 @@
       <article
         v-for="(thought, index) in displayedThoughts"
         :key="thought.id"
-        class="flex gap-12 thought"
+        class="thought flex gap-12"
         :class="{ 'animate-in': index >= lastAnimatedIndex }"
       >
         <div
-          class="w-20 flex-none text-sm leading-6 text-neutral-500 dark:text-neutral-400 whitespace-nowrap"
+          class="w-20 flex-none text-sm leading-6 whitespace-nowrap text-neutral-500 dark:text-neutral-400"
         >
           {{ formatDate(thought.data.date) }}
         </div>
-        <p class="text-base leading-relaxed text-neutral-800 dark:text-neutral-200">
+        <p
+          class="text-base leading-relaxed text-neutral-800 dark:text-neutral-200"
+        >
           {{ thought.body }}
         </p>
       </article>
@@ -76,7 +78,7 @@ const availableTags = computed(() => {
 const filteredThoughts = computed(() => {
   if (selectedTag.value === "All") return props.thoughts;
   return props.thoughts.filter((thought) =>
-    thought.data.tags?.includes(selectedTag.value)
+    thought.data.tags?.includes(selectedTag.value),
   );
 });
 
@@ -98,7 +100,7 @@ const loadMoreThoughts = async () => {
   const currentLength = displayedThoughts.value.length;
   const nextThoughts = filteredThoughts.value.slice(
     currentLength,
-    currentLength + BATCH_SIZE
+    currentLength + BATCH_SIZE,
   );
 
   if (nextThoughts.length === 0) {
@@ -128,7 +130,7 @@ const animateNewThoughts = async () => {
         duration: 0.5,
         ease: "power3.out",
         stagger: 0.08,
-      }
+      },
     );
   }
 };
@@ -145,7 +147,7 @@ const setupIntersectionObserver = () => {
     },
     {
       rootMargin: "120px",
-    }
+    },
   );
 
   observer.value.observe(sentinel.value);
@@ -181,14 +183,14 @@ watch(
   async () => {
     await resetList();
   },
-  { immediate: false }
+  { immediate: false },
 );
 
 watch(
   () => props.thoughts,
   async () => {
     await resetList();
-  }
+  },
 );
 </script>
 

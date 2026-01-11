@@ -57,7 +57,7 @@ const current = normalizePathname(Astro.url.pathname);
 
 <nav
   aria-label="Primary"
-  class:list={[className, "flex flex-wrap justify-between lg:block space-y-6"]}
+  class:list={[className, "flex flex-wrap justify-between space-y-6 lg:block"]}
 >
   <ul
     class:list={[
@@ -86,7 +86,7 @@ const current = normalizePathname(Astro.url.pathname);
               class:list={[
                 "inline-flex items-center py-1 hover:opacity-100",
                 isActive
-                  ? "font-bold underline underline-offset-4 decoration-amber-500 decoration-2"
+                  ? "font-bold underline decoration-amber-500 decoration-2 underline-offset-4"
                   : "font-medium opacity-66",
               ]}
               aria-current={isActive ? "page" : undefined}
@@ -98,7 +98,7 @@ const current = normalizePathname(Astro.url.pathname);
       })
     }
   </ul>
-  <hr class="hidden lg:block border-neutral-300 dark:border-neutral-700" />
+  <hr class="hidden border-neutral-300 lg:block dark:border-neutral-700" />
   <ul class="flex items-center gap-x-3">
     {
       externalItems.map((item) => {
@@ -120,7 +120,7 @@ const current = normalizePathname(Astro.url.pathname);
     <p class="text-sm text-neutral-600 dark:text-neutral-400">
       &copy; {new Date().getFullYear()} Andy Merskin
     </p>
-    <p class="text-sm text-neutral-400 dark:text-neutral-600 mt-2">
+    <p class="mt-2 text-sm text-neutral-400 dark:text-neutral-600">
       Astro + Vue + Tailwind
     </p>
     <p class="text-sm text-neutral-400 dark:text-neutral-600">

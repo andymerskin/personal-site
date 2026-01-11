@@ -21,7 +21,7 @@
   type="button"
   data-theme-toggle
   aria-label="Toggle theme"
-  class="relative top-px inline-flex items-center justify-center px-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 cursor-pointer"
+  class="relative top-px inline-flex cursor-pointer items-center justify-center px-0 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:outline-none dark:focus-visible:ring-neutral-500"
 >
   <span
     data-icon="light"
@@ -29,7 +29,7 @@
     aria-hidden="true"
   >
     <i
-      class="ri-sun-fill text-2xl leading-none text-amber-500 animate-[spin_30s_linear_infinite]"
+      class="ri-sun-fill animate-[spin_30s_linear_infinite] text-2xl leading-none text-amber-500"
     ></i>
   </span>
   <span
@@ -88,7 +88,8 @@
 
       buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
-          const next = btn.getAttribute("data-theme-state") === "dark" ? "light" : "dark";
+          const next =
+            btn.getAttribute("data-theme-state") === "dark" ? "light" : "dark";
           apply(next);
         });
       });
