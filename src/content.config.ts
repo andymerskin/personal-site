@@ -4,6 +4,17 @@ import { file } from "astro/loaders";
 import fs from "fs";
 import yaml from "js-yaml";
 
+// Skill type order for consistent rendering
+export const SKILL_TYPE_ORDER = [
+  "frontend",
+  "backend",
+  "design",
+  "old",
+  "general",
+  "leadership",
+  "delivery",
+] as const;
+
 const work = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/work" }),
   schema: ({ image }) => {
@@ -53,14 +64,7 @@ const skills = defineCollection({
   loader: file("src/content/skills.yaml"),
   schema: z.object({
     name: z.string(),
-    type: z.enum([
-      "frontend",
-      "backend",
-      "design",
-      "old",
-      "general",
-      "leadership",
-    ]),
+    type: z.enum(SKILL_TYPE_ORDER),
   }),
 });
 

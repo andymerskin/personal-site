@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import SkillTags from "./SkillTags.astro";
+import Accordion from "./Accordion.astro";
 
 // This component can be used in MDX to display skills inline
 // It needs to receive the work entry ID as a prop
@@ -16,4 +17,10 @@ const workEntry = workEntries.find((entry) => entry.id === workId);
 const skills = workEntry?.data.skills;
 ---
 
-{skills && skills.length > 0 && <SkillTags skills={skills} />}
+{
+  skills && skills.length > 0 && (
+    <Accordion heading="Skills">
+      <SkillTags skills={skills} />
+    </Accordion>
+  )
+}

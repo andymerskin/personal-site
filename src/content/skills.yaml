@@ -18,14 +18,6 @@
   name: Convex
   type: backend
 
-- id: feature-flags
-  name: Feature Flags
-  type: backend
-
-- id: github
-  name: GitHub
-  type: backend
-
 - id: netlify
   name: Netlify
   type: backend
@@ -42,9 +34,9 @@
   name: REST APIs
   type: backend
 
-- id: vercel
-  name: Vercel
-  type: backend
+- id: github-actions
+  name: GitHub Actions
+  type: delivery
 
 - id: affinity-photo
   name: Affinity Photo
@@ -90,10 +82,6 @@
   name: Visual Design
   type: design
 
-- id: build-tools
-  name: Build Tools
-  type: frontend
-
 - id: cypress
   name: Cypress
   type: frontend
@@ -104,6 +92,10 @@
 
 - id: e2e-testing
   name: E2E Testing
+  type: frontend
+
+- id: feature-flags
+  name: Feature Flags
   type: frontend
 
 - id: html-css
@@ -130,6 +122,10 @@
   name: Unit Testing
   type: frontend
 
+- id: vite
+  name: Vite
+  type: frontend
+
 - id: vue-3
   name: Vue 3
   type: frontend
@@ -148,6 +144,14 @@
 
 - id: git
   name: Git
+  type: general
+
+- id: github
+  name: GitHub
+  type: general
+
+- id: vercel
+  name: Vercel
   type: general
 
 - id: product-discovery

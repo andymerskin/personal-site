@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { SKILL_TYPE_ORDER } from "../content.config.ts";
 import SkillTag from "./SkillTag.astro";
 
 export interface Props {
@@ -11,9 +12,11 @@ const { skills: skillSlugs } = Astro.props;
 // Get all skills from the collection
 const allSkills = await getCollection("skills");
 
+type Skill = (typeof allSkills)[number];
+
 // Create a map for quick lookup
 const skillsMap = new Map();
-allSkills.forEach((skill) => {
+allSkills.forEach((skill: Skill) => {
   skillsMap.set(skill.id, skill);
 });
 
@@ -30,27 +33,32 @@ const groupedSkills = skillData.reduce(
     acc[type].push(skill);
     return acc;
   },
-  {} as Record<string, typeof skillData>,
+  {} as Record<string, Skill[]>,
 );
 
 // Sort within each group by name
 Object.keys(groupedSkills).forEach((type) => {
-  groupedSkills[type].sort((a: any, b: any) =>
+  groupedSkills[type].sort((a: Skill, b: Skill) =>
     a.data.name.localeCompare(b.data.name),
   );
 });
 
-// Flatten back to a single array in the desired order: frontend, backend, design, general, old
-const orderedSkills = [
-  ...(groupedSkills.leadership || []),
-  ...(groupedSkills.frontend || []),
-  ...(groupedSkills.backend || []),
-  ...(groupedSkills.design || []),
-  ...(groupedSkills.general || []),
-  ...(groupedSkills.old || []),
-];
+// Use the shared skill type order from content config
 ---
 
-<div class="flex flex-wrap gap-2">
-  {orderedSkills.map((skill) => <SkillTag skill={skill.id} />)}
+<div class="flex flex-col gap-3">
+  {
+    SKILL_TYPE_ORDER.map((type) => {
+      const skills = groupedSkills[type];
+      if (!skills || skills.length === 0) return null;
+
+      return (
+        <div class="flex flex-wrap gap-2">
+          {skills.map((skill: Skill) => (
+            <SkillTag skill={skill.id} />
+          ))}
+        </div>
+      );
+    })
+  }
 </div>
