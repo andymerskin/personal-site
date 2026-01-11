@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import Button from "../../components/Button.astro";
+import Prose from "../../components/Prose.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("work");
@@ -68,7 +69,9 @@ const { Content } = await render(entry);
       [&_a]:underline-offset-4
       [&_p]:mt-4"
     >
-      <Content />
+      <Prose>
+        <Content />
+      </Prose>
     </div>
 
     <div class="mt-8">
