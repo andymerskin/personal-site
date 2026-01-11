@@ -19,10 +19,10 @@ const { Content } = await render(entry);
 <Layout title={entry.data.title}>
   <header>
     <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
-    <div class="flex gap-2 mt-2 text-sm">
+    <div class="mt-2 flex gap-2 text-sm">
       <nav class="inline">
         <a
-          class="opacity-70 hover:opacity-100 underline-offset-4 hover:underline"
+          class="underline-offset-4 opacity-70 hover:underline hover:opacity-100"
           href="/work">Work</a
         >
       </nav>
@@ -41,9 +41,9 @@ const { Content } = await render(entry);
     <div
       class:list={[
         "work-card-logo",
-        "w-full rounded-lg overflow-hidden",
+        "w-full overflow-hidden rounded-lg",
         "bg-shade-primary/3 dark:bg-white",
-        "inset-ring-1 inset-ring-shade-primary/5 dark:inset-ring-0",
+        "inset-ring-shade-primary/5 inset-ring-1 dark:inset-ring-0",
         entry.data.classes,
       ]}
     >
@@ -59,7 +59,14 @@ const { Content } = await render(entry);
     </div>
 
     <div
-      class="mt-8 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 [&_p]:mt-4 [&_a]:underline [&_a]:underline-offset-4"
+      class="mt-8
+      text-sm
+      leading-relaxed
+      text-neutral-700
+      dark:text-neutral-300
+      [&_a]:underline
+      [&_a]:underline-offset-4
+      [&_p]:mt-4"
     >
       <Content />
     </div>
