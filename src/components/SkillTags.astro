@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import SkillTag from "./SkillTag.astro";
+
+export interface Props {
+  skills: string[];
+}
+
+const { skills: skillSlugs } = Astro.props;
+
+// Get all skills from the collection
+const allSkills = await getCollection("skills");
+
+// Create a map for quick lookup
+const skillsMap = new Map();
+allSkills.forEach((skill) => {
+  skillsMap.set(skill.id, skill);
+});
+
+// Get the skill data for the provided slugs
+const skillData = skillSlugs.map((slug) => skillsMap.get(slug)).filter(Boolean); // Remove any undefined entries
+
+// Group by type and sort within each group
+const groupedSkills = skillData.reduce(
+  (acc, skill) => {
+    const type = skill.data.type;
+    if (!acc[type]) {
+      acc[type] = [];
+    }
+    acc[type].push(skill);
+    return acc;
+  },
+  {} as Record<string, typeof skillData>,
+);
+
+// Sort within each group by name
+Object.keys(groupedSkills).forEach((type) => {
+  groupedSkills[type].sort((a: any, b: any) =>
+    a.data.name.localeCompare(b.data.name),
+  );
+});
+
+// Flatten back to a single array in the desired order: frontend, backend, design, general, old
+const orderedSkills = [
+  ...(groupedSkills.leadership || []),
+  ...(groupedSkills.frontend || []),
+  ...(groupedSkills.backend || []),
+  ...(groupedSkills.design || []),
+  ...(groupedSkills.general || []),
+  ...(groupedSkills.old || []),
+];
+---
+
+<div class="flex flex-wrap gap-2">
+  {orderedSkills.map((skill) => <SkillTag skill={skill.id} />)}
+</div>

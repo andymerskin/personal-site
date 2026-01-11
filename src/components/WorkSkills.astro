@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import SkillTags from "./SkillTags.astro";
+
+// This component can be used in MDX to display skills inline
+// It needs to receive the work entry ID as a prop
+export interface Props {
+  workId: string;
+}
+
+const { workId } = Astro.props;
+
+// Get the work entry
+const workEntries = await getCollection("work");
+const workEntry = workEntries.find((entry) => entry.id === workId);
+const skills = workEntry?.data.skills;
+---
+
+{skills && skills.length > 0 && <SkillTags skills={skills} />}

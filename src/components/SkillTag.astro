@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+
+export interface Props {
+  skill: string;
+}
+
+const { skill } = Astro.props;
+
+// Get all skills from the collection
+const skills = await getCollection("skills");
+const skillData = skills.find((s) => s.id === skill);
+
+// Default to general if not found
+const skillType = skillData?.data.type || "general";
+
+// Color schemes based on skill type
+const colorSchemes = {
+  frontend: `bg-cyan-100
+             text-cyan-800
+             border-cyan-200
+             dark:bg-cyan-900/50
+             dark:text-cyan-200
+             dark:border-cyan-700`,
+  backend: `bg-green-100
+            text-green-800
+            border-green-200
+            dark:bg-green-900/50
+            dark:text-green-200
+            dark:border-green-700`,
+  design: `bg-fuchsia-100
+           text-fuchsia-800
+           border-fuchsia-200
+           dark:bg-fuchsia-900/50
+           dark:text-fuchsia-200
+           dark:border-fuchsia-700`,
+  old: `bg-neutral-200
+        text-neutral-600
+        border-neutral-300
+        dark:bg-neutral-800/50
+        dark:text-neutral-200
+        dark:border-neutral-600`,
+  general: `bg-red-100
+           text-red-800
+           border-red-200
+           dark:bg-red-900/50
+           dark:text-red-200
+           dark:border-red-700`,
+  leadership: `bg-amber-100
+               text-amber-800
+               border-amber-200
+               dark:bg-amber-900/50
+               dark:text-amber-200
+               dark:border-amber-700`,
+};
+---
+
+<span
+  class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${colorSchemes[skillType]}`}
+>
+  {skillData?.data.name || skill}
+</span>

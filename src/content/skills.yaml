@@ -1,0 +1,187 @@
+- id: aws-cognito
+  name: AWS Cognito
+  type: backend
+
+- id: bun
+  name: Bun
+  type: backend
+
+- id: capn-proto
+  name: Cap'n Proto
+  type: backend
+
+- id: cloudflare
+  name: Cloudflare
+  type: backend
+
+- id: convex
+  name: Convex
+  type: backend
+
+- id: feature-flags
+  name: Feature Flags
+  type: backend
+
+- id: github
+  name: GitHub
+  type: backend
+
+- id: netlify
+  name: Netlify
+  type: backend
+
+- id: node-js
+  name: Node.js
+  type: backend
+
+- id: postgresql
+  name: PostgreSQL
+  type: backend
+
+- id: rest-apis
+  name: REST APIs
+  type: backend
+
+- id: vercel
+  name: Vercel
+  type: backend
+
+- id: affinity-photo
+  name: Affinity Photo
+  type: design
+
+- id: design-consulting
+  name: Design Consulting
+  type: design
+
+- id: design-systems
+  name: Design Systems
+  type: design
+
+- id: diagramming
+  name: Diagramming
+  type: design
+
+- id: figma
+  name: Figma
+  type: design
+
+- id: illustrator
+  name: Illustrator
+  type: design
+
+- id: napkin-sketching
+  name: Napkin Sketching
+  type: design
+
+- id: pdf-creation
+  name: PDF Creation
+  type: design
+
+- id: photoshop
+  name: Photoshop
+  type: design
+
+- id: rapid-prototyping
+  name: Rapid Prototyping
+  type: design
+
+- id: visual-design
+  name: Visual Design
+  type: design
+
+- id: build-tools
+  name: Build Tools
+  type: frontend
+
+- id: cypress
+  name: Cypress
+  type: frontend
+
+- id: docusaurus
+  name: Docusaurus
+  type: frontend
+
+- id: e2e-testing
+  name: E2E Testing
+  type: frontend
+
+- id: html-css
+  name: HTML CSS
+  type: frontend
+
+- id: javascript
+  name: JavaScript
+  type: frontend
+
+- id: react
+  name: React
+  type: frontend
+
+- id: tailwind
+  name: Tailwind CSS
+  type: frontend
+
+- id: typescript
+  name: TypeScript
+  type: frontend
+
+- id: unit-testing
+  name: Unit Testing
+  type: frontend
+
+- id: vue-3
+  name: Vue 3
+  type: frontend
+
+- id: ai-agentic-code-reviews
+  name: AI / Agentic Code Reviews
+  type: general
+
+- id: ai-agentic-development
+  name: AI / Agentic Development
+  type: general
+
+- id: datadog
+  name: DataDog
+  type: general
+
+- id: git
+  name: Git
+  type: general
+
+- id: product-discovery
+  name: Product Discovery
+  type: leadership
+
+- id: project-management
+  name: Project Management
+  type: leadership
+
+- id: sdlc
+  name: SDLC
+  type: leadership
+
+- id: angular-1
+  name: Angular 1.x
+  type: old
+
+- id: php
+  name: PHP
+  type: old
+
+- id: react-17
+  name: React 17
+  type: old
+
+- id: vue-2
+  name: Vue 2
+  type: old
+
+- id: wordpress
+  name: WordPress
+  type: old
+
+- id: jquery
+  name: jQuery
+  type: old
