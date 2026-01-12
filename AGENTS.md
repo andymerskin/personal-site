@@ -142,6 +142,10 @@ bun run preview  # Preview production build
 bun run format   # Format code with Prettier
 ```
 
+### Development Server Usage
+
+**Agents should not try to run `bun run dev` or the dev server to test changes.** I will test changes manually. If the agent needs to verify that changes build correctly, run the build script (`bun run build`) instead, if needed.
+
 ### Package Management
 
 **Always use `bun` instead of `npm` for agent-initiated shell execution:**
