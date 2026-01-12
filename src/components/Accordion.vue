@@ -83,7 +83,7 @@ onMounted(() => {
   >
     <summary
       @click.prevent="toggleAccordion"
-      class="focus:ring-opacity-50 flex w-full cursor-pointer list-none items-center justify-between rounded-lg px-6 py-2 hover:bg-shade-primary/3 focus:ring-2 focus:ring-amber-500 focus:outline-none dark:hover:bg-neutral-800 select-none"
+      class="focus:ring-opacity-50 hover:bg-shade-primary/3 flex w-full cursor-pointer list-none items-center justify-between rounded-lg px-5 py-2 select-none focus:ring-2 focus:ring-amber-500 focus:outline-none dark:hover:bg-neutral-800"
     >
       <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100">
         {{ heading }}
@@ -95,7 +95,7 @@ onMounted(() => {
       </div>
     </summary>
     <div ref="contentRef" class="overflow-hidden" style="height: 0">
-      <div class="px-6 py-6">
+      <div class="p-5">
         <slot />
       </div>
     </div>
