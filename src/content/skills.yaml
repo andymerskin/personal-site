@@ -22,20 +22,28 @@
   name: Netlify
   type: backend
 
-- id: node-js
-  name: Node.js
+- id: next-js-apis
+  name: Next.js APIs
   type: backend
 
 - id: postgresql
   name: PostgreSQL
   type: backend
 
-- id: rest-apis
-  name: REST APIs
-  type: backend
+- id: git
+  name: Git
+  type: delivery
+
+- id: github
+  name: GitHub
+  type: delivery
 
 - id: github-actions
   name: GitHub Actions
+  type: delivery
+
+- id: vercel
+  name: Vercel
   type: delivery
 
 - id: affinity-photo
@@ -106,12 +114,20 @@
   name: JavaScript
   type: frontend
 
+- id: rest-apis
+  name: REST APIs
+  type: frontend
+
 - id: react
   name: React
   type: frontend
 
 - id: tailwind
   name: Tailwind CSS
+  type: frontend
+
+- id: tanstack-query
+  name: TanStack Query
   type: frontend
 
 - id: typescript
@@ -142,16 +158,8 @@
   name: DataDog
   type: general
 
-- id: git
-  name: Git
-  type: general
-
-- id: github
-  name: GitHub
-  type: general
-
-- id: vercel
-  name: Vercel
+- id: node-js
+  name: Node.js
   type: general
 
 - id: product-discovery
@@ -163,7 +171,7 @@
   type: leadership
 
 - id: sdlc
-  name: SDLC
+  name: Software Development Life Cycle (SDLC)
   type: leadership
 
 - id: angular-1

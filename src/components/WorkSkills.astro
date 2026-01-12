@@ -1,26 +1,99 @@
 ---
 import { getCollection } from "astro:content";
-import SkillTags from "./SkillTags.astro";
-import Accordion from "./Accordion.astro";
+import { SKILL_TYPE_ORDER } from "../content.config.ts";
+import SkillsList from "./SkillsList.astro";
+import Accordion from "./Accordion.vue";
 
 // This component can be used in MDX to display skills inline
 // It needs to receive the work entry ID as a prop
 export interface Props {
   workId: string;
+  order?: string[][];
 }
 
-const { workId } = Astro.props;
+const { workId, order } = Astro.props;
 
 // Get the work entry
 const workEntries = await getCollection("work");
 const workEntry = workEntries.find((entry) => entry.id === workId);
-const skills = workEntry?.data.skills;
+const skillSlugs = workEntry?.data.skills;
+
+// Get all skills from the collection
+const allSkills = await getCollection("skills");
+
+// Create a map for quick lookup
+const skillsMap = new Map();
+allSkills.forEach((skill) => {
+  skillsMap.set(skill.id, skill);
+});
+
+// Group the work's skills by type
+const skillsByType =
+  skillSlugs?.reduce(
+    (acc, skillSlug) => {
+      const skill = skillsMap.get(skillSlug);
+      if (skill) {
+        const type = skill.data.type;
+        if (!acc[type]) {
+          acc[type] = [];
+        }
+        acc[type].push(skillSlug);
+      }
+      return acc;
+    },
+    {} as Record<string, string[]>,
+  ) || {};
+
+// Sort within each group by skill name
+Object.keys(skillsByType).forEach((type) => {
+  skillsByType[type].sort((a, b) => {
+    const skillA = skillsMap.get(a);
+    const skillB = skillsMap.get(b);
+    return skillA?.data.name.localeCompare(skillB?.data.name || "") || 0;
+  });
+});
+
+// Helper function to format type names for display
+const formatTypeName = (type: string) => {
+  return type.charAt(0).toUpperCase() + type.slice(1);
+};
 ---
 
 {
-  skills && skills.length > 0 && (
-    <Accordion heading="Skills">
-      <SkillTags skills={skills} />
+  skillSlugs && skillSlugs.length > 0 && (
+    <Accordion heading="Technologies & Skills" client:load>
+      {order ? (
+        <div
+          class={`grid gap-6 ${order.length === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}
+        >
+          {order.map((columnTypes) => (
+            <div class="space-y-6">
+              {columnTypes.map((type) => {
+                const typeSkills = skillsByType[type];
+                if (!typeSkills || typeSkills.length === 0) return null;
+
+                return (
+                  <SkillsList
+                    skills={typeSkills}
+                    heading={formatTypeName(type)}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {SKILL_TYPE_ORDER.map((type) => {
+            const typeSkills = skillsByType[type];
+            if (!typeSkills || typeSkills.length === 0) return null;
+
+            return (
+              <SkillsList skills={typeSkills} heading={formatTypeName(type)} />
+            );
+          })}
+        </div>
+      )}
     </Accordion>
   )
 }

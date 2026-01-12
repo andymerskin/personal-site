@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+
+export interface Props {
+  skills: string[];
+  heading: string;
+}
+
+const { skills: skillSlugs, heading } = Astro.props;
+
+// Get all skills from the collection
+const allSkills = await getCollection("skills");
+
+type Skill = (typeof allSkills)[number];
+
+// Create a map for quick lookup
+const skillsMap = new Map();
+allSkills.forEach((skill: Skill) => {
+  skillsMap.set(skill.id, skill);
+});
+
+// Get the skill data for the provided slugs and sort by name
+const skillData = skillSlugs
+  .map((slug) => skillsMap.get(slug))
+  .filter(Boolean)
+  .sort((a: Skill, b: Skill) =>
+    a.data.name.localeCompare(b.data.name),
+  ) as Skill[];
+---
+
+<div>
+  <h4 class="mb-3 text-sm font-semibold text-gray-900 dark:text-gray-100">
+    {heading}
+  </h4>
+  <ul
+    style="--list-disc-icon: '';"
+    class="list-(--list-disc-icon) space-y-1 pl-3"
+  >
+    {
+      skillData.map((skill) => (
+        <li class="marker:font-icon text-sm text-gray-700 marker:text-amber-600 dark:text-gray-300 dark:marker:text-amber-500 pl-1">
+          <span>{skill.data.name}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

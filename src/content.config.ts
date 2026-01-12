@@ -6,13 +6,13 @@ import yaml from "js-yaml";
 
 // Skill type order for consistent rendering
 export const SKILL_TYPE_ORDER = [
+  "leadership",
+  "general",
+  "design",
   "frontend",
   "backend",
-  "design",
-  "old",
-  "general",
-  "leadership",
   "delivery",
+  "old",
 ] as const;
 
 const work = defineCollection({
@@ -28,6 +28,7 @@ const work = defineCollection({
       title: z.string(),
       type: z.string(),
       year: z.string(),
+      headline: z.string(),
       externalUrl: z.string().url(),
       classes: z.string().optional(),
       logo: image(),
