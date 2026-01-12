@@ -4,6 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import Button from "../../components/Button.astro";
 import Prose from "../../components/Prose.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const entries = await getCollection("work");
@@ -19,68 +20,63 @@ const { Content } = await render(entry);
 
 <Layout title={entry.data.title}>
   <header>
-    <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
-    <div class="mt-2 flex gap-2 text-sm">
-      <nav class="inline">
-        <a
-          class="underline-offset-4 opacity-70 hover:underline hover:opacity-100"
-          href="/work">Work</a
+    <nav>
+      <a
+        class="underline-offset-4 opacity-70 hover:underline hover:opacity-100"
+        href="/work">← Work</a
+      >
+    </nav>
+    <div class="mt-4 text-5xl font-bold tracking-tight">
+      {entry.data.headline}
+    </div>
+    <div class="mt-8 flex items-start justify-between">
+      <div class="flex items-center gap-4">
+        <div
+          class="ring-shade-primary/5 flex h-20 w-20 items-center justify-center rounded-full bg-white p-1 ring-4"
         >
-      </nav>
-      •
-      <span class="text-neutral-600 dark:text-neutral-400">
-        {entry.data.type}
-      </span>
-      •
-      <span class="text-neutral-600 dark:text-neutral-400">
-        {entry.data.year}
-      </span>
-    </div>
-  </header>
-
-  <section class="mt-8">
-    <div
-      class:list={[
-        "work-card-logo",
-        "w-full overflow-hidden rounded-lg",
-        "bg-shade-primary/3 dark:bg-white",
-        "inset-ring-shade-primary/5 inset-ring-1 dark:inset-ring-0",
-        entry.data.classes,
-      ]}
-    >
-      <div class="flex items-center justify-center p-10">
-        <img
-          src={entry.data.logo.src}
-          alt=""
-          class="max-h-40 w-auto object-contain"
-          loading="lazy"
-          decoding="async"
-        />
+          <Image
+            src={entry.data.logo}
+            alt={entry.data.title + " logo"}
+            width={72}
+            height={72}
+            class="max-h-full w-auto object-contain"
+          />
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
+          <div class="mt-2 flex gap-2 text-sm">
+            <span class="text-neutral-600 dark:text-neutral-400">
+              {entry.data.type}
+            </span>
+            •
+            <span class="text-neutral-600 dark:text-neutral-400">
+              {entry.data.year}
+            </span>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div
-      class="mt-8
-      text-sm
-      leading-relaxed
-      text-neutral-700
-      dark:text-neutral-300
-      [&_a]:underline
-      [&_a]:underline-offset-4
-      [&_p]:mt-4"
-    >
-      <Prose>
-        <Content />
-      </Prose>
-    </div>
-
-    <div class="mt-8">
       <a href={entry.data.externalUrl}>
         <Button>
           Visit project
           <span aria-hidden="true">↗</span>
         </Button>
       </a>
+    </div>
+  </header>
+  <section class="mt-8">
+    <div
+      class="text-sm
+        leading-relaxed
+        text-neutral-700
+        dark:text-neutral-300
+        [&_a]:underline
+        [&_a]:underline-offset-4
+        [&_p]:mt-4"
+    >
+      <Prose>
+        <Content />
+      </Prose>
     </div>
   </section>
 </Layout>
