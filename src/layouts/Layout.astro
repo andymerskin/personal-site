@@ -4,6 +4,9 @@ import "../styles/fonts.css";
 import "remixicon/fonts/remixicon.css";
 import SideNav from "../components/SideNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import { Image } from "astro:assets";
+import andy from "../images/andy.jpg";
+import LocationBadge from "../components/LocationBadge.astro";
 
 export interface Props {
   title?: string;
@@ -58,19 +61,43 @@ const fullTitle = title
     dark:text-neutral-50"
   >
     <div class="mx-auto max-w-5xl px-4 pt-16 pb-32">
+      <!-- Mobile header -->
       <header class="mb-8 lg:hidden">
-        <div class="mb-8 flex items-center gap-2">
-          <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
-          <ThemeToggle />
+        <div class="flex items-center justify-center">
+          <Image
+            src={andy}
+            alt="Andy Merskin"
+            width={128}
+            height={128}
+            class="max-h-full w-auto rounded-full object-cover"
+          />
+        </div>
+        <div class="mb-8 flex flex-col items-center">
+          <div class="flex items-center ml-6">
+            <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+            <ThemeToggle />
+          </div>
+          <LocationBadge />
         </div>
         <SideNav orientation="horizontal" />
       </header>
 
+      <!-- Desktop header -->
       <div class="lg:flex lg:gap-10">
         <aside class="hidden lg:block lg:w-56">
-          <div class="mb-8 flex items-center gap-2">
-            <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
-            <ThemeToggle />
+          <Image
+            src={andy}
+            alt="Andy Merskin"
+            width={128}
+            height={128}
+            class="max-h-full w-auto rounded-full object-cover"
+          />
+          <div class="mb-8">
+            <div class="flex items-center">
+              <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+              <ThemeToggle />
+            </div>
+            <LocationBadge />
           </div>
           <SideNav orientation="vertical" />
         </aside>
