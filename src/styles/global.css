@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -10,6 +9,7 @@
     "Work Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "Caveat", cursive;
+  --font-icon: "remixicon", sans-serif;
 }
 
 /**

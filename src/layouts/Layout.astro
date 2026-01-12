@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import "../styles/fonts.css";
+import "remixicon/fonts/remixicon.css";
 import SideNav from "../components/SideNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 
@@ -22,10 +24,7 @@ const fullTitle = title
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
