@@ -4,19 +4,15 @@ import { SKILL_TYPE_ORDER } from "../content.config.ts";
 import SkillsList from "./SkillsList.astro";
 import Accordion from "./Accordion.vue";
 
-// This component can be used in MDX to display skills inline
-// It needs to receive the work entry ID as a prop
+// This component displays skills grouped by type
 export interface Props {
-  workId: string;
+  skills: string[];
   order?: string[][];
 }
 
-const { workId, order } = Astro.props;
+const { skills, order } = Astro.props;
 
-// Get the work entry
-const workEntries = await getCollection("work");
-const workEntry = workEntries.find((entry) => entry.id === workId);
-const skillSlugs = workEntry?.data.skills;
+const skillSlugs = skills;
 
 // Get all skills from the collection
 const allSkills = await getCollection("skills");

@@ -32,12 +32,6 @@ const work = defineCollection({
       externalUrl: z.string().url(),
       classes: z.string().optional(),
       logo: image(),
-      skills: z
-        .array(z.string())
-        .refine((skills) => skills.every((skill) => skillIds.includes(skill)), {
-          message: `Skills must be valid skill IDs from skills.yaml. Valid IDs: ${skillIds.join(", ")}`,
-        })
-        .optional(),
     });
   },
 });
