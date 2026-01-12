@@ -7,6 +7,57 @@ externalUrl: "https://www.livingsecurity.com/platform"
 logo: "../../images/work/ls-logo-light.png"
 ---
 
+import { Image } from "astro:assets";
+import hats from "../../images/memes/hats.jpg";
+import { ChefHat } from "@lucide/astro";
+
+## Concept & Objectives
+
+Unify analyzes security data from multiple sources to generate risk scores and prioritize investigations for organizations of all sizes. The platform provides dashboards, mitigation workflows, training programs, employee scorecards, and recognition features to strengthen security posture.
+
+<h2 class="flex items-center gap-2">
+  <span>I wore many hats</span>
+  <Tooltip class="inline">
+    <ChefHat slot="trigger" class="cursor-help" />
+    <Image src={hats} alt="Andy wearing many hats" width={240} />
+  </Tooltip>
+</h2>
+
+<div class="not-prose">
+  <RolesGrid
+    roles={[
+      {
+        icon: "ri-user-star-line",
+        title: "Product Leadership",
+        description:
+          "Helped plan and lead multiple major features from concept to delivery, ensuring alignment with business objectives and user needs.",
+      },
+      {
+        icon: "ri-team-line",
+        title: "Team Leadership",
+        description:
+          "Co-led a team of 3+ front-end engineers, fostering collaboration and driving project delivery according to our strengths.",
+      },
+      {
+        icon: "ri-palette-line",
+        title: "Design Direction",
+        description:
+          "Utilized existing design system and UX patterns and enhanced them to suit the needs of each project, driving consistency across the entire platform.",
+      },
+      {
+        icon: "ri-code-line",
+        title: "Software Development",
+        description:
+          "Built frontend from the ground up using React, TypeScript, and Tailwind CSS, and some REST endpoints using Next.js APIs within a Monorepo.",
+      },
+    ]}
+  />
+</div>
+
+## Outcomes
+
+Placeholder content
+
 <WorkSkills
   workId="unify"
   order={[

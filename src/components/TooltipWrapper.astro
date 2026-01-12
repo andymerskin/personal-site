@@ -1,0 +1,8 @@
+---
+import Tooltip from "./Tooltip.vue";
+---
+
+<Tooltip client:only>
+  <slot name="trigger" slot="trigger" />
+  <slot />
+</Tooltip>

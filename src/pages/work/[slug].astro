@@ -4,7 +4,9 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import Button from "../../components/Button.astro";
 import Prose from "../../components/Prose.astro";
+import TooltipWrapper from "../../components/TooltipWrapper.astro";
 import WorkSkills from "../../components/WorkSkills.astro";
+import RolesGrid from "../../components/RolesGrid.vue";
 
 export async function getStaticPaths() {
   const entries = await getCollection("work");
