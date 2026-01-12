@@ -3,10 +3,12 @@
 ---
 
 <div
+  style="--list-disc-icon: '&#xEA6E';"
   class="prose
     prose-base
     prose-neutral
     dark:prose-invert
+    prose-headings:tracking-tight
     prose-h1:text-3xl
     prose-h1:font-bold
     prose-h2:text-2xl
@@ -39,10 +41,13 @@
     prose-pre:overflow-x-auto
     dark:prose-pre:bg-neutral-800
     dark:prose-pre:text-neutral-200
+    prose-li:my-4
+    prose-li:leading-snug
     prose-ol:list-decimal
-    prose-ul:list-disc
-    prose-li:marker:text-neutral-600
-    dark:prose-li:marker:text-neutral-400
+    prose-ul:list-(--list-disc-icon)
+    prose-li:marker:font-icon
+    prose-li:marker:text-amber-600
+    dark:prose-li:marker:text-amber-500
     prose-img:rounded-lg
     prose-img:shadow-lg
     prose-picture:rounded-lg
