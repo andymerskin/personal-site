@@ -12,10 +12,18 @@ const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
   >
     <div
       class:list={[
-        "aspect-3/2 w-full overflow-hidden rounded-lg",
-        "bg-shade-primary/2 dark:bg-white",
-        "inset-ring-shade-primary/5 inset-ring-1 dark:inset-ring-0",
-        "group-hover:inset-ring-shade-primary/10 group-hover:ring-2 group-hover:inset-ring-2 group-hover:ring-neutral-800 group-hover:ring-offset-2 dark:group-hover:ring-2 dark:group-hover:inset-ring-2 dark:group-hover:inset-ring-neutral-800",
+        "w-full",
+        "aspect-3/2",
+        "overflow-hidden",
+        "rounded-lg",
+        "bg-shade-primary/2",
+        "inset-ring-shade-primary/5 group-hover:inset-ring-shade-primary/10 inset-ring-1 group-hover:inset-ring-2",
+        "group-focus:inset-ring-shade-primary/10 group-focus:inset-ring-2",
+        "group-hover:ring-2 group-hover:ring-neutral-800 group-hover:ring-offset-2",
+        "group-focus:ring-2 group-focus:ring-neutral-800 group-focus:ring-offset-2",
+        "dark:bg-white",
+        "dark:inset-ring-0 dark:group-hover:inset-ring-2 dark:group-hover:inset-ring-neutral-800",
+        "dark:group-hover:ring-2",
         entry.data.classes,
       ]}
     >
@@ -33,7 +41,13 @@ const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
     <div class="mt-3">
       <div class="text-center text-lg leading-tight font-bold">
         <span
-          class="decoration-amber-500 decoration-2 group-hover:underline group-hover:underline-offset-4"
+          class="decoration-amber-500
+          decoration-2
+          group-hover:underline
+          group-hover:underline-offset-4
+          group-focus:underline
+          group-focus:underline-offset-4
+          "
         >
           {entry.data.title}
         </span>
