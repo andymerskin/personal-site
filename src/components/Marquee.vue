@@ -19,6 +19,15 @@
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { gsap } from "gsap";
 
+const props = withDefaults(
+  defineProps<{
+    speed?: number;
+  }>(),
+  {
+    speed: 50,
+  }
+);
+
 const marqueeContent = ref<HTMLElement>();
 const marqueeItem = ref<HTMLElement>();
 let animation: gsap.core.Tween | null = null;
@@ -52,7 +61,7 @@ const initAnimation = () => {
   // Create infinite animation
   animation = gsap.to(marqueeContent.value, {
     x: -itemWidth,
-    duration: itemWidth / 200, // Adjust speed: pixels per second (50px/s)
+    duration: itemWidth / props.speed, // Adjust speed: pixels per second
     ease: "none",
     repeat: -1,
   });
