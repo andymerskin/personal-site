@@ -1,0 +1,15 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<hr
+  class:list={[
+    "border-shade-primary/15 my-8 border-0 border-t dark:border-neutral-700",
+    className,
+  ]}
+  aria-hidden="true"
+/>
