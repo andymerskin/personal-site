@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { gsap } from "gsap";
-import TestimonialCard from "./TestimonialCard.vue";
+import TestimonialCard from "./TestimonialCard.astro";
 
 interface Recommendation {
   id: string;
