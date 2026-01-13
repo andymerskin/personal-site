@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import BlogPosts from "../components/BlogPosts.vue";
+import InfiniteScroller from "../components/InfiniteScroller.vue";
+import BlogListEntry from "../components/BlogListEntry.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog")).sort(
@@ -10,5 +11,11 @@ const posts = (await getCollection("blog")).sort(
 
 <Layout title="Blog">
   <h1 class="text-5xl font-bold tracking-tight">Blog</h1>
-  <BlogPosts {posts} client:only="vue" />
+  <div class="mt-8 grid gap-10">
+    <InfiniteScroller itemClass="blog-entry" :batchSize="5" client:only="vue">
+      <div class="space-y-12">
+        {posts.map((post) => <BlogListEntry post={post} class="blog-entry" />)}
+      </div>
+    </InfiniteScroller>
+  </div>
 </Layout>

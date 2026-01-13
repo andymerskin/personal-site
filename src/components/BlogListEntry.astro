@@ -1,0 +1,81 @@
+---
+import removeMarkdown from "remove-markdown";
+
+export interface Props {
+  class?: string;
+  post: {
+    id: string;
+    data: {
+      title: string;
+      pubDate: Date;
+      image?: {
+        src: string;
+        width: number;
+        height: number;
+        format: string;
+      };
+    };
+    body?: string;
+  };
+}
+
+const { post, class: className } = Astro.props;
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+};
+
+const getPlainText = (markdown: string | undefined): string => {
+  if (!markdown) return "";
+  return removeMarkdown(markdown);
+};
+---
+
+<article class:list={["flex gap-4", className]}>
+  <div class="w-2/3">
+    <div class="space-y-0">
+      <a
+        href={`/blog/${post.id}/`}
+        class="block text-2xl font-bold tracking-tight underline-offset-4 hover:underline"
+      >
+        {post.data.title}
+      </a>
+      <span class="block text-sm text-neutral-600 dark:text-neutral-400">
+        {formatDate(post.data.pubDate)}
+      </span>
+    </div>
+    <p
+      class="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-300"
+      style="
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      "
+    >
+      {getPlainText(post.body)}
+    </p>
+  </div>
+  <div class="w-1/3">
+    {
+      post.data.image && (
+        <a href={`/blog/${post.id}/`} class="block">
+          <div class="aspect-3/2 overflow-hidden rounded-lg">
+            <img
+              src={post.data.image.src}
+              alt={post.data.title}
+              class="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </a>
+      )
+    }
+  </div>
+</article>
