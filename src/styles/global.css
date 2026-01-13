@@ -29,6 +29,13 @@ html[data-theme-ready="false"] [data-theme-toggle] {
 }
 
 /**
+ * Component utilities
+ */
+.card-base {
+  @apply rounded-lg bg-white p-5 shadow-sm dark:bg-neutral-900;
+}
+
+/**
  * Animations
  */
 @keyframes shining-sun {

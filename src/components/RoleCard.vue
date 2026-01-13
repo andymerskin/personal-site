@@ -1,13 +1,13 @@
 <template>
-  <div class="rounded-lg bg-white p-5 shadow-sm dark:bg-neutral-900">
+  <div class="card-base">
     <div class="flex items-center gap-4">
       <div
         class="bg-shade-primary/3 flex h-12 w-12 shrink-0 items-center justify-center rounded-full dark:bg-neutral-700"
       >
-        <i
-          :class="icon"
-          class="text-xl text-neutral-700 dark:text-neutral-300"
-        ></i>
+        <component
+          :is="iconComponent"
+          class="h-6 w-6 text-neutral-700 dark:text-neutral-300"
+        />
       </div>
       <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
         {{ title }}
@@ -22,11 +22,25 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+import { UserCheck, Users, Palette, Code } from "lucide-vue-next";
+
 interface Props {
   icon: string;
   title: string;
   description: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const iconMap = {
+  "user-check": UserCheck,
+  users: Users,
+  palette: Palette,
+  code: Code,
+};
+
+const iconComponent = computed(
+  () => iconMap[props.icon as keyof typeof iconMap] || UserCheck,
+);
 </script>
