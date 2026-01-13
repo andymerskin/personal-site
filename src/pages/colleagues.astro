@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RecommendationsList from "../components/RecommendationsList.vue";
+import { getCollection } from "astro:content";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+
+const rawRecommendations = await getCollection("recommendations");
+const markdown = await createMarkdownProcessor();
+
+const recommendations = await Promise.all(
+  rawRecommendations.map(async (rec) => {
+    const { code } = await markdown.render(rec.body ?? "");
+
+    return {
+      ...rec,
+      body: code,
+    };
+  }),
+);
+---
+
+<Layout title="Colleagues">
+  <h1 class="text-5xl font-bold tracking-tight">
+    Building great teams starts with caring for your people
+  </h1>
+
+  <p
+    class="mt-6 text-xl leading-relaxed text-neutral-700 dark:text-neutral-300"
+  >
+    The foundation of any successful product or company isn't just great
+    technology—it's the people behind it. When team members feel valued,
+    supported, and empowered, they deliver their best work and create
+    environments where innovation thrives. Here are some reflections from
+    colleagues who've experienced this firsthand.
+  </p>
+
+  <hr class="my-16 border-neutral-300 dark:border-neutral-700" />
+
+  <RecommendationsList {recommendations} client:only="vue" />
+</Layout>

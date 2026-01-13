@@ -1,8 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { file } from "astro/loaders";
-import fs from "fs";
-import yaml from "js-yaml";
 
 // Skill type order for consistent rendering
 export const SKILL_TYPE_ORDER = [
@@ -18,12 +16,6 @@ export const SKILL_TYPE_ORDER = [
 const work = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/work" }),
   schema: ({ image }) => {
-    // Dynamically read skill IDs from the skills YAML file
-    const skillsData = yaml.load(
-      fs.readFileSync("./src/content/skills.yaml", "utf8"),
-    ) as Array<{ id: string }>;
-    const skillIds = skillsData.map((skill) => skill.id);
-
     return z.object({
       title: z.string(),
       type: z.string(),
@@ -63,4 +55,14 @@ const skills = defineCollection({
   }),
 });
 
-export const collections = { work, blog, thoughts, skills };
+const recommendations = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/recommendations" }),
+  schema: ({ image }) =>
+    z.object({
+      author: z.string(),
+      job: z.string(),
+      photo: image(),
+    }),
+});
+
+export const collections = { work, blog, thoughts, skills, recommendations };

@@ -1,0 +1,53 @@
+---
+import TestimonialCard from "./TestimonialCard.astro";
+import { getCollection } from "astro:content";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import Marquee from "./Marquee.vue";
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const rawRecommendations = await getCollection("recommendations");
+const markdown = await createMarkdownProcessor();
+
+const recommendations = await Promise.all(
+  rawRecommendations.map(async (rec) => {
+    const { code } = await markdown.render(rec.body ?? "");
+
+    return {
+      id: rec.id,
+      data: rec.data,
+      body: code,
+    };
+  }),
+);
+
+const hasRecommendations = recommendations?.length > 0;
+---
+
+{
+  hasRecommendations && (
+    <Marquee class="absolute inset-x-0 overflow-hidden" client:load>
+      <div
+        class={["flex items-start gap-8 py-4 px-4", className]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {recommendations.map((recommendation) => (
+          <div class="max-w-sm shrink-0 md:max-w-lg lg:max-w-xl">
+            <TestimonialCard
+              author={recommendation.data.author}
+              photo={recommendation.data.photo}
+              job={recommendation.data.job}
+            >
+              <div set:html={recommendation.body} />
+            </TestimonialCard>
+          </div>
+        ))}
+      </div>
+    </Marquee>
+  )
+}

@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import RotatingHeadline from "../components/RotatingHeadline.astro";
-import TestimonialsList from "../components/TestimonialsList.astro";
+import HelloRecommendations from "../components/HelloRecommendations.astro";
 ---
 
 <Layout title="Principal Software Engineer & Designer">
@@ -36,9 +36,11 @@ import TestimonialsList from "../components/TestimonialsList.astro";
 
   <hr class="my-16 border-neutral-300 dark:border-neutral-700" />
 
-  <!-- Testimonials -->
-  <h2 class="-rotate-1 text-2xl font-bold">Happy teams lead to happy users!</h2>
-  <TestimonialsList class="mt-8" />
+  <!-- Recommendations -->
+  <h2 class="-rotate-1 text-center text-2xl font-bold md:text-left">
+    Happy teams lead to happy users!
+  </h2>
+  <HelloRecommendations class="mt-6" />
 </Layout>
 
 <style>
