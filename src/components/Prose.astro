@@ -1,11 +1,15 @@
 ---
+export interface Props {
+  class?: string;
+}
 
+const { class: className } = Astro.props;
 import { proseClasses } from "../utils/proseClasses";
 ---
 
 <!-- prettier-ignore -->
 <div style="--list-disc-icon: '&#xEA6E';"
-  class={proseClasses}
+  class:list={[proseClasses, className]}
 >
   <slot />
 </div>
