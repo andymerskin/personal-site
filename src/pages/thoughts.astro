@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ThoughtsList from "../components/ThoughtsList.vue";
+import InfiniteScroller from "../components/InfiniteScroller.vue";
+import ThoughtListEntry from "../components/ThoughtListEntry.astro";
 import { getCollection } from "astro:content";
 
 const thoughts = (await getCollection("thoughts")).sort(
@@ -9,5 +10,14 @@ const thoughts = (await getCollection("thoughts")).sort(
 ---
 
 <Layout title="Thoughts">
-  <ThoughtsList {thoughts} client:only="vue" />
+  <h1 class="text-5xl font-bold tracking-tight">Thoughts</h1>
+  <div class="mt-8">
+    <InfiniteScroller itemClass="thought-entry" :batchSize="5" client:only="vue">
+      <div class="space-y-8">
+        {thoughts.map((thought) => (
+          <ThoughtListEntry thought={thought} class="thought-entry" />
+        ))}
+      </div>
+    </InfiniteScroller>
+  </div>
 </Layout>
