@@ -34,34 +34,39 @@ const fullTitle = title
     <ClientRouter />
     <script is:inline>
       (() => {
-        // Only run this initialization once
+        const doc = document.documentElement;
+        const applyTheme = () => {
+          try {
+            const stored = localStorage.getItem("themeMode");
+            const mode =
+              stored === "dark"
+                ? "dark"
+                : stored === "light"
+                  ? "light"
+                  : undefined;
+            if (mode) {
+              doc.classList.toggle("dark", mode === "dark");
+              doc.dataset.themeMode = mode;
+            } else {
+              doc.classList.remove("dark");
+              delete doc.dataset.themeMode;
+            }
+          } catch (err) {
+            console.warn("Theme init failed", err);
+          }
+        };
+
+        // Always apply theme, even if initialization already ran
+        applyTheme();
+
+        // Only run full initialization once
         if (window.__themeHeadInit) {
-          document.documentElement.dataset.themeReady = "true";
+          doc.dataset.themeReady = "true";
           return;
         }
         window.__themeHeadInit = true;
 
-        try {
-          const doc = document.documentElement;
-          const stored = localStorage.getItem("themeMode");
-          const mode =
-            stored === "dark"
-              ? "dark"
-              : stored === "light"
-                ? "light"
-                : undefined;
-          if (mode) {
-            doc.classList.toggle("dark", mode === "dark");
-            doc.dataset.themeMode = mode;
-          } else {
-            doc.classList.remove("dark");
-            delete doc.dataset.themeMode;
-          }
-        } catch (err) {
-          console.warn("Theme init failed", err);
-        } finally {
-          document.documentElement.dataset.themeReady = "true";
-        }
+        doc.dataset.themeReady = "true";
       })();
     </script>
     <title>{fullTitle}</title>

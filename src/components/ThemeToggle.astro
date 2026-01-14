@@ -113,6 +113,16 @@
       init();
     }
 
+    // Apply theme before page swap to prevent flash (for ClientRouter)
+    document.addEventListener("astro:before-swap", (event) => {
+      // Apply the current theme state to the incoming document before navigation
+      const currentMode = getCurrentMode();
+      const newDoc = event.newDocument.documentElement;
+      const isDark = currentMode === "dark";
+      newDoc.classList.toggle("dark", isDark);
+      newDoc.dataset.themeMode = currentMode;
+    });
+
     // Update buttons and preserve theme after view transitions (for ClientRouter)
     document.addEventListener("astro:after-swap", () => {
       // Preserve the current theme state after navigation
