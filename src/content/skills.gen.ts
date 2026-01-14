@@ -2,6 +2,8 @@
 // Run: bun run sync-skill-ids
 
 export const SKILL_IDS = [
+  "adobe-illustrator",
+  "adobe-photoshop",
   "affinity-photo",
   "ai-agentic-code-reviews",
   "ai-agentic-development",
@@ -13,6 +15,7 @@ export const SKILL_IDS = [
   "capn-proto",
   "cloudflare",
   "convex",
+  "css",
   "cypress",
   "datadog",
   "design-consulting",
@@ -25,6 +28,7 @@ export const SKILL_IDS = [
   "git",
   "github",
   "github-actions",
+  "html",
   "html-css",
   "illustrator",
   "javascript",
@@ -44,6 +48,7 @@ export const SKILL_IDS = [
   "react-17",
   "rest-apis",
   "sdlc",
+  "sketch-app",
   "tailwind",
   "tanstack-query",
   "turborepo",

@@ -50,6 +50,14 @@
   name: Vercel
   type: delivery
 
+- id: adobe-illustrator
+  name: Adobe Illustrator
+  type: design
+
+- id: adobe-photoshop
+  name: Adobe Photoshop
+  type: design
+
 - id: affinity-photo
   name: Affinity Photo
   type: design
@@ -90,12 +98,20 @@
   name: Rapid Prototyping
   type: design
 
+- id: sketch-app
+  name: Sketch App
+  type: design
+
 - id: visual-design
   name: Visual Design
   type: design
 
 - id: babel
   name: Babel
+  type: frontend
+
+- id: css
+  name: CSS
   type: frontend
 
 - id: cypress
@@ -112,6 +128,10 @@
 
 - id: feature-flags
   name: Feature Flags
+  type: frontend
+
+- id: html
+  name: HTML
   type: frontend
 
 - id: html-css
