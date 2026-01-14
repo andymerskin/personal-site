@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { UserCheck, Users, Palette, Code } from "lucide-vue-next";
+import { UserCheck, Users, Palette, Code, Trophy } from "lucide-vue-next";
 
 interface Props {
   icon: string;
@@ -38,6 +38,7 @@ const iconMap = {
   users: Users,
   palette: Palette,
   code: Code,
+  trophy: Trophy,
 };
 
 const iconComponent = computed(
