@@ -22,9 +22,11 @@ import { gsap } from "gsap";
 const props = withDefaults(
   defineProps<{
     speed?: number;
+    startingX?: number;
   }>(),
   {
     speed: 50,
+    startingX: 0,
   }
 );
 
@@ -56,7 +58,7 @@ const initAnimation = () => {
   if (itemWidth === 0) return;
 
   // Set initial position
-  gsap.set(marqueeContent.value, { x: 0 });
+  gsap.set(marqueeContent.value, { x: props.startingX });
 
   // Create infinite animation
   animation = gsap.to(marqueeContent.value, {
