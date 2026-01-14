@@ -1,0 +1,28 @@
+---
+import WorkCard from "./WorkCard.astro";
+import { getCollection } from "astro:content";
+
+const allWork = await getCollection("work");
+const featuredWork = allWork.filter(
+  (entry) => entry.id === "unify" || entry.id === "processunity",
+);
+// Ensure order: unify first, then processunity
+const sortedFeaturedWork = featuredWork.sort((a, b) => {
+  if (a.id === "unify") return -1;
+  if (b.id === "unify") return 1;
+  return 0;
+});
+---
+
+<div class="flex items-center justify-between">
+  <h2 class="text-4xl font-bold">Featured work</h2>
+  <a
+    href="/work"
+    class="inline-flex items-center gap-1 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-neutral-900 no-underline shadow-sm hover:bg-neutral-50 focus:ring-2 focus:ring-amber-500 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
+  >
+    All work →
+  </a>
+</div>
+<ul class="mt-6 grid grid-cols-1 gap-x-5 gap-y-8 md:grid-cols-2">
+  {sortedFeaturedWork.map((entry) => <WorkCard entry={entry} />)}
+</ul>

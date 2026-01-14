@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import RotatingHeadline from "../components/RotatingHeadline.vue";
 import HelloRecommendations from "../components/HelloRecommendations.astro";
+import HelloFeaturedWork from "../components/HelloFeaturedWork.astro";
+import HRule from "../components/HRule.astro";
 ---
 
 <Layout title="Principal Software Engineer & Designer">
@@ -34,7 +36,7 @@ import HelloRecommendations from "../components/HelloRecommendations.astro";
     </div>
   </div>
 
-  <hr class="my-16 border-neutral-300 dark:border-neutral-700" />
+  <HRule class="my-16" />
 
   <!-- Recommendations -->
   <h2
@@ -45,6 +47,8 @@ import HelloRecommendations from "../components/HelloRecommendations.astro";
     >
   </h2>
   <HelloRecommendations class="mt-6" />
+  <HRule class="my-12" />
+  <HelloFeaturedWork />
 </Layout>
 
 <style>
