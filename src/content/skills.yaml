@@ -1,3 +1,7 @@
+- id: aws
+  name: AWS
+  type: backend
+
 - id: aws-cognito
   name: AWS Cognito
   type: backend
@@ -90,6 +94,10 @@
   name: Visual Design
   type: design
 
+- id: babel
+  name: Babel
+  type: frontend
+
 - id: cypress
   name: Cypress
   type: frontend
@@ -144,6 +152,10 @@
 
 - id: vue-3
   name: Vue 3
+  type: frontend
+
+- id: webpack
+  name: Webpack
   type: frontend
 
 - id: ai-agentic-code-reviews

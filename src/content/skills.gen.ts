@@ -6,7 +6,9 @@ export const SKILL_IDS = [
   "ai-agentic-code-reviews",
   "ai-agentic-development",
   "angular-1",
+  "aws",
   "aws-cognito",
+  "babel",
   "bun",
   "capn-proto",
   "cloudflare",
@@ -52,6 +54,7 @@ export const SKILL_IDS = [
   "vite",
   "vue-2",
   "vue-3",
+  "webpack",
   "wordpress",
 ] as const;
 
