@@ -37,17 +37,20 @@ const recommendations = await Promise.all(
     ❤️ Thanks to all of my colleagues who took the time to write a reflection.
   </p>
 
-  <div class="card-base my-16 -rotate-1 hover:rotate-1 transition-transform duration-1200">
+  <div
+    class="card-base my-16 -rotate-1 transition-transform duration-1200 hover:rotate-0 dark:bg-cyan-700/40!"
+  >
     <p
-      class="flex items-center justify-between text-neutral-600 dark:text-neutral-400"
+      class="group flex items-center justify-between text-neutral-600 dark:text-cyan-400"
     >
-      <span class="font-display text-3xl leading-none font-bold"
+      <span
+        class="font-display text-3xl leading-none font-bold transition-colors dark:group-hover:text-white"
         >Need a recommendation?</span
       >
       <a
         href="https://www.linkedin.com/in/andymerskin/"
         rel="noopener noreferrer"
-        class="decoration-amber-500 decoration-2 hover:underline"
+        class="decoration-amber-500 decoration-2 transition-colors hover:underline dark:group-hover:text-white"
         >Request <i
           class="ri-linkedin-box-fill align-bottom text-2xl leading-none"
         ></i></a
