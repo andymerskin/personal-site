@@ -1,11 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import { SKILL_TYPE_ORDER } from "../content.config.ts";
+import type { SkillId } from "../content/skills.gen";
 import SkillsList from "./SkillsList.astro";
 
 // This component displays skills grouped by type
+
 export interface Props {
-  skills: string[];
+  skills: SkillId[];
   order?: string[][];
 }
 

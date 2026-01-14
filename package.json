@@ -9,7 +9,8 @@
     "astro": "astro",
     "format": "prettier --write --log-level silent .",
     "sort-skills": "node scripts/sort-skills.js",
-    "add-skill": "node scripts/add-skill.js"
+    "add-skill": "node scripts/add-skill.js",
+    "sync-skill-ids": "node scripts/sync-skill-ids.js"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.10",

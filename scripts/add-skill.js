@@ -143,6 +143,18 @@ async function addSkill() {
       );
     }
 
+    // Sync skill IDs to generate TypeScript types
+    try {
+      execSync("node scripts/sync-skill-ids.js", {
+        stdio: "inherit",
+      });
+    } catch (syncError) {
+      console.warn(
+        "⚠️  Skill added successfully, but syncing skill IDs failed:",
+        syncError.message,
+      );
+    }
+
     console.log("✅ Skill added successfully!");
     console.log(`   Added: ${newSkill.name} (${newSkill.type})`);
   } catch (error) {

@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { file } from "astro/loaders";
+import { SKILL_IDS } from "./content/skills.gen";
 
 // Skill type order for consistent rendering
 export const SKILL_TYPE_ORDER = [
@@ -50,6 +51,7 @@ const thoughts = defineCollection({
 const skills = defineCollection({
   loader: file("src/content/skills.yaml"),
   schema: z.object({
+    id: z.enum(SKILL_IDS as unknown as [string, ...string[]]),
     name: z.string(),
     type: z.enum(SKILL_TYPE_ORDER),
   }),
