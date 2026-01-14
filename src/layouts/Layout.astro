@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import "../styles/fonts.css";
 import "remixicon/fonts/remixicon.css";
+import { ClientRouter } from "astro:transitions";
 import SideNav from "../components/SideNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import ProfileImage from "../components/ProfileImage.astro";
@@ -29,24 +30,34 @@ const fullTitle = title
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
     <script is:inline>
-      try {
-        const doc = document.documentElement;
-        const stored = localStorage.getItem("themeMode");
-        const mode =
-          stored === "dark" ? "dark" : stored === "light" ? "light" : undefined;
-        if (mode) {
-          doc.classList.toggle("dark", mode === "dark");
-          doc.dataset.themeMode = mode;
-        } else {
-          doc.classList.remove("dark");
-          delete doc.dataset.themeMode;
+      (() => {
+        // Only run this initialization once
+        if (window.__themeHeadInit) {
+          document.documentElement.dataset.themeReady = "true";
+          return;
         }
-      } catch (err) {
-        console.warn("Theme init failed", err);
-      } finally {
-        document.documentElement.dataset.themeReady = "true";
-      }
+        window.__themeHeadInit = true;
+
+        try {
+          const doc = document.documentElement;
+          const stored = localStorage.getItem("themeMode");
+          const mode =
+            stored === "dark" ? "dark" : stored === "light" ? "light" : undefined;
+          if (mode) {
+            doc.classList.toggle("dark", mode === "dark");
+            doc.dataset.themeMode = mode;
+          } else {
+            doc.classList.remove("dark");
+            delete doc.dataset.themeMode;
+          }
+        } catch (err) {
+          console.warn("Theme init failed", err);
+        } finally {
+          document.documentElement.dataset.themeReady = "true";
+        }
+      })();
     </script>
     <title>{fullTitle}</title>
   </head>

@@ -43,12 +43,12 @@
 
 <script is:inline>
   (() => {
-    if (window.__themeToggleInit) return;
-    window.__themeToggleInit = true;
+    // Only set up once - use event delegation so it works even when DOM is swapped
+    if (window.__themeToggleSetup) return;
+    window.__themeToggleSetup = true;
 
     const STORAGE_KEY = "themeMode";
     const doc = document.documentElement;
-    let buttons = [];
 
     const getStored = () => {
       try {
@@ -72,7 +72,10 @@
       const isDark = mode === "dark";
       doc.classList.toggle("dark", isDark);
       doc.dataset.themeMode = mode;
-      buttons.forEach((btn) => btn.setAttribute("data-theme-state", mode));
+      // Update all buttons
+      document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+        btn.setAttribute("data-theme-state", mode);
+      });
       try {
         localStorage.setItem(STORAGE_KEY, mode);
       } catch {
@@ -80,25 +83,42 @@
       }
     };
 
-    const init = () => {
-      buttons = Array.from(document.querySelectorAll("[data-theme-toggle]"));
-      if (!buttons.length) return;
-
-      apply(getCurrentMode());
-
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const next =
-            btn.getAttribute("data-theme-state") === "dark" ? "light" : "dark";
-          apply(next);
-        });
+    const updateButtons = () => {
+      const currentMode = getCurrentMode();
+      document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+        btn.setAttribute("data-theme-state", currentMode);
       });
     };
 
+    // Use event delegation on document - works even when buttons are swapped
+    // Set this up once, it will work for all buttons
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-theme-toggle]");
+      if (!btn) return;
+      
+      const current = btn.getAttribute("data-theme-state") || getCurrentMode();
+      const next = current === "dark" ? "light" : "dark";
+      apply(next);
+    });
+
+    // Initialize theme state
+    const init = () => {
+      apply(getCurrentMode());
+    };
+
+    // Initialize on load
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", init, { once: true });
     } else {
       init();
     }
+
+    // Update buttons and preserve theme after view transitions (for ClientRouter)
+    document.addEventListener("astro:after-swap", () => {
+      // Preserve the current theme state after navigation
+      const currentMode = getCurrentMode();
+      apply(currentMode);
+      updateButtons();
+    });
   })();
 </script>
