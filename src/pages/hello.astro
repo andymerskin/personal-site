@@ -37,8 +37,12 @@ import HelloRecommendations from "../components/HelloRecommendations.astro";
   <hr class="my-16 border-neutral-300 dark:border-neutral-700" />
 
   <!-- Recommendations -->
-  <h2 class="-rotate-1 text-center text-4xl font-bold md:text-left hover:-rotate-2 transition-transform duration-300">
-    <a href="/colleagues" class="hover:underline decoration-amber-500">Happy teams lead to happy users!</a>
+  <h2
+    class="-rotate-1 text-center text-4xl font-bold transition-transform duration-300 hover:-rotate-2 md:text-left"
+  >
+    <a href="/colleagues" class="decoration-amber-500 hover:underline"
+      >Happy teams lead to happy users!</a
+    >
   </h2>
   <HelloRecommendations class="mt-6" />
 </Layout>

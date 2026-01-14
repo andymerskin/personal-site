@@ -95,7 +95,7 @@
     document.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-theme-toggle]");
       if (!btn) return;
-      
+
       const current = btn.getAttribute("data-theme-state") || getCurrentMode();
       const next = current === "dark" ? "light" : "dark";
       apply(next);

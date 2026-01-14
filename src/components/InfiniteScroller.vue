@@ -36,13 +36,13 @@ const hasMore = ref(true);
 
 const findItems = (): HTMLElement[] => {
   if (!container.value) return [];
-  
+
   // Query for items using the itemClass prop
   // This will find items even if wrapped by <astro-slot> or other containers
   const items = Array.from(
-    container.value.querySelectorAll(`.${props.itemClass}`)
+    container.value.querySelectorAll(`.${props.itemClass}`),
   ) as HTMLElement[];
-  
+
   return items;
 };
 
@@ -60,7 +60,7 @@ const loadMore = async () => {
 
   const nextBatch = allItems.value.slice(
     displayedCount.value,
-    displayedCount.value + props.batchSize
+    displayedCount.value + props.batchSize,
   );
 
   if (nextBatch.length === 0) {
@@ -84,7 +84,7 @@ const animateNewItems = async () => {
   await nextTick();
 
   const itemsToAnimate = container.value?.querySelectorAll(
-    `.${props.itemClass}.infinite-scroller-animate-in`
+    `.${props.itemClass}.infinite-scroller-animate-in`,
   );
 
   if (itemsToAnimate && itemsToAnimate.length > 0) {
@@ -106,7 +106,7 @@ const animateNewItems = async () => {
             item.classList.remove("infinite-scroller-animate-in");
           });
         },
-      }
+      },
     );
   }
 };
@@ -123,7 +123,7 @@ const setupIntersectionObserver = () => {
     },
     {
       rootMargin: props.rootMargin,
-    }
+    },
   );
 
   observer.value.observe(sentinel.value);
@@ -132,7 +132,7 @@ const setupIntersectionObserver = () => {
 const initialize = async () => {
   // Wait for slot content to render
   await nextTick();
-  
+
   if (!container.value) return;
 
   // Find all items
