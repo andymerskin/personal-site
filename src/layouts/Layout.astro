@@ -7,6 +7,7 @@ import SideNav from "../components/SideNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import ProfileImage from "../components/ProfileImage.astro";
 import LocationBadge from "../components/LocationBadge.astro";
+import StarsBackground from "../components/StarsBackground.vue";
 
 export interface Props {
   title?: string;
@@ -44,7 +45,11 @@ const fullTitle = title
           const doc = document.documentElement;
           const stored = localStorage.getItem("themeMode");
           const mode =
-            stored === "dark" ? "dark" : stored === "light" ? "light" : undefined;
+            stored === "dark"
+              ? "dark"
+              : stored === "light"
+                ? "light"
+                : undefined;
           if (mode) {
             doc.classList.toggle("dark", mode === "dark");
             doc.dataset.themeMode = mode;
@@ -86,7 +91,7 @@ const fullTitle = title
             >
               <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
             </a>
-            <ThemeToggle />
+            <ThemeToggle transition:persist />
           </div>
           <LocationBadge />
         </div>
@@ -107,7 +112,7 @@ const fullTitle = title
               >
                 <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
               </a>
-              <ThemeToggle />
+              <ThemeToggle transition:persist />
             </div>
             <LocationBadge />
           </div>
@@ -119,5 +124,13 @@ const fullTitle = title
         </main>
       </div>
     </div>
+
+    <!-- Dark mode stars -->
+    <StarsBackground
+      heightFactor={0.5}
+      class="-z-1 hidden dark:block"
+      client:load
+      transition:persist
+    />
   </body>
 </html>
