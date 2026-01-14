@@ -30,9 +30,13 @@ const hasRecommendations = recommendations?.length > 0;
 
 {
   hasRecommendations && (
-    <Marquee class="absolute inset-x-0 overflow-hidden" client:load>
+    <Marquee
+      class="absolute inset-x-0 overflow-hidden"
+      startingX={24}
+      client:only="vue"
+    >
       <div
-        class={["flex items-start gap-8 py-4 px-4", className]
+        class={["flex items-start gap-8 px-4 py-4", className]
           .filter(Boolean)
           .join(" ")}
       >
