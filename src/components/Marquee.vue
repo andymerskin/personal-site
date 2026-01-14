@@ -27,7 +27,7 @@ const props = withDefaults(
   {
     speed: 50,
     startingX: 0,
-  }
+  },
 );
 
 const marqueeContent = ref<HTMLElement>();
@@ -62,7 +62,7 @@ const initAnimation = () => {
 
   // Create infinite animation
   animation = gsap.to(marqueeContent.value, {
-    x: -itemWidth,
+    x: -itemWidth + props.startingX,
     duration: itemWidth / props.speed, // Adjust speed: pixels per second
     ease: "none",
     repeat: -1,
