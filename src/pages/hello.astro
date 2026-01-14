@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import RotatingHeadline from "../components/RotatingHeadline.astro";
+import RotatingHeadline from "../components/RotatingHeadline.vue";
 import HelloRecommendations from "../components/HelloRecommendations.astro";
 ---
 
 <Layout title="Principal Software Engineer & Designer">
-  <RotatingHeadline class="md:relative md:-top-1" />
+  <RotatingHeadline client:load class="md:relative md:-top-1" />
   <p class="text-xl leading-relaxed dark:text-neutral-300">
     I'm a Principal Software Engineer (UI + UX, and budding Full Stack) <strong
       >leading engineering teams to success</strong
