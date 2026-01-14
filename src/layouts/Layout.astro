@@ -4,8 +4,7 @@ import "../styles/fonts.css";
 import "remixicon/fonts/remixicon.css";
 import SideNav from "../components/SideNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
-import { Image } from "astro:assets";
-import andy from "../images/andy.jpg";
+import ProfileImage from "../components/ProfileImage.astro";
 import LocationBadge from "../components/LocationBadge.astro";
 
 export interface Props {
@@ -64,17 +63,18 @@ const fullTitle = title
       <!-- Mobile header -->
       <header class="mb-8 lg:hidden">
         <div class="flex items-center justify-center">
-          <Image
-            src={andy}
-            alt="Andy Merskin"
-            width={128}
-            height={128}
-            class="max-h-full w-auto rounded-full object-cover"
-          />
+          <a href="/">
+            <ProfileImage />
+          </a>
         </div>
         <div class="mb-8 flex flex-col items-center">
           <div class="ml-6 flex items-center">
-            <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+            <a
+              href="/"
+              class="decoration-amber-500 decoration-2 hover:underline"
+            >
+              <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+            </a>
             <ThemeToggle />
           </div>
           <LocationBadge />
@@ -85,16 +85,17 @@ const fullTitle = title
       <!-- Desktop header -->
       <div class="lg:flex lg:gap-10">
         <aside class="hidden lg:block lg:w-56">
-          <Image
-            src={andy}
-            alt="Andy Merskin"
-            width={128}
-            height={128}
-            class="max-h-full w-auto rounded-full object-cover"
-          />
+          <a href="/">
+            <ProfileImage />
+          </a>
           <div class="mb-8">
             <div class="flex items-center">
-              <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+              <a
+                href="/"
+                class="decoration-amber-500 decoration-2 hover:underline"
+              >
+                <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+              </a>
               <ThemeToggle />
             </div>
             <LocationBadge />
