@@ -30,29 +30,88 @@ const hasRecommendations = recommendations?.length > 0;
 
 {
   hasRecommendations && (
-    <Marquee
-      class="absolute inset-x-0 overflow-hidden"
-      startingX={24}
-      speed={64}
-      client:only="vue"
-    >
-      <div
-        class={["flex items-start gap-8 px-4 py-4", className]
-          .filter(Boolean)
-          .join(" ")}
+    <div id="recommendations-wrapper">
+      <Marquee
+        class="absolute inset-x-0 overflow-hidden"
+        startingX={24}
+        speed={64}
+        client:only="vue"
       >
-        {recommendations.map((recommendation) => (
-          <div class="max-w-sm shrink-0 md:max-w-lg lg:max-w-xl">
-            <TestimonialCard
-              author={recommendation.data.author}
-              photo={recommendation.data.photo}
-              job={recommendation.data.job}
-            >
-              <div set:html={recommendation.body} />
-            </TestimonialCard>
-          </div>
-        ))}
-      </div>
-    </Marquee>
+        <div
+          class={["flex items-start gap-8 px-4 py-4", className]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          {recommendations.map((recommendation) => (
+            <div class="max-w-sm shrink-0 md:max-w-lg lg:max-w-xl">
+              <TestimonialCard
+                author={recommendation.data.author}
+                photo={recommendation.data.photo}
+                job={recommendation.data.job}
+              >
+                <div set:html={recommendation.body} />
+              </TestimonialCard>
+            </div>
+          ))}
+        </div>
+      </Marquee>
+    </div>
   )
 }
+
+<script>
+  interface MarqueeHeightChangeEvent extends CustomEvent {
+    detail: { height: number };
+  }
+
+  // Extend HTMLElementEventMap to register our custom event
+  declare global {
+    interface HTMLElementEventMap {
+      "marquee-height-change": MarqueeHeightChangeEvent;
+    }
+  }
+
+  function setupMarqueeHeightListener(): void {
+    const wrapper = document.getElementById("recommendations-wrapper");
+    if (!wrapper) return;
+
+    // Remove any existing listener to avoid duplicates
+    const handler = (event: MarqueeHeightChangeEvent): void => {
+      wrapper.style.height = `${event.detail.height}px`;
+    };
+
+    // Remove old listener if it exists
+    wrapper.removeEventListener("marquee-height-change", handler);
+    // Add new listener
+    wrapper.addEventListener("marquee-height-change", handler);
+
+    // If the Marquee has already dispatched the event, check if we can get the height
+    // by checking if there's a marquee-wrapper element
+    const marqueeWrapper = wrapper.querySelector(".marquee-wrapper");
+    if (marqueeWrapper instanceof HTMLElement) {
+      const height = marqueeWrapper.offsetHeight;
+      if (height > 0) {
+        wrapper.style.height = `${height}px`;
+      }
+    }
+  }
+
+  // Set up listener immediately
+  setupMarqueeHeightListener();
+
+  // Re-setup on Astro view transitions
+  document.addEventListener("astro:page-load", () => {
+    setupMarqueeHeightListener();
+  });
+
+  // Also use MutationObserver as a fallback to catch when the element appears
+  const observer = new MutationObserver(() => {
+    setupMarqueeHeightListener();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+</script>
+
