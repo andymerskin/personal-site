@@ -13,16 +13,33 @@ const { class: className } = Astro.props;
 const rawRecommendations = await getCollection("recommendations");
 const markdown = await createMarkdownProcessor();
 
-const recommendations = await Promise.all(
-  rawRecommendations.map(async (rec) => {
-    const { code } = await markdown.render(rec.body ?? "");
+// Define the desired order of recommendations by ID
+const orderedIds = [
+  "daniel-azocar",
+  "lexi-mitsuhashi",
+  "sarah-wolfsont",
+  "jeremy-armah",
+];
 
-    return {
-      id: rec.id,
-      data: rec.data,
-      body: code,
-    };
-  }),
+// Create a map for quick lookup
+const recommendationsMap = new Map(
+  rawRecommendations.map((rec) => [rec.id, rec]),
+);
+
+// Process recommendations in the specified order
+const recommendations = await Promise.all(
+  orderedIds
+    .map((id) => recommendationsMap.get(id))
+    .filter((rec): rec is NonNullable<typeof rec> => rec !== undefined)
+    .map(async (rec) => {
+      const { code } = await markdown.render(rec.body ?? "");
+
+      return {
+        id: rec.id,
+        data: rec.data,
+        body: code,
+      };
+    }),
 );
 
 const hasRecommendations = recommendations?.length > 0;
