@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { SKILL_TYPE_ORDER } from "../content.config.ts";
 import type { SkillId } from "../content/skills.gen";
+import { SKILL_IDS } from "../content/skills.gen";
 import SkillsList from "./SkillsList.astro";
 
 // This component displays skills grouped by type
@@ -12,6 +13,16 @@ export interface Props {
 }
 
 const { skills, order } = Astro.props;
+
+// Validate that all skills are valid SkillIds
+const invalidSkills = skills.filter(
+  (skill) => !SKILL_IDS.includes(skill as SkillId),
+);
+if (invalidSkills.length > 0) {
+  throw new Error(
+    `Invalid skill IDs in WorkSkills component: ${invalidSkills.map((s) => `"${s}"`).join(", ")}`,
+  );
+}
 
 const skillSlugs = skills;
 
