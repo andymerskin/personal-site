@@ -24,7 +24,7 @@ const fullTitle = title
 ---
 
 <!doctype html>
-<html lang="en" data-theme-ready="true">
+<html lang="en" data-theme-ready="true" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
@@ -124,7 +124,7 @@ const fullTitle = title
           <SideNav orientation="vertical" />
         </aside>
 
-        <main class="min-w-0 flex-1">
+        <main class="min-w-0 flex-1" transition:animate="slide">
           <slot />
         </main>
       </div>
