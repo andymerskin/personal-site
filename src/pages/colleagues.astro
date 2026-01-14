@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import RecommendationsList from "../components/RecommendationsList.vue";
 import { getCollection } from "astro:content";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import InfiniteScroller from "../components/InfiniteScroller.vue";
+import TestimonialCard from "../components/TestimonialCard.astro";
 
 const rawRecommendations = await getCollection("recommendations");
 const markdown = await createMarkdownProcessor();
@@ -27,14 +28,51 @@ const recommendations = await Promise.all(
   <p
     class="mt-6 text-xl leading-relaxed text-neutral-700 dark:text-neutral-300"
   >
-    The foundation of any successful product or company isn't just great
-    technology—it's the people behind it. When team members feel valued,
-    supported, and empowered, they deliver their best work and create
-    environments where innovation thrives. Here are some reflections from
-    colleagues who've experienced this firsthand.
+    Here are some reflections from colleagues who've experienced firsthand how
+    working with me creates environments where supporting and empowering people
+    leads to innovation.
   </p>
 
-  <hr class="my-16 border-neutral-300 dark:border-neutral-700" />
+  <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+    ❤️ Thanks to all of my colleagues who took the time to write a reflection.
+  </p>
 
-  <RecommendationsList {recommendations} client:only="vue" />
+  <div class="card-base my-16 -rotate-1">
+    <p
+      class="flex items-center justify-between text-neutral-600 dark:text-neutral-400"
+    >
+      <span class="font-display text-3xl leading-none font-bold"
+        >Need a recommendation?</span
+      >
+      <a
+        href="https://www.linkedin.com/in/andymerskin/"
+        rel="noopener noreferrer"
+        class="decoration-amber-500 decoration-2 hover:underline"
+        >Request <i
+          class="ri-linkedin-box-fill align-bottom text-2xl leading-none"
+        ></i></a
+      >
+    </p>
+  </div>
+
+  <!-- Recommendation items -->
+  <InfiniteScroller
+    itemClass="recommendation-entry"
+    :batchSize="5"
+    client:only="vue"
+  >
+    <div class="space-y-12">
+      {
+        recommendations.map((recommendation) => (
+          <TestimonialCard
+            author={recommendation.data.author}
+            photo={recommendation.data.photo}
+            job={recommendation.data.job}
+          >
+            <div set:html={recommendation.body} />
+          </TestimonialCard>
+        ))
+      }
+    </div>
+  </InfiniteScroller>
 </Layout>
