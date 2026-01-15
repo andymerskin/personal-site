@@ -33,6 +33,8 @@ const allItems = ref<HTMLElement[]>([]);
 const displayedCount = ref(0);
 const lastAnimatedIndex = ref(0);
 const hasMore = ref(true);
+const isSentinelIntersecting = ref(false);
+const userHasScrolled = ref(false);
 
 const findItems = (): HTMLElement[] => {
   if (!container.value) return [];
@@ -55,8 +57,20 @@ const showItem = (item: HTMLElement) => {
   item.classList.add("infinite-scroller-animate-in");
 };
 
+const isLoading = ref(false);
+
 const loadMore = async () => {
-  if (!hasMore.value) return;
+  if (!hasMore.value || isLoading.value) {
+    return;
+  }
+
+  // Prevent loading more than the first batch until the user has actually scrolled
+  // This avoids Batch 2 loading immediately if Batch 1 doesn't fill the screen
+  if (displayedCount.value >= props.batchSize && !userHasScrolled.value) {
+    return;
+  }
+
+  isLoading.value = true;
 
   const nextBatch = allItems.value.slice(
     displayedCount.value,
@@ -65,6 +79,7 @@ const loadMore = async () => {
 
   if (nextBatch.length === 0) {
     hasMore.value = false;
+    isLoading.value = false;
     return;
   }
 
@@ -73,23 +88,30 @@ const loadMore = async () => {
     showItem(item);
   });
 
-  lastAnimatedIndex.value = displayedCount.value;
   displayedCount.value += nextBatch.length;
 
-  // Animate the newly shown items
-  await animateNewItems();
+  // Animate the newly shown items (don't await here to allow subsequent loads)
+  animateNewItems(nextBatch);
+
+  // Wait a tick to allow layout to update before clearing isLoading
+  await nextTick();
+  isLoading.value = false;
+
+  // If sentinel is still intersecting after we finished loading,
+  // and we have user intent (scroll), load more
+  if (isSentinelIntersecting.value && hasMore.value) {
+    if (userHasScrolled.value) {
+      loadMore();
+    }
+  }
 };
 
-const animateNewItems = async () => {
+const animateNewItems = async (items: HTMLElement[]) => {
   await nextTick();
 
-  const itemsToAnimate = container.value?.querySelectorAll(
-    `.${props.itemClass}.infinite-scroller-animate-in`,
-  );
-
-  if (itemsToAnimate && itemsToAnimate.length > 0) {
+  if (items && items.length > 0) {
     gsap.fromTo(
-      itemsToAnimate,
+      items,
       {
         opacity: 0,
         y: props.animationOffset,
@@ -102,12 +124,23 @@ const animateNewItems = async () => {
         stagger: props.animationStagger,
         onComplete: () => {
           // Remove animate-in class after animation completes
-          itemsToAnimate.forEach((item) => {
+          items.forEach((item) => {
             item.classList.remove("infinite-scroller-animate-in");
           });
         },
       },
     );
+  }
+};
+
+const handleScroll = () => {
+  if (!userHasScrolled.value) {
+    userHasScrolled.value = true;
+
+    // If the sentinel was already in view, trigger loadMore now that we have user intent
+    if (isSentinelIntersecting.value && hasMore.value && !isLoading.value) {
+      loadMore();
+    }
   }
 };
 
@@ -117,6 +150,8 @@ const setupIntersectionObserver = () => {
   observer.value = new IntersectionObserver(
     (entries) => {
       const target = entries[0];
+      isSentinelIntersecting.value = target.isIntersecting;
+
       if (target.isIntersecting && hasMore.value) {
         loadMore();
       }
@@ -130,29 +165,36 @@ const setupIntersectionObserver = () => {
 };
 
 const initialize = async () => {
+  // Check if already scrolled (e.g. on page refresh)
+  if (typeof window !== "undefined" && window.scrollY > 0) {
+    userHasScrolled.value = true;
+  }
+
   // Wait for slot content to render
   await nextTick();
 
-  if (!container.value) return;
+  if (!container.value) {
+    return;
+  }
 
   // Find all items
   allItems.value = findItems();
 
   if (allItems.value.length === 0) {
     // Items might not be ready yet, try again after a short delay
-    setTimeout(() => {
+    setTimeout(async () => {
       allItems.value = findItems();
       if (allItems.value.length > 0) {
-        initializeItems();
+        await initializeItems();
       }
     }, 100);
     return;
   }
 
-  initializeItems();
+  await initializeItems();
 };
 
-const initializeItems = () => {
+const initializeItems = async () => {
   // Hide all items initially
   allItems.value.forEach((item) => {
     hideItem(item);
@@ -163,10 +205,13 @@ const initializeItems = () => {
   lastAnimatedIndex.value = 0;
   hasMore.value = true;
 
-  // Load first batch
-  loadMore();
+  // Add scroll listener
+  window.addEventListener("scroll", handleScroll, { passive: true });
 
-  // Setup intersection observer
+  // Load first batch and WAIT for it to be rendered
+  await loadMore();
+
+  // ONLY setup observer AFTER the first batch is in place
   setupIntersectionObserver();
 };
 
@@ -174,6 +219,7 @@ const cleanup = () => {
   if (observer.value) {
     observer.value.disconnect();
   }
+  window.removeEventListener("scroll", handleScroll);
 };
 
 onMounted(async () => {
