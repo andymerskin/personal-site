@@ -28,13 +28,16 @@ const props = withDefaults(defineProps<Props>(), {
 
 const sentinel = ref<HTMLElement>();
 const observer = ref<IntersectionObserver>();
-const container = ref<HTMLElement>();
-const allItems = ref<HTMLElement[]>([]);
-const displayedCount = ref(0);
-const lastAnimatedIndex = ref(0);
-const hasMore = ref(true);
-const isSentinelIntersecting = ref(false);
-const userHasScrolled = ref(false);
+const container = ref<HTMLElement | null>(null);
+
+let allItems: HTMLElement[] = [];
+let displayedCount = 0;
+let hasMore = true;
+let isSentinelIntersecting = false;
+let userHasScrolled = false;
+let isLoading = false;
+let retryTimeout: ReturnType<typeof setTimeout> | undefined;
+let isDisposed = false;
 
 const findItems = (): HTMLElement[] => {
   if (!container.value) return [];
@@ -42,7 +45,7 @@ const findItems = (): HTMLElement[] => {
   // Query for items using the itemClass prop
   // This will find items even if wrapped by <astro-slot> or other containers
   const items = Array.from(
-    container.value.querySelectorAll(`.${props.itemClass}`),
+    container.value.querySelectorAll(`.${CSS.escape(props.itemClass)}`),
   ) as HTMLElement[];
 
   return items;
@@ -57,29 +60,27 @@ const showItem = (item: HTMLElement) => {
   item.classList.add("infinite-scroller-animate-in");
 };
 
-const isLoading = ref(false);
-
 const loadMore = async () => {
-  if (!hasMore.value || isLoading.value) {
+  if (!hasMore || isLoading) {
     return;
   }
 
   // Prevent loading more than the first batch until the user has actually scrolled
   // This avoids Batch 2 loading immediately if Batch 1 doesn't fill the screen
-  if (displayedCount.value >= props.batchSize && !userHasScrolled.value) {
+  if (displayedCount >= props.batchSize && !userHasScrolled) {
     return;
   }
 
-  isLoading.value = true;
+  isLoading = true;
 
-  const nextBatch = allItems.value.slice(
-    displayedCount.value,
-    displayedCount.value + props.batchSize,
+  const nextBatch = allItems.slice(
+    displayedCount,
+    displayedCount + props.batchSize,
   );
 
   if (nextBatch.length === 0) {
-    hasMore.value = false;
-    isLoading.value = false;
+    hasMore = false;
+    isLoading = false;
     return;
   }
 
@@ -88,28 +89,28 @@ const loadMore = async () => {
     showItem(item);
   });
 
-  displayedCount.value += nextBatch.length;
+  displayedCount += nextBatch.length;
 
   // Animate the newly shown items (don't await here to allow subsequent loads)
   animateNewItems(nextBatch);
 
   // Wait a tick to allow layout to update before clearing isLoading
   await nextTick();
-  isLoading.value = false;
+  isLoading = false;
 
   // If sentinel is still intersecting after we finished loading,
   // and we have user intent (scroll), load more
-  if (isSentinelIntersecting.value && hasMore.value) {
-    if (userHasScrolled.value) {
+  if (isSentinelIntersecting && hasMore) {
+    if (userHasScrolled) {
       loadMore();
     }
   }
 };
 
-const animateNewItems = async (items: HTMLElement[]) => {
-  await nextTick();
+const animateNewItems = (items: HTMLElement[]) => {
+  nextTick().then(() => {
+    if (!items || items.length === 0) return;
 
-  if (items && items.length > 0) {
     gsap.fromTo(
       items,
       {
@@ -130,15 +131,15 @@ const animateNewItems = async (items: HTMLElement[]) => {
         },
       },
     );
-  }
+  });
 };
 
 const handleScroll = () => {
-  if (!userHasScrolled.value) {
-    userHasScrolled.value = true;
+  if (!userHasScrolled) {
+    userHasScrolled = true;
 
     // If the sentinel was already in view, trigger loadMore now that we have user intent
-    if (isSentinelIntersecting.value && hasMore.value && !isLoading.value) {
+    if (isSentinelIntersecting && hasMore && !isLoading) {
       loadMore();
     }
   }
@@ -150,9 +151,9 @@ const setupIntersectionObserver = () => {
   observer.value = new IntersectionObserver(
     (entries) => {
       const target = entries[0];
-      isSentinelIntersecting.value = target.isIntersecting;
+      isSentinelIntersecting = target.isIntersecting;
 
-      if (target.isIntersecting && hasMore.value) {
+      if (target.isIntersecting && hasMore) {
         loadMore();
       }
     },
@@ -166,25 +167,29 @@ const setupIntersectionObserver = () => {
 
 const initialize = async () => {
   // Check if already scrolled (e.g. on page refresh)
-  if (typeof window !== "undefined" && window.scrollY > 0) {
-    userHasScrolled.value = true;
+  if (window.scrollY > 0) {
+    userHasScrolled = true;
   }
 
   // Wait for slot content to render
   await nextTick();
 
-  if (!container.value) {
+  if (!container.value || isDisposed) {
     return;
   }
 
   // Find all items
-  allItems.value = findItems();
+  allItems = findItems();
 
-  if (allItems.value.length === 0) {
+  if (allItems.length === 0) {
     // Items might not be ready yet, try again after a short delay
-    setTimeout(async () => {
-      allItems.value = findItems();
-      if (allItems.value.length > 0) {
+    if (retryTimeout) {
+      clearTimeout(retryTimeout);
+    }
+    retryTimeout = setTimeout(async () => {
+      if (isDisposed) return;
+      allItems = findItems();
+      if (allItems.length > 0) {
         await initializeItems();
       }
     }, 100);
@@ -196,14 +201,13 @@ const initialize = async () => {
 
 const initializeItems = async () => {
   // Hide all items initially
-  allItems.value.forEach((item) => {
+  allItems.forEach((item) => {
     hideItem(item);
   });
 
   // Reset state
-  displayedCount.value = 0;
-  lastAnimatedIndex.value = 0;
-  hasMore.value = true;
+  displayedCount = 0;
+  hasMore = true;
 
   // Add scroll listener
   window.addEventListener("scroll", handleScroll, { passive: true });
@@ -220,6 +224,10 @@ const cleanup = () => {
     observer.value.disconnect();
   }
   window.removeEventListener("scroll", handleScroll);
+  if (retryTimeout) {
+    clearTimeout(retryTimeout);
+  }
+  isDisposed = true;
 };
 
 onMounted(async () => {
@@ -238,6 +246,5 @@ onUnmounted(() => {
 
 :deep(.infinite-scroller-animate-in) {
   opacity: 0;
-  transform: translateY(20px);
 }
 </style>
