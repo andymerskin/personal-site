@@ -18,7 +18,7 @@ export const proseClasses = [
   "prose-blockquote:italic",
   "prose-a:text-blue-600",
   "prose-a:no-underline",
-  "hover:prose-a:underline",
+  "prose-a:hover:underline",
   "dark:prose-a:text-blue-400",
   "prose-code:bg-neutral-100",
   "prose-code:px-1",
