@@ -48,10 +48,10 @@ const resumeAnimation = () => {
 
 const updateParentHeight = () => {
   if (!marqueeWrapper.value) return;
-  
+
   const height = marqueeWrapper.value.offsetHeight;
   const parent = marqueeWrapper.value.parentElement;
-  
+
   if (parent) {
     parent.style.height = `${height}px`;
     // Dispatch custom event for any listeners
@@ -59,7 +59,7 @@ const updateParentHeight = () => {
       new CustomEvent("marquee-height-change", {
         detail: { height },
         bubbles: true,
-      })
+      }),
     );
   }
 };

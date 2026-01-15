@@ -31,7 +31,10 @@
           class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors duration-150 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none"
           @click="move(-1)"
         >
-          <i class="ri-arrow-left-s-line text-2xl leading-none" aria-hidden="true"></i>
+          <i
+            class="ri-arrow-left-s-line text-2xl leading-none"
+            aria-hidden="true"
+          ></i>
         </button>
 
         <button
@@ -54,7 +57,23 @@
         v-for="idx in total"
         :key="idx"
         type="button"
-        :class="['dot', 'bg-shade-primary/15', 'h-2', 'w-2', 'rounded-full', 'transition-colors', 'duration-300', 'ease-in-out', 'dark:bg-neutral-700', 'cursor-pointer', 'hover:opacity-80', 'focus-visible:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-amber-500', { active: currentSlide === idx }]"
+        :class="[
+          'dot',
+          'bg-shade-primary/15',
+          'h-2',
+          'w-2',
+          'rounded-full',
+          'transition-colors',
+          'duration-300',
+          'ease-in-out',
+          'dark:bg-neutral-700',
+          'cursor-pointer',
+          'hover:opacity-80',
+          'focus-visible:outline-none',
+          'focus-visible:ring-2',
+          'focus-visible:ring-amber-500',
+          { active: currentSlide === idx },
+        ]"
         :aria-label="`Go to slide ${idx}`"
         @click="goToSlide(idx)"
       />
@@ -108,10 +127,10 @@ function setIndex(nextIndex: number, animate = true) {
     // Wait for Vue to update the DOM (CSS variable) before forcing reflow
     nextTick(() => {
       if (!trackEl.value) return;
-      
+
       // Force reflow
       void trackEl.value.offsetHeight;
-      
+
       // Restore transition on next frame to avoid animating the snap.
       requestAnimationFrame(() => {
         if (!trackEl.value) return;
@@ -146,7 +165,10 @@ function move(dir: number) {
 
     // Cancel current transition handler if exists
     if (currentTransitionHandler) {
-      trackEl.value.removeEventListener("transitionend", currentTransitionHandler);
+      trackEl.value.removeEventListener(
+        "transitionend",
+        currentTransitionHandler,
+      );
       currentTransitionHandler = null;
     }
   }
@@ -239,7 +261,11 @@ onMounted(() => {
   const wrappedSlides: HTMLElement[] = [];
   originalSlides.forEach((slide) => {
     // Check if already wrapped (has flex class and is a direct child)
-    if (slide.classList.contains("flex") && slide.classList.contains("w-full") && slide.classList.contains("flex-none")) {
+    if (
+      slide.classList.contains("flex") &&
+      slide.classList.contains("w-full") &&
+      slide.classList.contains("flex-none")
+    ) {
       wrappedSlides.push(slide);
     } else {
       // Wrap the slide
