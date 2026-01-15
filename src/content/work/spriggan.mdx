@@ -1,0 +1,44 @@
+---
+title: "Spriggan"
+type: "Design & Engineering"
+year: "2017"
+headline: "The Celtic sprite generator"
+externalUrl: "https://github.com/andymerskin/spriggancom/data"
+logo: "../../images/work/spriggan-256.png"
+---
+
+import { Image } from "astro:assets";
+import sprigganAnimation from "../../images/work/screenshots/spriggan.gif";
+
+<Image src={sprigganAnimation} alt="Spriggan screenshot" width={728} />
+
+<div class="text-sm text-neutral-500">
+  Amazing logo and branding by my talented friend, [Brian
+  Twigg](https://www.linkedin.com/in/briantwigg)
+</div>
+
+## Concept & Objectives
+
+Spriggan is a simple desktop application for macOS that compiles sprite images from a static set of images in a simple drag-and-drop interface. It was built to aid designers preparing advertising assets at **IHS Markit Digital**. I decided to release it as an open-source project for anyone who might find it useful!
+
+Before, designers would manually build sprite images using graphics software and then developers would have to manually write the CSS to map the coordinates and dimensions of each image in the sprite. This ate up a lot of time and was prone to errors.
+
+With Spriggan, designers could save our developers enormous time by providing a fully assembled sprite image and its CSS map in one deliverable.
+
+### Side projects that help my teams is bliss
+
+**IHS Markit Digital** was generous in granting me the autonomy to build custom internal tools that saved us time and solved many of our unique problems.
+
+## Technologies & Skills
+
+<WorkSkills
+  order={[["design"], ["frontend", "old"]]}
+  skills={[
+    "rapid-prototyping",
+    "visual-design",
+    "html",
+    "css",
+    "vue-2",
+    "electron",
+  ]}
+/>
