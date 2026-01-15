@@ -30,6 +30,10 @@
   name: Next.js APIs
   type: backend
 
+- id: php
+  name: PHP
+  type: backend
+
 - id: postgresql
   name: PostgreSQL
   type: backend
@@ -106,6 +110,10 @@
   name: Visual Design
   type: design
 
+- id: angular-1
+  name: Angular 1.x
+  type: frontend
+
 - id: babel
   name: Babel
   type: frontend
@@ -124,6 +132,10 @@
 
 - id: e2e-testing
   name: E2E Testing
+  type: frontend
+
+- id: electron
+  name: Electron
   type: frontend
 
 - id: feature-flags
@@ -170,12 +182,20 @@
   name: Vite
   type: frontend
 
+- id: vue-2
+  name: Vue 2
+  type: frontend
+
 - id: vue-3
   name: Vue 3
   type: frontend
 
 - id: webpack
   name: Webpack
+  type: frontend
+
+- id: jquery
+  name: jQuery
   type: frontend
 
 - id: ai-agentic-code-reviews
@@ -198,6 +218,10 @@
   name: Turborepo
   type: general
 
+- id: wordpress
+  name: WordPress
+  type: general
+
 - id: product-discovery
   name: Product Discovery
   type: leadership
@@ -209,27 +233,3 @@
 - id: sdlc
   name: Software Development Life Cycle (SDLC)
   type: leadership
-
-- id: angular-1
-  name: Angular 1.x
-  type: old
-
-- id: php
-  name: PHP
-  type: old
-
-- id: react-17
-  name: React 17
-  type: old
-
-- id: vue-2
-  name: Vue 2
-  type: old
-
-- id: wordpress
-  name: WordPress
-  type: old
-
-- id: jquery
-  name: jQuery
-  type: old
