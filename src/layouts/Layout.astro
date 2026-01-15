@@ -80,6 +80,14 @@ const fullTitle = title
     dark:bg-neutral-950
     dark:text-neutral-50"
   >
+    <!-- Dark mode stars -->
+    <StarsBackground
+      heightFactor={0.5}
+      class="hidden dark:block"
+      client:load
+      transition:persist
+    />
+
     <div class="mx-auto max-w-5xl px-4 pt-16 pb-32">
       <!-- Mobile header -->
       <header class="mb-8 lg:hidden">
@@ -129,13 +137,5 @@ const fullTitle = title
         </main>
       </div>
     </div>
-
-    <!-- Dark mode stars -->
-    <StarsBackground
-      heightFactor={0.5}
-      class="-z-1 hidden dark:block"
-      client:load
-      transition:persist
-    />
   </body>
 </html>
