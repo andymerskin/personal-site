@@ -16,7 +16,6 @@ type IconItem = {
   readonly href: string;
   readonly icon: string;
   readonly label: string;
-  readonly external?: boolean;
 };
 
 const items = [
@@ -32,19 +31,21 @@ const externalItems = [
     href: "https://github.com/andymerskin",
     icon: "ri-github-fill",
     label: "GitHub",
-    external: true,
   },
   {
     href: "https://codepen.io/andymerskin",
     icon: "ri-codepen-fill",
     label: "CodePen",
-    external: true,
   },
   {
     href: "https://www.linkedin.com/in/andymerskin/",
     icon: "ri-linkedin-fill",
     label: "LinkedIn",
-    external: true,
+  },
+  {
+    href: "https://dribbble.com/andymerskin",
+    icon: "ri-dribbble-fill",
+    label: "Dribbble",
   },
 ] as const satisfies IconItem[];
 
@@ -107,6 +108,8 @@ const current = normalizePathname(Astro.url.pathname);
           <li>
             <a
               href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
               class="inline-flex items-center py-1 opacity-66 hover:opacity-100"
               aria-label={item.label}
             >
