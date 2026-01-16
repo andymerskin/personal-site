@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, useId } from "vue";
 import { gsap } from "gsap";
 
 interface Star {
@@ -54,8 +54,8 @@ const stars = ref<Star[]>([]);
 const width = ref(0);
 const height = ref(0);
 
-// Generate unique IDs for mask and gradient to avoid conflicts
-const componentId = `stars-${Math.random().toString(36).substr(2, 9)}`;
+// Generate deterministic IDs for SSR hydration
+const componentId = `stars-${useId()}`;
 const maskId = `${componentId}-mask`;
 const gradientId = `${componentId}-gradient`;
 
