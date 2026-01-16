@@ -3,7 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import WorkCard from "../components/WorkCard.astro";
 import { getCollection } from "astro:content";
 
-const preferredOrder = ["unify", "processunity", "utb", "spriggan", "ft"] as const;
+const preferredOrder = [
+  "unify",
+  "processunity",
+  "utb",
+  "spriggan",
+  "ft",
+] as const;
 
 const workItems = (await getCollection("work")).sort((a, b) => {
   const aIdx = preferredOrder.indexOf(a.id as any);
@@ -11,7 +17,7 @@ const workItems = (await getCollection("work")).sort((a, b) => {
 
   // If both are in preferred order, sort by their position in the list
   if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-  
+
   // If only one is in preferred order, it comes first
   if (aIdx !== -1) return -1;
   if (bIdx !== -1) return 1;
