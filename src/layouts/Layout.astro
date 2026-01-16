@@ -32,6 +32,7 @@ const fullTitle = title
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
+    <!-- Theme initialization -->
     <script is:inline>
       (() => {
         const doc = document.documentElement;
@@ -68,6 +69,20 @@ const fullTitle = title
 
         doc.dataset.themeReady = "true";
       })();
+    </script>
+    <!-- Skip view transitions for elements with data-astro-skip-transition="true" -->
+    <script is:inline>
+      document.addEventListener("astro:before-swap", (event) => {
+        const source = event.sourceElement;
+        const shouldSkip =
+          source && source instanceof HTMLElement
+            ? source.dataset.astroSkipTransition === "true"
+            : false;
+
+        if (shouldSkip) {
+          event.viewTransition?.skipTransition();
+        }
+      });
     </script>
     <title>{fullTitle}</title>
   </head>
