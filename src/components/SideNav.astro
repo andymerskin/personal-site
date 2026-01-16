@@ -10,6 +10,7 @@ type LinkItem = {
   readonly href: string;
   readonly label: string;
   readonly external?: boolean;
+  readonly activePath?: string;
 };
 
 type IconItem = {
@@ -18,14 +19,14 @@ type IconItem = {
   readonly label: string;
 };
 
-const items = [
+const items: LinkItem[] = [
   { href: "/hello", label: "Hello!" },
-  { href: "/work", label: "Work" },
+  { href: "/work/public", label: "Work", activePath: "/work" },
   { href: "/colleagues", label: "Colleagues" },
   { href: "/blog", label: "Blog" },
   { href: "/thoughts", label: "Thoughts" },
   { href: "/photos", label: "Photos" },
-] as const satisfies LinkItem[];
+];
 
 const externalItems = [
   {
@@ -76,11 +77,15 @@ const current = normalizePathname(Astro.url.pathname);
           "external" in item && item.external
             ? item.href
             : normalizePathname(item.href);
+        const activePath =
+          "external" in item && item.external
+            ? itemPath
+            : normalizePathname(item.activePath ?? item.href);
         const isActive =
           "external" in item && item.external
             ? current.startsWith(itemPath)
-            : itemPath === current ||
-              (itemPath !== "/" && current.startsWith(`${itemPath}/`));
+            : activePath === current ||
+              (activePath !== "/" && current.startsWith(`${activePath}/`));
 
         return (
           <li>
