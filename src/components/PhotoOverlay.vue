@@ -28,6 +28,7 @@
             :disableFocusRing="true"
             :centerSlides="true"
             alt="Photo"
+            @change="handleCarouselChange"
           >
             <div
               v-for="photo in photos"
@@ -83,16 +84,23 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: "close"): void;
+  (event: "change", index: number): void;
 }>();
 
 const carouselRef = ref<InstanceType<typeof ImageCarousel> | null>(null);
 
 const emitClose = () => emit("close");
+const emitChange = (index: number) => emit("change", index);
 const handleBackdropClick = (event: MouseEvent) => {
   emitClose();
 };
 const handleContentClick = (event: MouseEvent) => {
   event.stopPropagation();
+};
+
+const handleCarouselChange = (nextIndex: number) => {
+  if (!props.isOpen) return;
+  emitChange(nextIndex);
 };
 
 const handleKeydown = (event: KeyboardEvent) => {

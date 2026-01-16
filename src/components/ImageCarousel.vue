@@ -103,6 +103,10 @@ interface Props {
   centerSlides?: boolean;
 }
 
+const emit = defineEmits<{
+  (event: "change", index: number): void;
+}>();
+
 const props = withDefaults(defineProps<Props>(), {
   alt: "Carousel image",
   animate: true,
@@ -342,6 +346,14 @@ watch(
     if (typeof next !== "number" || !total.value) return;
     const target = Math.min(Math.max(next, 1), total.value);
     setIndex(target, false);
+  },
+);
+
+watch(
+  () => currentSlide.value,
+  (next, prev) => {
+    if (next === prev) return;
+    emit("change", next);
   },
 );
 
