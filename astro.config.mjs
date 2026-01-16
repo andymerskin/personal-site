@@ -11,4 +11,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  redirects: {
+    "/work": "/work/public",
+  },
 });
