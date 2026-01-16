@@ -6,6 +6,8 @@
         :key="photo.id"
         :photo="photo"
         :index="index"
+        class="photo-entry"
+        :class="{ 'animate-in': !hasAnimated }"
         @open="openOverlay"
       >
         <img
@@ -29,7 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import { gsap } from "gsap";
 import PhotoListEntry from "./PhotoListEntry.vue";
 import PhotoOverlay from "./PhotoOverlay.vue";
 
@@ -56,6 +59,28 @@ const props = defineProps<{
 
 const isOpen = ref(false);
 const activeIndex = ref(1);
+const hasAnimated = ref(false);
+
+const animatePhotos = async () => {
+  await nextTick();
+  const items = document.querySelectorAll(".photo-entry.animate-in");
+  if (items.length === 0) return;
+
+  gsap.fromTo(
+    items,
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power3.out",
+      stagger: 0.05,
+      onComplete: () => {
+        hasAnimated.value = true;
+      },
+    },
+  );
+};
 
 const getPhotoIdFromUrl = () => {
   const url = new URL(window.location.href);
@@ -132,9 +157,17 @@ const handlePopState = () => {
 onMounted(() => {
   syncFromUrl();
   window.addEventListener("popstate", handlePopState);
+  animatePhotos();
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("popstate", handlePopState);
 });
 </script>
+
+<style scoped>
+.photo-entry.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+}
+</style>

@@ -124,7 +124,7 @@ const animateNewPosts = async () => {
         y: 0,
         duration: 0.6,
         ease: "power3.out",
-        stagger: 0.1,
+        stagger: 0.05,
       },
     );
   }

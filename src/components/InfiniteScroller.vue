@@ -14,7 +14,7 @@ interface Props {
   batchSize?: number; // Default: 10
   rootMargin?: string; // Default: "100px"
   animationDuration?: number; // Default: 0.6
-  animationStagger?: number; // Default: 0.1
+  animationStagger?: number; // Default: 0.05
   animationOffset?: number; // Default: 20 (y offset for slide)
 }
 
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
   batchSize: 10,
   rootMargin: "100px",
   animationDuration: 0.6,
-  animationStagger: 0.1,
+  animationStagger: 0.05,
   animationOffset: 20,
 });
 
