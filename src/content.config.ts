@@ -19,6 +19,7 @@ const work = defineCollection({
   schema: ({ image }) => {
     return z.object({
       title: z.string(),
+      category: z.enum(["public", "private", "fun"]),
       type: z.string(),
       year: z.string(),
       headline: z.string(),

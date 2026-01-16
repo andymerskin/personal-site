@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Tabs from "../../components/Tabs.astro";
+import WorkGrid from "../../components/WorkGrid.astro";
+import { getCollection } from "astro:content";
+
+const tabs = [
+  { label: "Public", href: "/work/public" },
+  { label: "Private", href: "/work/private" },
+  { label: "Fun", href: "/work/fun" },
+];
+
+const workItems = (await getCollection("work")).filter(
+  (entry) => entry.data.category === "fun",
+);
+---
+
+<Layout title="Work">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <h1 class="text-5xl font-bold tracking-tight">Work</h1>
+    <Tabs tabs={tabs} disableTransitions />
+  </div>
+
+  <section class="mt-8">
+    <WorkGrid entries={workItems} />
+  </section>
+</Layout>

@@ -1,0 +1,53 @@
+---
+export type TabsProps = {
+  tabs: { label: string; href: string }[];
+  disableTransitions?: boolean;
+};
+
+const { tabs, disableTransitions = false } = Astro.props as TabsProps;
+const currentPath = Astro.url?.pathname ?? "";
+
+const normalizePath = (path: string) =>
+  path.length > 1 ? path.replace(/\/$/, "") : path;
+
+const normalizedCurrent = normalizePath(currentPath);
+---
+
+<div
+  class="inline-flex overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-neutral-200 dark:bg-neutral-900 dark:ring-neutral-800"
+>
+  {tabs.map((tab, index) => {
+    const normalizedHref = normalizePath(tab.href);
+    const isActive = normalizedCurrent === normalizedHref;
+
+    return (
+      <a
+        href={tab.href}
+        aria-current={isActive ? "page" : undefined}
+        data-astro-skip-transition={disableTransitions ? "true" : undefined}
+        class:list={[
+          "inline-flex",
+          "items-center",
+          "px-4",
+          "py-2",
+          "text-sm",
+          "font-semibold",
+          "text-neutral-900",
+          "no-underline!",
+          "hover:bg-neutral-50",
+          "focus:z-10",
+          "focus:ring-2",
+          "focus:ring-amber-500",
+          "focus:outline-none",
+          "dark:text-neutral-100",
+          "dark:hover:bg-neutral-800",
+          index > 0 && "border-l border-neutral-200 dark:border-neutral-800",
+          isActive &&
+            "bg-neutral-100 font-bold dark:bg-neutral-800 dark:font-bold",
+        ]}
+      >
+        {tab.label}
+      </a>
+    );
+  })}
+</div>

@@ -1,0 +1,108 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Tabs from "../../components/Tabs.astro";
+import WorkGrid from "../../components/WorkGrid.astro";
+import { getCollection } from "astro:content";
+
+const tabs = [
+  { label: "Public", href: "/work/public" },
+  { label: "Private", href: "/work/private" },
+  { label: "Fun", href: "/work/fun" },
+];
+
+const privateEntries = (await getCollection("work")).filter(
+  (entry) => entry.data.category === "private",
+);
+---
+
+<Layout title="Work">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <h1 class="text-5xl font-bold tracking-tight">Work</h1>
+    <Tabs tabs={tabs} disableTransitions />
+  </div>
+
+  <section class="mt-8">
+    <div class="space-y-8">
+      <div
+        class="card-base w-full md:w-2/3"
+        data-private-card
+        aria-live="polite"
+      >
+        <div class="text-xl font-semibold">
+          The vault hums. Whisper the secret phrase to unlock the gallery.
+        </div>
+        <form class="mt-4 space-y-3" data-private-form>
+          <div>
+            <label class="text-sm font-semibold" for="private-password">
+              Password
+            </label>
+            <input
+              id="private-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              class="mt-2 w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 shadow-sm focus:ring-2 focus:ring-amber-500 focus:outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
+              data-private-input
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="focus:ring-opacity-50 inline-flex cursor-pointer items-center gap-1 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-neutral-900 no-underline! shadow-sm hover:bg-neutral-50 focus:ring-2 focus:ring-amber-500 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
+          >
+            Unlock the private gallery
+          </button>
+          <p
+            class="text-sm text-red-600 dark:text-red-400 hidden"
+            data-private-error
+            role="status"
+          >
+            That phrase didn’t open the door. Try again.
+          </p>
+        </form>
+      </div>
+
+      <div data-private-content hidden>
+        <WorkGrid entries={privateEntries} />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (() => {
+    const STORAGE_KEY = "workPrivateUnlocked";
+    const VALID_PASSWORD = "hello";
+
+    const card = document.querySelector("[data-private-card]");
+    const form = document.querySelector("[data-private-form]");
+    const input = document.querySelector("[data-private-input]");
+    const error = document.querySelector("[data-private-error]");
+    const content = document.querySelector("[data-private-content]");
+
+    if (!card || !form || !input || !error || !content) return;
+
+    const setUnlocked = (isUnlocked) => {
+      content.hidden = !isUnlocked;
+      card.hidden = isUnlocked;
+      if (!isUnlocked) {
+        error.classList.add("hidden");
+      }
+    };
+
+    const stored = localStorage.getItem(STORAGE_KEY) === "true";
+    setUnlocked(stored);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const value = input.value.trim();
+
+      if (value === VALID_PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, "true");
+        setUnlocked(true);
+      } else {
+        error.classList.remove("hidden");
+      }
+    });
+  })();
+</script>

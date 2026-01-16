@@ -1,38 +1,19 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import WorkCard from "../components/WorkCard.astro";
-import { getCollection } from "astro:content";
-
-const preferredOrder = [
-  "unify",
-  "processunity",
-  "utb",
-  "spriggan",
-  "ft",
-] as const;
-
-const workItems = (await getCollection("work")).sort((a, b) => {
-  const aIdx = preferredOrder.indexOf(a.id as any);
-  const bIdx = preferredOrder.indexOf(b.id as any);
-
-  // If both are in preferred order, sort by their position in the list
-  if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-
-  // If only one is in preferred order, it comes first
-  if (aIdx !== -1) return -1;
-  if (bIdx !== -1) return 1;
-
-  // Otherwise, sort by title alphabetically
-  return a.data.title.localeCompare(b.data.title);
-});
+const target = "/work/public";
 ---
 
-<Layout title="Work">
-  <h1 class="text-5xl font-bold tracking-tight">Work</h1>
-
-  <section class="mt-8">
-    <ul class="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2">
-      {workItems.map((entry) => <WorkCard entry={entry} />)}
-    </ul>
-  </section>
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting…</title>
+  </head>
+  <body>
+    <p>
+      Redirecting to <a href={target}>Public work</a>…
+    </p>
+  </body>
+</html>

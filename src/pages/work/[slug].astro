@@ -27,7 +27,8 @@ const { Content } = await render(entry);
     <nav>
       <a
         class="underline-offset-4 opacity-70 hover:underline hover:opacity-100"
-        href="/work">← Work</a
+        href={`/work/${entry.data.category}`}
+        >← Work</a
       >
     </nav>
 
