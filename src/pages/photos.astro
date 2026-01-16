@@ -1,0 +1,50 @@
+---
+import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import PhotosGallery from "../components/PhotosGallery.vue";
+
+const photos = await getCollection("photos");
+const photoItems = await Promise.all(
+  photos.map(async (photo) => {
+    const thumb = await getImage({
+      src: photo.data.src,
+      widths: [360, 600],
+      sizes: "(max-width: 639px) 600px, 360px",
+    });
+
+    const full = await getImage({
+      src: photo.data.src,
+      width: 3840,
+    });
+
+    return {
+      id: photo.id,
+      caption: photo.data.caption,
+      thumbAttrs: {
+        src: thumb.src,
+        srcset: thumb.srcSet?.attribute,
+        sizes: thumb.attributes.sizes,
+        width: thumb.attributes.width,
+        height: thumb.attributes.height,
+      },
+      fullAttrs: {
+        src: full.src,
+        width: full.attributes.width,
+        height: full.attributes.height,
+      },
+    };
+  }),
+);
+---
+
+<Layout title="Photos">
+  <h1 class="text-5xl font-bold tracking-tight">Featured Photos</h1>
+  <div class="mt-8">
+    {photos.length === 0 ? (
+      <p class="text-neutral-600 dark:text-neutral-400">No photos yet.</p>
+    ) : (
+      <PhotosGallery photos={photoItems} client:load />
+    )}
+  </div>
+</Layout>

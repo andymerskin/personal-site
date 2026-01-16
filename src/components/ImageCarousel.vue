@@ -3,7 +3,12 @@
     <div
       :id="carouselId"
       ref="rootEl"
-      class="group relative overflow-hidden transition-shadow duration-200 outline-none focus-within:ring-2 focus-within:ring-amber-500"
+      :class="[
+        'group relative overflow-hidden transition-shadow duration-200 outline-none',
+        props.disableFocusRing
+          ? ''
+          : 'focus-within:ring-2 focus-within:ring-amber-500',
+      ]"
       role="radiogroup"
       :aria-label="alt"
       tabindex="0"
@@ -16,7 +21,11 @@
       <!-- Track -->
       <div
         ref="trackEl"
-        class="track flex w-full items-start transition-transform duration-500 ease-out"
+        :class="[
+          'track flex w-full',
+          props.centerSlides ? 'items-center' : 'items-start',
+          props.animate ? 'transition-transform duration-500 ease-out' : '',
+        ]"
       >
         <slot />
       </div>
@@ -52,7 +61,7 @@
     </div>
 
     <!-- Dots indicator -->
-    <div class="dots-container mt-4 flex justify-center gap-2">
+    <div v-if="props.showDots" class="dots-container mt-4 flex justify-center gap-2">
       <button
         v-for="idx in total"
         :key="idx"
@@ -82,15 +91,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue";
 
 interface Props {
   alt?: string;
   id?: string;
+  animate?: boolean;
+  activeIndex?: number;
+  showDots?: boolean;
+  disableFocusRing?: boolean;
+  centerSlides?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   alt: "Carousel image",
+  animate: true,
+  showDots: false,
+  disableFocusRing: false,
+  centerSlides: false,
 });
 
 const rootEl = ref<HTMLElement | null>(null);
@@ -145,6 +163,16 @@ let currentTransitionHandler: ((event?: TransitionEvent) => void) | null = null;
 function move(dir: number) {
   if (!trackEl.value || !rootEl.value) return;
 
+  if (!props.animate) {
+    const nextIndex = index.value + dir;
+    setIndex(nextIndex, false);
+    if (index.value === 0 || index.value === total.value + 1) {
+      const target = index.value === 0 ? total.value : 1;
+      setIndex(target, false);
+    }
+    return;
+  }
+
   if (isAnimating.value) {
     // Handle rapid clicking through boundaries (seamless loop)
     if (index.value === total.value + 1 && dir === 1) {
@@ -198,6 +226,15 @@ function move(dir: number) {
 
 function goToSlide(targetSlide: number) {
   if (isAnimating.value || targetSlide === index.value) return;
+
+  if (!props.animate) {
+    setIndex(targetSlide, false);
+    if (index.value === 0 || index.value === total.value + 1) {
+      const target = index.value === 0 ? total.value : 1;
+      setIndex(target, false);
+    }
+    return;
+  }
 
   const diff = targetSlide - index.value;
   if (Math.abs(diff) === 1) {
@@ -288,12 +325,27 @@ onMounted(() => {
   trackEl.value.appendChild(clonedFirst);
 
   // Initialize to show first real slide (index 1, which is now at position 1 after prepending clone)
-  setIndex(1, false);
+  const initialIndex =
+    typeof props.activeIndex === "number"
+      ? Math.min(Math.max(props.activeIndex, 1), total.value)
+      : 1;
+  setIndex(initialIndex, false);
 });
 
 onUnmounted(() => {
   // Cleanup if needed
 });
+
+watch(
+  () => props.activeIndex,
+  (next) => {
+    if (typeof next !== "number" || !total.value) return;
+    const target = Math.min(Math.max(next, 1), total.value);
+    setIndex(target, false);
+  },
+);
+
+defineExpose({ move, goToSlide });
 </script>
 
 <style>

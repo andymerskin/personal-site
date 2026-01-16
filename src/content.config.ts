@@ -67,4 +67,20 @@ const recommendations = defineCollection({
     }),
 });
 
-export const collections = { work, blog, thoughts, skills, recommendations };
+const photos = defineCollection({
+  loader: file("src/content/photos.yaml"),
+  schema: ({ image }) =>
+    z.object({
+      src: image(),
+      caption: z.string(),
+    }),
+});
+
+export const collections = {
+  work,
+  blog,
+  thoughts,
+  skills,
+  recommendations,
+  photos,
+};
