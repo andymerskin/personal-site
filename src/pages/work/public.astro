@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Tabs from "../../components/Tabs.astro";
-import WorkGrid from "../../components/WorkGrid.astro";
+import WorkGrid from "../../components/WorkGrid.vue";
 import { getCollection } from "astro:content";
 
 const tabs = [
@@ -30,6 +30,15 @@ const workItems = (await getCollection("work"))
 
     return a.data.title.localeCompare(b.data.title);
   });
+
+const workCards = workItems.map(({ id, data }) => ({
+  id,
+  title: data.title,
+  type: data.type,
+  year: data.year,
+  classes: data.classes ?? "",
+  logoSrc: String(data.logo.src),
+}));
 ---
 
 <Layout title="Work">
@@ -39,6 +48,6 @@ const workItems = (await getCollection("work"))
   </div>
 
   <section class="mt-8">
-    <WorkGrid entries={workItems} />
+    <WorkGrid entries={workCards} client:only="vue" />
   </section>
 </Layout>
