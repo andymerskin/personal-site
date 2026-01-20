@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div
       :class="[
-        'fixed inset-0 z-50 bg-primary/80 backdrop-blur-lg dark:bg-neutral-950/90',
+        'bg-primary/80 fixed inset-0 z-50 backdrop-blur-lg dark:bg-neutral-950/90',
         isOpen ? 'flex' : 'hidden',
       ]"
       role="dialog"
@@ -17,9 +17,12 @@
       ></button>
 
       <div
-        class="relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-6 lg:p-8 xl:p-12 pointer-events-none"
+        class="pointer-events-none relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-6 lg:p-8 xl:p-12"
       >
-        <div class="w-full max-w-[98vw] pointer-events-auto" @click="handleContentClick">
+        <div
+          class="pointer-events-auto w-full max-w-[98vw]"
+          @click="handleContentClick"
+        >
           <ImageCarousel
             ref="carouselRef"
             :animate="false"

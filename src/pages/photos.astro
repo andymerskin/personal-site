@@ -41,10 +41,12 @@ const photoItems = await Promise.all(
 <Layout title="Photos">
   <h1 class="text-5xl font-bold tracking-tight">Featured Photos</h1>
   <div class="mt-8">
-    {photos.length === 0 ? (
-      <p class="text-neutral-600 dark:text-neutral-400">No photos yet.</p>
-    ) : (
-      <PhotosGallery photos={photoItems} client:load />
-    )}
+    {
+      photos.length === 0 ? (
+        <p class="text-neutral-600 dark:text-neutral-400">No photos yet.</p>
+      ) : (
+        <PhotosGallery photos={photoItems} client:load />
+      )
+    }
   </div>
 </Layout>

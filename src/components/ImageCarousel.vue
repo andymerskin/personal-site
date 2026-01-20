@@ -37,7 +37,7 @@
         <button
           type="button"
           aria-label="Previous image"
-          class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors duration-150 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none cursor-pointer"
+          class="pointer-events-auto inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors duration-150 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none"
           @click="move(-1)"
         >
           <i
@@ -49,7 +49,7 @@
         <button
           type="button"
           aria-label="Next image"
-          class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors duration-150 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none cursor-pointer"
+          class="pointer-events-auto inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors duration-150 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none"
           @click="move(1)"
         >
           <i
@@ -61,7 +61,10 @@
     </div>
 
     <!-- Dots indicator -->
-    <div v-if="props.showDots" class="dots-container mt-4 flex justify-center gap-2">
+    <div
+      v-if="props.showDots"
+      class="dots-container mt-4 flex justify-center gap-2"
+    >
       <button
         v-for="idx in total"
         :key="idx"

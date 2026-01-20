@@ -7,7 +7,7 @@
         :aria-label="entry.title"
       >
         <div
-          class="w-full aspect-3/2 overflow-hidden rounded-lg bg-shade-primary/2 inset-ring-shade-primary/5 group-hover:inset-ring-shade-primary/10 inset-ring-1 group-hover:inset-ring-2 group-focus:inset-ring-shade-primary/10 group-focus:inset-ring-2 group-hover:ring-2 group-hover:ring-neutral-800 group-hover:ring-offset-2 group-focus:ring-2 group-focus:ring-neutral-800 group-focus:ring-offset-2 dark:bg-white dark:inset-ring-0 dark:group-hover:inset-ring-2 dark:group-hover:inset-ring-neutral-800 dark:group-hover:ring-2"
+          class="bg-shade-primary/2 inset-ring-shade-primary/5 group-hover:inset-ring-shade-primary/10 group-focus:inset-ring-shade-primary/10 aspect-3/2 w-full overflow-hidden rounded-lg inset-ring-1 group-hover:ring-2 group-hover:inset-ring-2 group-hover:ring-neutral-800 group-hover:ring-offset-2 group-focus:ring-2 group-focus:inset-ring-2 group-focus:ring-neutral-800 group-focus:ring-offset-2 dark:bg-white dark:inset-ring-0 dark:group-hover:ring-2 dark:group-hover:inset-ring-2 dark:group-hover:inset-ring-neutral-800"
           :class="entry.classes"
         >
           <div class="flex h-full w-full items-center justify-center p-6">
@@ -29,10 +29,14 @@
               {{ entry.title }}
             </span>
           </div>
-          <div class="mt-1 text-center text-sm text-neutral-600 dark:text-neutral-400">
+          <div
+            class="mt-1 text-center text-sm text-neutral-600 dark:text-neutral-400"
+          >
             {{ entry.type }}
           </div>
-          <div class="text-center text-xs text-neutral-600 dark:text-neutral-400">
+          <div
+            class="text-center text-xs text-neutral-600 dark:text-neutral-400"
+          >
             {{ entry.year }}
           </div>
         </div>
