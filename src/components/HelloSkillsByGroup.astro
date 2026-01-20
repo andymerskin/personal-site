@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import type { SkillId } from "../content/skills.gen";
+import SkillsByGroup from "./SkillsByGroup.astro";
+
+interface Props {
+  exclude?: SkillId[];
+  class?: string;
+}
+
+const { exclude = [], class: className } = Astro.props;
+
+// Get all skills and filter out excluded ones
+const allSkills = await getCollection("skills");
+const skills = allSkills
+  .map((skill) => skill.id as SkillId)
+  .filter((id) => !exclude.includes(id));
+---
+
+<SkillsByGroup
+  order={[
+    ["leadership", "design", "engineering", "delivery"],
+    ["frontend", "backend"],
+  ]}
+  skills={skills}
+  class={className}
+/>

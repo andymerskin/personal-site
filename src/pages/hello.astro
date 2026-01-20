@@ -4,6 +4,34 @@ import RotatingHeadline from "../components/RotatingHeadline.vue";
 import HelloRecommendations from "../components/HelloRecommendations.astro";
 import HelloFeaturedWork from "../components/HelloFeaturedWork.astro";
 import HRule from "../components/HRule.astro";
+import SkillCardsGrid from "../components/SkillCardsGrid.astro";
+import HelloSkillsByGroup from "../components/HelloSkillsByGroup.astro";
+import type { SkillId } from "../content/skills.gen";
+
+const featuredSkills: SkillId[] = [
+  "product-discovery",
+  "project-management",
+  "napkin-sketching",
+  "visual-design",
+  "rapid-prototyping",
+  "design-consulting",
+  "react",
+  "vue-3",
+  "typescript",
+  "tailwind",
+  "msw",
+  "e2e-testing",
+  "github",
+  "github-actions",
+  "node-js",
+  "bun",
+  "rest-apis",
+  "next-js-apis",
+  "rpc",
+  "vercel",
+  "netlify",
+  "sdlc",
+];
 ---
 
 <Layout title="Principal Software Engineer & Designer">
@@ -46,8 +74,27 @@ import HRule from "../components/HRule.astro";
       >Happy teams lead to happy users!</a
     >
   </h2>
+
   <HelloRecommendations class="mt-6" />
+
+  <!-- Skills & Technologies -->
+
+  <h2 class="mt-16 text-4xl font-bold">Skills & Technologies</h2>
+
+  <p class="mt-6">
+    As an individual contributor, I specialize in expert-level front-end
+    development, but I'd like to expand my skillset to explore full-stack and
+    mobile development more. Here is my core skillset:
+  </p>
+
+  <SkillCardsGrid class="mt-6" skills={featuredSkills} groupByType />
+
+  <h3 class="mt-16 text-2xl font-bold">Everything else I'm familiar with:</h3>
+
+  <HelloSkillsByGroup class="mt-6" exclude={featuredSkills} />
+
   <HRule class="my-12" />
+
   <HelloFeaturedWork />
 </Layout>
 
