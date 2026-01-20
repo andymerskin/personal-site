@@ -9,14 +9,16 @@ const rawRecommendations = await getCollection("recommendations");
 const markdown = await createMarkdownProcessor();
 
 const recommendations = await Promise.all(
-  rawRecommendations.map(async (rec) => {
-    const { code } = await markdown.render(rec.body ?? "");
+  rawRecommendations
+    .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+    .map(async (rec) => {
+      const { code } = await markdown.render(rec.body ?? "");
 
-    return {
-      ...rec,
-      body: code,
-    };
-  }),
+      return {
+        ...rec,
+        body: code,
+      };
+    }),
 );
 ---
 

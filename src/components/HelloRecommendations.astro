@@ -13,33 +13,28 @@ const { class: className } = Astro.props;
 const rawRecommendations = await getCollection("recommendations");
 const markdown = await createMarkdownProcessor();
 
-// Define the desired order of recommendations by ID
-const orderedIds = [
-  "daniel-azocar",
-  "lexi-mitsuhashi",
-  "sarah-wolfsont",
-  "jeremy-armah",
-];
-
-// Create a map for quick lookup
-const recommendationsMap = new Map(
-  rawRecommendations.map((rec) => [rec.id, rec]),
+// Sort recommendations by order field
+const sortedRecommendations = rawRecommendations.sort(
+  (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
 );
 
-// Process recommendations in the specified order
+// Process recommendations
 const recommendations = await Promise.all(
-  orderedIds
-    .map((id) => recommendationsMap.get(id))
-    .filter((rec): rec is NonNullable<typeof rec> => rec !== undefined)
-    .map(async (rec) => {
-      const { code } = await markdown.render(rec.body ?? "");
+  sortedRecommendations.map(async (rec) => {
+    const { code: previewBodyHtml } = await markdown.render(
+      rec.data.previewBody ?? "",
+    );
+    const { code: bodyHtml } = await markdown.render(rec.body ?? "");
 
-      return {
-        id: rec.id,
-        data: rec.data,
-        body: code,
-      };
-    }),
+    console.log({ previewBodyHtml, bodyHtml });
+
+    return {
+      id: rec.id,
+      data: rec.data,
+      previewBody: previewBodyHtml || null,
+      body: bodyHtml,
+    };
+  }),
 );
 
 const hasRecommendations = recommendations?.length > 0;
@@ -66,7 +61,9 @@ const hasRecommendations = recommendations?.length > 0;
                 photo={recommendation.data.photo}
                 job={recommendation.data.job}
               >
-                <div set:html={recommendation.body} />
+                <div
+                  set:html={recommendation.previewBody ?? recommendation.body}
+                />
               </TestimonialCard>
             </div>
           ))}

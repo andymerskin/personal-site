@@ -66,6 +66,8 @@ const recommendations = defineCollection({
       author: z.string(),
       job: z.string(),
       photo: image(),
+      previewBody: z.string().optional(),
+      order: z.number().optional(),
     }),
 });
 
