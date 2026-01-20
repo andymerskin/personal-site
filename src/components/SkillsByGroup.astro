@@ -10,9 +10,10 @@ import SkillsList from "./SkillsList.astro";
 export interface Props {
   skills: SkillId[];
   order?: string[][];
+  class?: string;
 }
 
-const { skills, order } = Astro.props;
+const { skills, order, class: className } = Astro.props;
 
 // Validate that all skills are valid SkillIds
 const invalidSkills = skills.filter(
@@ -20,7 +21,7 @@ const invalidSkills = skills.filter(
 );
 if (invalidSkills.length > 0) {
   throw new Error(
-    `Invalid skill IDs in WorkSkills component: ${invalidSkills.map((s) => `"${s}"`).join(", ")}`,
+    `Invalid skill IDs in SkillsByGroup component: ${invalidSkills.map((s) => `"${s}"`).join(", ")}`,
   );
 }
 
@@ -69,7 +70,7 @@ const formatTypeName = (type: string) => {
 
 {
   skillSlugs && skillSlugs.length > 0 && (
-    <div class="card-base not-prose">
+    <div class="card-base not-prose" class:list={className}>
       {order ? (
         <div
           class={`grid gap-6 ${order.length === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}
