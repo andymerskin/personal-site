@@ -6,7 +6,7 @@ import { execSync } from "child_process";
 /**
  * Interactive script to add a new skill to skills.yaml
  * Prompts for name and type, generates slug automatically
- * Usage: node scripts/add-skill.js
+ * Usage: bun run add-skill
  */
 
 // Load existing skill types from skills.yaml
@@ -94,10 +94,17 @@ async function addSkill() {
       finalType = customType.toLowerCase().trim();
     }
 
+    // Prompt for icon
+    const icon = await input({
+      message: "Enter Remix icon class:",
+      default: "ri-code-line",
+    });
+
     // Create new skill object
     const newSkill = {
       id: slug,
       name: name,
+      icon: icon,
       type: finalType,
     };
 

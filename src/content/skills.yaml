@@ -1,235 +1,319 @@
 - id: aws
-  name: AWS
-  type: backend
-
-- id: aws-cognito
-  name: AWS Cognito
-  type: backend
-
-- id: bun
-  name: Bun
+  name: AWS (lightly)
+  icon: ri-cloud-line
   type: backend
 
 - id: capn-proto
-  name: Cap'n Proto
+  name: Cloudflare Cap'n Proto
+  icon: ri-plug-line
   type: backend
 
 - id: cloudflare
-  name: Cloudflare
+  name: Cloudflare Workers
+  icon: ri-cloud-line
   type: backend
 
 - id: convex
   name: Convex
+  icon: ri-hexagon-line
   type: backend
 
-- id: netlify
-  name: Netlify
+- id: netlify-functions
+  name: Netlify Functions
+  icon: ri-server-line
   type: backend
 
 - id: next-js-apis
   name: Next.js APIs
+  icon: ri-nextjs-line
   type: backend
 
 - id: php
-  name: PHP
+  name: PHP (long ago)
+  icon: ri-code-line
   type: backend
 
 - id: postgresql
-  name: PostgreSQL
+  name: PostgreSQL (lightly)
+  icon: ri-database-2-line
   type: backend
 
-- id: git
-  name: Git
-  type: delivery
+- id: rpc
+  name: RPC
+  icon: ri-puzzle-line
+  type: backend
 
 - id: github
   name: GitHub
+  icon: ri-github-line
   type: delivery
 
 - id: github-actions
   name: GitHub Actions
+  icon: ri-github-line
+  type: delivery
+
+- id: netlify
+  name: Netlify
+  icon: ri-global-line
   type: delivery
 
 - id: vercel
   name: Vercel
+  icon: ri-triangle-line
   type: delivery
 
 - id: adobe-illustrator
   name: Adobe Illustrator
+  icon: ri-pen-nib-line
   type: design
 
 - id: adobe-photoshop
   name: Adobe Photoshop
+  icon: ri-image-line
   type: design
 
 - id: affinity-photo
   name: Affinity Photo
+  icon: ri-image-line
   type: design
 
 - id: design-consulting
   name: Design Consulting
+  icon: ri-chat-3-line
   type: design
 
 - id: design-systems
   name: Design Systems
+  icon: ri-layout-grid-line
   type: design
 
 - id: diagramming
   name: Diagramming
+  icon: ri-node-tree
   type: design
 
 - id: figma
   name: Figma
-  type: design
-
-- id: illustrator
-  name: Illustrator
+  icon: ri-figma-line
   type: design
 
 - id: napkin-sketching
   name: Napkin Sketching
+  icon: ri-pencil-line
   type: design
 
 - id: pdf-creation
   name: PDF Creation
+  icon: ri-file-pdf-line
   type: design
 
 - id: photoshop
   name: Photoshop
+  icon: ri-image-line
   type: design
 
 - id: rapid-prototyping
   name: Rapid Prototyping
+  icon: ri-rocket-line
   type: design
 
 - id: sketch-app
   name: Sketch App
+  icon: ri-pencil-ruler-2-line
   type: design
 
 - id: visual-design
   name: Visual Design
+  icon: ri-palette-line
   type: design
+
+- id: aws-cognito
+  name: AWS Cognito
+  icon: ri-shield-check-line
+  type: frontend
 
 - id: angular-1
   name: Angular 1.x
+  icon: ri-angularjs-line
+  type: frontend
+
+- id: auth0
+  name: Auth0
+  icon: ri-shield-check-line
   type: frontend
 
 - id: babel
   name: Babel
+  icon: ri-magic-line
   type: frontend
 
 - id: css
   name: CSS
+  icon: ri-css3-line
   type: frontend
 
 - id: cypress
   name: Cypress
+  icon: ri-test-tube-line
   type: frontend
 
 - id: docusaurus
   name: Docusaurus
+  icon: ri-book-open-line
   type: frontend
 
 - id: e2e-testing
   name: E2E Testing
+  icon: ri-test-tube-line
   type: frontend
 
 - id: electron
   name: Electron
-  type: frontend
-
-- id: feature-flags
-  name: Feature Flags
+  icon: ri-cpu-line
   type: frontend
 
 - id: html
   name: HTML
+  icon: ri-html5-line
   type: frontend
 
-- id: html-css
-  name: HTML CSS
+- id: rest-apis
+  name: Integrating REST APIs
+  icon: ri-link-m
   type: frontend
 
 - id: javascript
   name: JavaScript
+  icon: ri-javascript-line
   type: frontend
 
-- id: rest-apis
-  name: REST APIs
+- id: msw
+  name: Mock Service Worker (MSW)
+  icon: ri-code-box-line
   type: frontend
 
 - id: react
   name: React
+  icon: ri-reactjs-line
   type: frontend
 
 - id: tailwind
   name: Tailwind CSS
+  icon: ri-tailwind-css-fill
   type: frontend
 
 - id: tanstack-query
   name: TanStack Query
+  icon: ri-database-2-line
   type: frontend
 
-- id: typescript
-  name: TypeScript
-  type: frontend
-
-- id: unit-testing
-  name: Unit Testing
+- id: tanstack-start
+  name: TanStack Start
+  icon: ri-hammer-line
   type: frontend
 
 - id: vite
   name: Vite
+  icon: ri-flashlight-line
   type: frontend
 
 - id: vue-2
   name: Vue 2
+  icon: ri-vuejs-line
   type: frontend
 
 - id: vue-3
   name: Vue 3
+  icon: ri-vuejs-line
   type: frontend
 
 - id: webpack
   name: Webpack
+  icon: ri-box-3-line
   type: frontend
 
 - id: jquery
   name: jQuery
+  icon: ri-code-line
   type: frontend
 
 - id: ai-agentic-code-reviews
   name: AI / Agentic Code Reviews
-  type: general
+  icon: ri-robot-line
+  type: engineering
 
 - id: ai-agentic-development
   name: AI / Agentic Development
-  type: general
+  icon: ri-robot-line
+  type: engineering
+
+- id: bun
+  name: Bun
+  icon: ri-fire-line
+  type: engineering
 
 - id: datadog
   name: DataDog
-  type: general
+  icon: ri-line-chart-line
+  type: engineering
+
+- id: docker
+  name: Docker
+  icon: ri-ship-2-line
+  type: engineering
+
+- id: feature-flags
+  name: Feature Flags
+  icon: ri-flag-line
+  type: engineering
+
+- id: git
+  name: Git
+  icon: ri-git-branch-line
+  type: engineering
+
+- id: launchdarkly
+  name: LaunchDarkly
+  icon: ri-rocket-line
+  type: engineering
 
 - id: node-js
   name: Node.js
-  type: general
+  icon: ri-nodejs-line
+  type: engineering
+
+- id: sdlc
+  name: Software Development Life Cycle (SDLC)
+  icon: ri-timeline-view
+  type: engineering
 
 - id: turborepo
   name: Turborepo
-  type: general
+  icon: ri-stack-line
+  type: engineering
+
+- id: typescript
+  name: TypeScript
+  icon: ri-braces-line
+  type: engineering
+
+- id: unit-testing
+  name: Unit Testing
+  icon: ri-checkbox-circle-line
+  type: engineering
 
 - id: wordpress
   name: WordPress
-  type: general
+  icon: ri-wordpress-line
+  type: engineering
 
 - id: product-discovery
   name: Product Discovery
+  icon: ri-search-line
   type: leadership
 
 - id: project-management
   name: Project Management
-  type: leadership
-
-- id: sdlc
-  name: Software Development Life Cycle (SDLC)
+  icon: ri-clipboard-line
   type: leadership

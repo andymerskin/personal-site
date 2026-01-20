@@ -6,8 +6,8 @@ import { SKILL_IDS } from "./content/skills.gen";
 // Skill type order for consistent rendering
 export const SKILL_TYPE_ORDER = [
   "leadership",
-  "general",
   "design",
+  "engineering",
   "frontend",
   "backend",
   "delivery",
@@ -54,6 +54,7 @@ const skills = defineCollection({
   schema: z.object({
     id: z.enum(SKILL_IDS as unknown as [string, ...string[]]),
     name: z.string(),
+    icon: z.string(),
     type: z.enum(SKILL_TYPE_ORDER),
   }),
 });
