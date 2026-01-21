@@ -65,6 +65,7 @@ const recommendations = defineCollection({
     z.object({
       author: z.string(),
       job: z.string(),
+      position: z.string().optional(),
       photo: image(),
       previewBody: z.string().optional(),
       order: z.number().optional(),
