@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
-import TestimonialCard from "../components/TestimonialCard.astro";
+import RecommendationCard from "../components/RecommendationCard.astro";
 
 const rawRecommendations = await getCollection("recommendations");
 const markdown = await createMarkdownProcessor();
@@ -69,13 +69,9 @@ const recommendations = await Promise.all(
     <div class="space-y-12">
       {
         recommendations.map((recommendation) => (
-          <TestimonialCard
-            author={recommendation.data.author}
-            photo={recommendation.data.photo}
-            job={recommendation.data.job}
-          >
+          <RecommendationCard recommendation={recommendation.data}>
             <div set:html={recommendation.body} />
-          </TestimonialCard>
+          </RecommendationCard>
         ))
       }
     </div>

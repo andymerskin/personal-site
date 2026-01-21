@@ -1,5 +1,5 @@
 ---
-import TestimonialCard from "./TestimonialCard.astro";
+import RecommendationCard from "./RecommendationCard.astro";
 import { getCollection } from "astro:content";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import Marquee from "./Marquee.vue";
@@ -56,15 +56,11 @@ const hasRecommendations = recommendations?.length > 0;
         >
           {recommendations.map((recommendation) => (
             <div class="max-w-sm shrink-0 md:max-w-lg lg:max-w-xl">
-              <TestimonialCard
-                author={recommendation.data.author}
-                photo={recommendation.data.photo}
-                job={recommendation.data.job}
-              >
+              <RecommendationCard recommendation={recommendation.data}>
                 <div
                   set:html={recommendation.previewBody ?? recommendation.body}
                 />
-              </TestimonialCard>
+              </RecommendationCard>
             </div>
           ))}
         </div>
