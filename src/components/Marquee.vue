@@ -87,6 +87,7 @@ const initAnimation = () => {
     duration: itemWidth / props.speed, // Adjust speed: pixels per second
     ease: "none",
     repeat: -1,
+    force3D: true,
   });
 };
 
