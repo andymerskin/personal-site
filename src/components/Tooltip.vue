@@ -18,15 +18,15 @@
   </Teleport>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onUnmounted, ref } from "vue";
 
 const isVisible = ref(false);
-const position = ref({ x: 0, y: 0 });
+const position = ref<{ x: number; y: number }>({ x: 0, y: 0 });
 
-let animationFrameId = null;
+let animationFrameId: number | null = null;
 
-const updatePosition = (event) => {
+const updatePosition = (event: MouseEvent) => {
   position.value = {
     x: event.clientX + 16,
     y: event.clientY - 16,
@@ -41,7 +41,7 @@ const showTooltip = () => {
 const hideTooltip = () => {
   isVisible.value = false;
   document.removeEventListener("mousemove", updatePosition);
-  if (animationFrameId) {
+  if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
   }
@@ -49,7 +49,7 @@ const hideTooltip = () => {
 
 onUnmounted(() => {
   document.removeEventListener("mousemove", updatePosition);
-  if (animationFrameId) {
+  if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
   }
 });
