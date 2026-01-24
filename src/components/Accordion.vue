@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { gsap } from "gsap";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
+
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 
 export interface Props {
   heading: string;
@@ -15,6 +17,22 @@ const detailsRef = ref<HTMLDetailsElement>();
 
 const toggleAccordion = () => {
   if (!contentRef.value || !arrowRef.value || !detailsRef.value) return;
+
+  if (prefersReducedMotion()) {
+    // Skip animation for reduced motion preference
+    if (isOpen.value) {
+      isOpen.value = false;
+      detailsRef.value.open = false;
+      gsap.set(contentRef.value, { height: 0 });
+      gsap.set(arrowRef.value, { rotation: 0 });
+    } else {
+      detailsRef.value.open = true;
+      isOpen.value = true;
+      gsap.set(contentRef.value, { height: "auto" });
+      gsap.set(arrowRef.value, { rotation: 180 });
+    }
+    return;
+  }
 
   if (isOpen.value) {
     // Closing animation
@@ -72,6 +90,15 @@ onMounted(() => {
   if (arrowRef.value) {
     // Initialize arrow rotation to 0
     gsap.set(arrowRef.value, { rotation: 0 });
+  }
+});
+
+onUnmounted(() => {
+  if (contentRef.value) {
+    gsap.killTweensOf(contentRef.value);
+  }
+  if (arrowRef.value) {
+    gsap.killTweensOf(arrowRef.value);
   }
 });
 </script>

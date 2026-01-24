@@ -53,6 +53,8 @@
 import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
+
 interface BlogPost {
   id: string;
   data: {
@@ -112,22 +114,28 @@ const animateNewPosts = async () => {
 
   const postsToAnimate = document.querySelectorAll(".blog-post.animate-in");
 
-  if (postsToAnimate.length > 0) {
-    gsap.fromTo(
-      postsToAnimate,
-      {
-        opacity: 0,
-        y: 20,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        stagger: 0.05,
-      },
-    );
+  if (postsToAnimate.length === 0) return;
+
+  if (prefersReducedMotion()) {
+    // Skip animation, show posts immediately
+    gsap.set(postsToAnimate, { opacity: 1, y: 0 });
+    return;
   }
+
+  gsap.fromTo(
+    postsToAnimate,
+    {
+      opacity: 0,
+      y: 20,
+    },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power3.out",
+      stagger: 0.05,
+    },
+  );
 };
 
 const setupIntersectionObserver = () => {
@@ -152,6 +160,8 @@ const cleanup = () => {
   if (observer.value) {
     observer.value.disconnect();
   }
+  const postsToAnimate = document.querySelectorAll(".blog-post.animate-in");
+  gsap.killTweensOf(postsToAnimate);
 };
 
 // Initialize with first batch

@@ -33,6 +33,8 @@
 <script setup lang="ts">
 import { gsap } from "gsap";
 import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 import PhotoListEntry from "./PhotoListEntry.vue";
 import PhotoOverlay from "./PhotoOverlay.vue";
 
@@ -65,6 +67,13 @@ const animatePhotos = async () => {
   await nextTick();
   const items = document.querySelectorAll(".photo-entry.animate-in");
   if (items.length === 0) return;
+
+  if (prefersReducedMotion()) {
+    // Skip animation, show photos immediately
+    gsap.set(items, { opacity: 1, y: 0 });
+    hasAnimated.value = true;
+    return;
+  }
 
   gsap.fromTo(
     items,
@@ -162,6 +171,8 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener("popstate", handlePopState);
+  const items = document.querySelectorAll(".photo-entry.animate-in");
+  gsap.killTweensOf(items);
 });
 </script>
 

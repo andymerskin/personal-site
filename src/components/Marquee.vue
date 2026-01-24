@@ -20,6 +20,8 @@
 import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref } from "vue";
 
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
+
 const props = withDefaults(
   defineProps<{
     speed?: number;
@@ -80,6 +82,11 @@ const initAnimation = () => {
 
   // Set initial position
   gsap.set(marqueeContent.value, { x: props.startingX });
+
+  // Skip animation if user prefers reduced motion
+  if (prefersReducedMotion()) {
+    return;
+  }
 
   // Create infinite animation
   animation = gsap.to(marqueeContent.value, {

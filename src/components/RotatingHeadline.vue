@@ -13,6 +13,8 @@
 import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref } from "vue";
 
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
+
 const props = withDefaults(
   defineProps<{
     class?: string;
@@ -36,12 +38,6 @@ const headlines = [
 const headlineText = ref<HTMLElement>();
 let interval: number | undefined;
 let tl: gsap.core.Timeline | undefined;
-
-function prefersReducedMotion() {
-  return (
-    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
-  );
-}
 
 const setText = (nextIdx: number) => {
   if (headlineText.value) {

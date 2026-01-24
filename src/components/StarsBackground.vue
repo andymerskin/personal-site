@@ -32,6 +32,8 @@
 import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref, useId } from "vue";
 
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
+
 interface Star {
   x: number;
   y: number;
@@ -119,11 +121,7 @@ const initAnimation = async () => {
   }
 
   // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion()) {
     // Set static opacity for reduced motion
     gsap.set(validCircles, { opacity: 0.6 });
     return;

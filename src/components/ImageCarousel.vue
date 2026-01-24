@@ -24,7 +24,7 @@
         :class="[
           'track flex w-full',
           props.centerSlides ? 'items-center' : 'items-start',
-          props.animate ? 'transition-transform duration-500 ease-out' : '',
+          shouldAnimate ? 'transition-transform duration-500 ease-out' : '',
         ]"
       >
         <slot />
@@ -96,6 +96,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
+
 interface Props {
   alt?: string;
   id?: string;
@@ -124,6 +126,10 @@ const trackEl = ref<HTMLElement | null>(null);
 const index = ref(1);
 const isAnimating = ref(false);
 const total = ref(0);
+
+const shouldAnimate = computed(() => {
+  return props.animate && !prefersReducedMotion();
+});
 
 const carouselId = computed(() => {
   if (props.id) {
@@ -170,7 +176,7 @@ let currentTransitionHandler: ((event?: TransitionEvent) => void) | null = null;
 function move(dir: number) {
   if (!trackEl.value || !rootEl.value) return;
 
-  if (!props.animate) {
+  if (!shouldAnimate.value) {
     const nextIndex = index.value + dir;
     setIndex(nextIndex, false);
     if (index.value === 0 || index.value === total.value + 1) {
@@ -234,7 +240,7 @@ function move(dir: number) {
 function goToSlide(targetSlide: number) {
   if (isAnimating.value || targetSlide === index.value) return;
 
-  if (!props.animate) {
+  if (!shouldAnimate.value) {
     setIndex(targetSlide, false);
     if (index.value === 0 || index.value === total.value + 1) {
       const target = index.value === 0 ? total.value : 1;

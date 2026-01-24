@@ -51,7 +51,9 @@
 
 <script setup lang="ts">
 import { gsap } from "gsap";
-import { nextTick, onMounted, ref } from "vue";
+import { nextTick, onMounted, onUnmounted, ref } from "vue";
+
+import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 
 interface WorkGridEntry {
   id: string;
@@ -80,6 +82,12 @@ const animateCards = async () => {
   const cards = gridRef.value?.querySelectorAll(".work-card") ?? [];
   if (cards.length === 0) return;
 
+  if (prefersReducedMotion()) {
+    // Skip animation, show cards immediately
+    gsap.set(cards, { opacity: 1, y: 0 });
+    return;
+  }
+
   gsap.fromTo(
     cards,
     { opacity: 0, y: 20 },
@@ -96,6 +104,13 @@ const animateCards = async () => {
 onMounted(() => {
   if (props.entries.length > 0) {
     animateCards();
+  }
+});
+
+onUnmounted(() => {
+  if (gridRef.value) {
+    const cards = gridRef.value.querySelectorAll(".work-card");
+    gsap.killTweensOf(cards);
   }
 });
 </script>
