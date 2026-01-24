@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { gsap } from "gsap";
+import { nextTick, onMounted, onUnmounted, ref } from "vue";
 
 interface Props {
   itemClass: string; // Required: className to identify items

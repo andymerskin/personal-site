@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import { gsap } from "gsap";
+import { onMounted, ref } from "vue";
 
 export interface Props {
   heading: string;

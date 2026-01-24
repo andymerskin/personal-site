@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import InfiniteScroller from "../components/InfiniteScroller.vue";
-import BlogListEntry from "../components/BlogListEntry.astro";
 import { getCollection } from "astro:content";
+import BlogListEntry from "../components/BlogListEntry.astro";
+import InfiniteScroller from "../components/InfiniteScroller.vue";
+import Layout from "../layouts/Layout.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),

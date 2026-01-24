@@ -284,8 +284,8 @@ bun run sync-skill-ids # Generate TS types for skill IDs
 ```astro
 ---
 // pages/blog/[slug].astro
-import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 const posts = await getCollection("blog");
 ---
@@ -298,6 +298,7 @@ const posts = await getCollection("blog");
 ### Theme Support
 
 The site includes dark mode support:
+
 - Theme preference stored in `localStorage` as `themeMode`
 - Theme toggle component available in layout
 - CSS uses `dark:` variant classes for dark mode styles
@@ -326,12 +327,14 @@ const sortedPosts = posts.sort(
 );
 
 // Filter work by category
-const publicWork = (await getCollection("work"))
-  .filter((entry) => entry.data.category === "public");
+const publicWork = (await getCollection("work")).filter(
+  (entry) => entry.data.category === "public",
+);
 
 // Sort recommendations by order field
-const recommendations = (await getCollection("recommendations"))
-  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const recommendations = (await getCollection("recommendations")).sort(
+  (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
+);
 ---
 ```
 

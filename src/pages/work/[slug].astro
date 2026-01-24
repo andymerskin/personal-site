@@ -1,13 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import Button from "../../components/Button.astro";
-import Prose from "../../components/Prose.astro";
-import TooltipWrapper from "../../components/TooltipWrapper.astro";
-import SkillsByGroup from "../../components/SkillsByGroup.astro";
-import RolesGrid from "../../components/RolesGrid.vue";
 import HRule from "../../components/HRule.astro";
+import Prose from "../../components/Prose.astro";
+import RolesGrid from "../../components/RolesGrid.vue";
+import SkillsByGroup from "../../components/SkillsByGroup.astro";
+import TooltipWrapper from "../../components/TooltipWrapper.astro";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("work");

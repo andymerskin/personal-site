@@ -46,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref } from "vue";
 import { gsap } from "gsap";
+import { nextTick, onMounted, ref } from "vue";
 
 interface WorkGridEntry {
   id: string;

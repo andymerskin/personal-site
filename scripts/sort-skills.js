@@ -1,6 +1,6 @@
+import { execSync } from "child_process";
 import fs from "fs";
 import yaml from "js-yaml";
-import { execSync } from "child_process";
 
 /**
  * Sorts the skills.yaml file by type, then by name within each type group

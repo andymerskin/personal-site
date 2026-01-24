@@ -31,8 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { gsap } from "gsap";
+import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import PhotoListEntry from "./PhotoListEntry.vue";
 import PhotoOverlay from "./PhotoOverlay.vue";
 

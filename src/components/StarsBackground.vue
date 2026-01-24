@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick, useId } from "vue";
 import { gsap } from "gsap";
+import { nextTick, onMounted, onUnmounted, ref, useId } from "vue";
 
 interface Star {
   x: number;

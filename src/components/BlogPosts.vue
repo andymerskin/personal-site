@@ -50,8 +50,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
 import { gsap } from "gsap";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 interface BlogPost {
   id: string;

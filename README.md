@@ -4,17 +4,17 @@ A modern, content-driven personal portfolio website built with Astro. The site s
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| **Framework** | Astro 5.x |
-| **UI Framework** | Vue 3 |
-| **Styling** | Tailwind CSS 4.x |
-| **Content** | MDX, Astro Content Collections |
-| **Animations** | GSAP |
-| **Icons** | RemixIcon, Lucide |
-| **Deployment** | Netlify |
-| **Package Manager** | Bun |
-| **Type Checking** | TypeScript |
+| Category            | Technology                               |
+| ------------------- | ---------------------------------------- |
+| **Framework**       | Astro 5.x                                |
+| **UI Framework**    | Vue 3                                    |
+| **Styling**         | Tailwind CSS 4.x                         |
+| **Content**         | MDX, Astro Content Collections           |
+| **Animations**      | GSAP                                     |
+| **Icons**           | RemixIcon, Lucide                        |
+| **Deployment**      | Netlify                                  |
+| **Package Manager** | Bun                                      |
+| **Type Checking**   | TypeScript                               |
 | **Code Formatting** | Prettier (with Astro & Tailwind plugins) |
 
 ## Project Overview
@@ -65,17 +65,20 @@ This portfolio site uses a content-driven architecture where content is managed 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd personal-site-2026
    ```
 
 2. Install dependencies:
+
    ```bash
    bun install
    ```
 
 3. Start the development server:
+
    ```bash
    bun run dev
    ```
@@ -93,6 +96,7 @@ The development server runs on `http://localhost:4321` by default. Hot module re
 ### Code Formatting
 
 Format code before committing:
+
 ```bash
 bun run format
 ```
@@ -104,6 +108,7 @@ This runs Prettier with Astro and Tailwind CSS plugins to ensure consistent code
 ### Production Build
 
 Build the site for production:
+
 ```bash
 bun run build
 ```
@@ -113,6 +118,7 @@ This generates a static site in the `dist/` directory, ready for deployment to a
 ### Preview Production Build
 
 Preview the production build locally:
+
 ```bash
 bun run preview
 ```
@@ -127,16 +133,16 @@ This serves the `dist/` directory locally, allowing you to test the production b
 
 ## Scripts
 
-| Script | Description |
-|--------|-------------|
-| `bun run dev` | Start the development server at `localhost:4321` |
-| `bun run build` | Build the production site to `./dist/` |
-| `bun run preview` | Preview the production build locally |
-| `bun run format` | Format all code with Prettier (Astro & Tailwind plugins) |
-| `bun run astro` | Run Astro CLI commands (e.g., `bun run astro check`) |
-| `bun run sort-skills` | Sort skills in `src/content/skills.yaml` alphabetically |
-| `bun run add-skill` | Interactive script to add a new skill to the catalog |
-| `bun run sync-skill-ids` | Syncs skill IDs from skills.yaml to skills.gen.ts |
+| Script                   | Description                                              |
+| ------------------------ | -------------------------------------------------------- |
+| `bun run dev`            | Start the development server at `localhost:4321`         |
+| `bun run build`          | Build the production site to `./dist/`                   |
+| `bun run preview`        | Preview the production build locally                     |
+| `bun run format`         | Format all code with Prettier (Astro & Tailwind plugins) |
+| `bun run astro`          | Run Astro CLI commands (e.g., `bun run astro check`)     |
+| `bun run sort-skills`    | Sort skills in `src/content/skills.yaml` alphabetically  |
+| `bun run add-skill`      | Interactive script to add a new skill to the catalog     |
+| `bun run sync-skill-ids` | Syncs skill IDs from skills.yaml to skills.gen.ts        |
 
 ### Content Management Scripts
 

@@ -1,7 +1,7 @@
-import fs from "fs";
-import yaml from "js-yaml";
-import { input, select } from "@inquirer/prompts";
 import { execSync } from "child_process";
+import fs from "fs";
+import { input, select } from "@inquirer/prompts";
+import yaml from "js-yaml";
 
 /**
  * Interactive script to add a new skill to skills.yaml

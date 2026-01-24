@@ -1,6 +1,6 @@
+import { execSync } from "child_process";
 import fs from "fs";
 import yaml from "js-yaml";
-import { execSync } from "child_process";
 
 /**
  * Syncs skill IDs from skills.yaml to skills.gen.ts

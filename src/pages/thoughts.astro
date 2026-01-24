@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
 import ThoughtListEntry from "../components/ThoughtListEntry.astro";
-import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
 
 const thoughts = (await getCollection("thoughts")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),

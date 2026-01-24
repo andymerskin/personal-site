@@ -1,9 +1,9 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 import Tabs from "../../components/Tabs.astro";
 import WorkGrid from "../../components/WorkGrid.vue";
 import WorkPrivateGate from "../../components/WorkPrivateGate.vue";
-import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 const tabs = [
   { label: "Public", href: "/work/public" },

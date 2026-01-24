@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
 import RecommendationCard from "../components/RecommendationCard.astro";
+import Layout from "../layouts/Layout.astro";
 
 const rawRecommendations = await getCollection("recommendations");
 const markdown = await createMarkdownProcessor();

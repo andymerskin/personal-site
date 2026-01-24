@@ -1,8 +1,8 @@
 ---
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
 import PhotosGallery from "../components/PhotosGallery.vue";
+import Layout from "../layouts/Layout.astro";
 
 const photos = await getCollection("photos");
 const photoItems = await Promise.all(

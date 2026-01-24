@@ -1,6 +1,6 @@
 ---
-import WorkCard from "./WorkCard.astro";
 import { getCollection } from "astro:content";
+import WorkCard from "./WorkCard.astro";
 
 const allWork = await getCollection("work");
 const featuredWork = allWork.filter(

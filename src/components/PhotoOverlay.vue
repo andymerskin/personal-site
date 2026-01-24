@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeUnmount, onMounted, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import ImageCarousel from "./ImageCarousel.vue";
 
 interface PhotoItem {

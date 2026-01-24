@@ -1,6 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { SKILL_IDS } from "./content/skills.gen";
 
 // Skill type order for consistent rendering

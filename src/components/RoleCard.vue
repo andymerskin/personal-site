@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import { Code, Palette, Trophy, UserCheck, Users } from "lucide-vue-next";
 import { computed } from "vue";
-import { UserCheck, Users, Palette, Code, Trophy } from "lucide-vue-next";
 
 interface Props {
   icon: string;

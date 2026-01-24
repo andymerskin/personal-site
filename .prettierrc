@@ -1,5 +1,9 @@
 {
-  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "plugins": [
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss",
+    "@ianvs/prettier-plugin-sort-imports"
+  ],
   "overrides": [
     {
       "files": "*.astro",
@@ -8,5 +12,10 @@
       }
     }
   ],
-  "tailwindPreserveWhitespace": true
+  "tailwindPreserveWhitespace": true,
+  "importOrder": ["^astro:", "^[^.]", "^\\.", "^@/"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrderGroupNamespaceSpecifiers": true
 }
