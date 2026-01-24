@@ -23,7 +23,7 @@
   :global(.dark) {
     .alert-glow:before {
       --max-opacity: 0.33;
-      @apply absolute top-1/2 left-1/2 z-[-1] h-0 w-1/2 -translate-x-1/2 -translate-y-1/2 md:scale-y-33 bg-transparent;
+      @apply absolute top-1/2 left-1/2 z-[-1] h-0 w-1/2 -translate-x-1/2 -translate-y-1/2 bg-transparent md:scale-y-33;
       content: "";
       box-shadow: 0 0 320px 128px var(--color-orange-400);
       animation: alert-glow 3s ease-in-out infinite;

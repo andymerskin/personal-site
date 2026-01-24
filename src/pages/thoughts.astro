@@ -2,8 +2,8 @@
 import { getCollection } from "astro:content";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
 import StructuredData from "../components/StructuredData.astro";
-import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import ThoughtListEntry from "../components/ThoughtListEntry.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import Layout from "../layouts/Layout.astro";
 
 const thoughts = (await getCollection("thoughts")).sort(

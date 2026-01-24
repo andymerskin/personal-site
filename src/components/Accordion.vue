@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { gsap } from "gsap";
 import { onMounted, onUnmounted, ref } from "vue";
-
 import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 
 export interface Props {

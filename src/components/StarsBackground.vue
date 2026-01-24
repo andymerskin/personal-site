@@ -31,7 +31,6 @@
 <script setup lang="ts">
 import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref, useId } from "vue";
-
 import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 
 interface Star {

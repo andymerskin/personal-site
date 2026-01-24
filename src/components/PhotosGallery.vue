@@ -33,7 +33,6 @@
 <script setup lang="ts">
 import { gsap } from "gsap";
 import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
-
 import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 import PhotoListEntry from "./PhotoListEntry.vue";
 import PhotoOverlay from "./PhotoOverlay.vue";

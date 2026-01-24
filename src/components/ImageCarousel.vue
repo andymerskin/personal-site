@@ -95,7 +95,6 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
-
 import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 
 interface Props {

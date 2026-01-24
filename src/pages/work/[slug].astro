@@ -25,8 +25,7 @@ const { Content } = await render(entry);
 const siteUrl = getSiteUrl(Astro.site);
 const canonicalUrl = new URL(`/work/${entry.id}`, siteUrl).href;
 const description =
-  entry.data.headline ??
-  `${entry.data.type} work from ${entry.data.year}.`;
+  entry.data.headline ?? `${entry.data.type} work from ${entry.data.year}.`;
 const isPrivate = entry.data.category === "private";
 const ogImage = entry.data.logo?.src ?? `/open-graph/work/${entry.id}.png`;
 const ogImageUrl = new URL(String(ogImage), siteUrl).href;

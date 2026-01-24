@@ -3,9 +3,9 @@ import { getImage } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import removeMarkdown from "remove-markdown";
-import { getSiteUrl } from "../../config/pageMetadata";
 import Prose from "../../components/Prose.astro";
 import StructuredData from "../../components/StructuredData.astro";
+import { getSiteUrl } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -39,8 +39,7 @@ const optimizedImage = entry.data.image
     })
   : null;
 
-const ogImage =
-  entry.data.image?.src ?? `/open-graph/blog/${entry.id}.png`;
+const ogImage = entry.data.image?.src ?? `/open-graph/blog/${entry.id}.png`;
 const ogImageUrl = new URL(ogImage, siteUrl).href;
 const articleSchema = {
   "@context": "https://schema.org",
