@@ -101,8 +101,8 @@ const featuredSkills: SkillId[] = [
 <style>
   @reference "tailwindcss";
 
-  .alert-glow:before {
-    @variant dark {
+  :global(.dark) {
+    .alert-glow:before {
       --max-opacity: 0.33;
       @apply absolute top-1/2 left-1/2 z-[-1] h-0 w-1/2 -translate-x-1/2 -translate-y-1/2 scale-y-33 bg-transparent;
       content: "";
