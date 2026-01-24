@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a personal portfolio website built with Astro, featuring a content-driven approach with Vue components for interactive elements. The site showcases work, blog posts, and thoughts using MDX content collections.
+This is a personal portfolio website built with Astro, featuring a content-driven approach with Vue components for interactive elements. The site showcases work, blog posts, thoughts, recommendations from colleagues, photos, and skills using MDX and YAML content collections. The site includes dark mode support and is deployed to Netlify.
 
 ## Tech Stack
 
@@ -10,7 +10,7 @@ This is a personal portfolio website built with Astro, featuring a content-drive
 - **Styling**: Tailwind CSS 4.x
 - **Content**: MDX with Astro content collections
 - **Animations**: GSAP
-- **Icons**: RemixIcon
+- **Icons**: RemixIcon (primary), Lucide (secondary)
 - **Package Manager**: Bun
 - **Formatting**: Prettier with Astro and Tailwind plugins
 
@@ -22,7 +22,10 @@ This is a personal portfolio website built with Astro, featuring a content-drive
 src/content/
 ├── blog/          # Blog posts (MDX files)
 ├── thoughts/      # Short thoughts/notes (MDX files)
-└── work/          # Work/portfolio items (MDX files)
+├── work/          # Work/portfolio items (MDX files)
+├── recommendations/ # Colleague recommendations (MDX files)
+├── photos.yaml    # Photo gallery metadata
+└── skills.yaml    # Skills and technologies metadata
 ```
 
 ### Components
@@ -38,14 +41,20 @@ src/components/
 
 ```
 src/pages/         # Route-based pages
+├── hello.astro    # Homepage (redirected from /)
 ├── blog.astro     # Blog listing page
 ├── blog/[slug].astro  # Individual blog posts
-├── work.astro     # Work listing page
-├── work/[slug].astro  # Individual work items
-└── thoughts.astro # Thoughts listing page
+├── work/
+│   ├── public.astro   # Public work listing
+│   ├── private.astro  # Private work listing
+│   ├── fun.astro      # Fun projects listing
+│   └── [slug].astro   # Individual work items
+├── thoughts.astro # Thoughts listing page
+├── colleagues.astro # Recommendations from colleagues
+└── photos.astro   # Photo gallery
 
 src/layouts/
-└── Layout.astro   # Main site layout
+└── Layout.astro   # Main site layout (includes navigation, theme toggle)
 ```
 
 ## Component Guidelines
@@ -81,8 +90,10 @@ src/layouts/
 ```typescript
 {
   title: string,
+  category: "public" | "private" | "fun", // Work category
   type: string,      // e.g., "Product Design", "Development"
   year: string,      // e.g., "2024"
+  headline: string,  // Short headline/description
   externalUrl: string, // URL to live project/demo
   classes?: string,  // Optional Tailwind classes
   logo: Image        // Project logo/image
@@ -105,6 +116,39 @@ src/layouts/
 {
   date: Date,
   tags: string[]     // Default empty array
+}
+```
+
+**Recommendations Collection** (`src/content/recommendations/`):
+
+```typescript
+{
+  author: string,
+  job: string,
+  position?: string,  // Optional position/title
+  photo: Image,
+  previewBody?: string, // Optional preview text
+  order?: number      // Optional ordering for display
+}
+```
+
+**Photos Collection** (`src/content/photos.yaml`):
+
+```typescript
+{
+  src: Image,
+  caption: string
+}
+```
+
+**Skills Collection** (`src/content/skills.yaml`):
+
+```typescript
+{
+  id: SkillId,       // Must match SKILL_IDS enum
+  name: string,
+  icon: string,      // Icon identifier
+  type: SkillType    // One of: "leadership", "design", "engineering", "frontend", "backend", "delivery", "old"
 }
 ```
 
@@ -140,6 +184,9 @@ bun run dev      # Start development server
 bun run build    # Build for production
 bun run preview  # Preview production build
 bun run format   # Format code with Prettier
+bun run sort-skills    # Sort skills in skills.yaml
+bun run add-skill      # Interactive script to add new skill
+bun run sync-skill-ids # Generate TS types for skill IDs
 ```
 
 ### Development Server Usage
@@ -184,6 +231,26 @@ bun run format   # Format code with Prettier
 2. Add date and optional tags in frontmatter
 3. Keep content concise (thought-sized)
 
+### Adding Recommendations
+
+1. Create new `.mdx` file in `src/content/recommendations/`
+2. Add required frontmatter fields (author, job, photo)
+3. Optional: Add `order` field for custom sorting
+4. Write recommendation content in MDX body
+
+### Adding Photos
+
+1. Add photo image to `src/images/photos/`
+2. Add entry to `src/content/photos.yaml` with `src` and `caption`
+3. Photos are automatically optimized by Astro
+
+### Managing Skills
+
+1. Use `bun run add-skill` for interactive skill addition
+2. Or manually edit `src/content/skills.yaml`
+3. Run `bun run sync-skill-ids` to ensure IDs are consistent
+4. Run `bun run sort-skills` to maintain alphabetical order
+
 ## Performance Considerations
 
 ### Image Optimization
@@ -204,8 +271,11 @@ bun run format   # Format code with Prettier
 
 - Build command: `bun run build`
 - Output directory: `dist/`
-- Static site ready for any static hosting
-- No server-side requirements
+- Deployed to: Netlify (via `@astrojs/netlify` adapter)
+- Static site generation (SSG)
+- Redirects configured in `astro.config.mjs`:
+  - `/` → `/hello`
+  - `/work` → `/work/public`
 
 ## Common Patterns
 
@@ -224,6 +294,14 @@ const posts = await getCollection("blog");
   <!-- page content -->
 </Layout>
 ```
+
+### Theme Support
+
+The site includes dark mode support:
+- Theme preference stored in `localStorage` as `themeMode`
+- Theme toggle component available in layout
+- CSS uses `dark:` variant classes for dark mode styles
+- Theme initialization happens inline in `<head>` to prevent flash
 
 ### Vue Component Integration
 
@@ -246,6 +324,29 @@ const posts = await getCollection("blog", ({ data }) => {
 const sortedPosts = posts.sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
+
+// Filter work by category
+const publicWork = (await getCollection("work"))
+  .filter((entry) => entry.data.category === "public");
+
+// Sort recommendations by order field
+const recommendations = (await getCollection("recommendations"))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+---
+```
+
+### Image Optimization
+
+```astro
+---
+import { getImage } from "astro:assets";
+
+// Optimize images with Astro's built-in optimization
+const optimizedImage = await getImage({
+  src: photo.data.src,
+  widths: [360, 600],
+  sizes: "(max-width: 639px) 600px, 360px",
+});
 ---
 ```
 
