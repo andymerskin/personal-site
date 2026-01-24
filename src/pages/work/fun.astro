@@ -1,4 +1,5 @@
 ---
+import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 import Tabs from "../../components/Tabs.astro";
 import WorkGrid from "../../components/WorkGrid.vue";
@@ -16,14 +17,30 @@ const workItems = (await getCollection("work")).filter(
   (entry) => entry.data.category === "fun",
 );
 
-const workCards = workItems.map(({ id, data }) => ({
-  id,
-  title: data.title,
-  type: data.type,
-  year: data.year,
-  classes: data.classes ?? "",
-  logoSrc: String(data.logo.src),
-}));
+const workCards = await Promise.all(
+  workItems.map(async ({ id, data }) => {
+    const optimizedLogo = await getImage({
+      src: data.logo,
+      widths: [200, 400, 600],
+      sizes: "(max-width: 639px) 100vw, 50vw",
+    });
+
+    return {
+      id,
+      title: data.title,
+      type: data.type,
+      year: data.year,
+      classes: data.classes ?? "",
+      logoAttrs: {
+        src: optimizedLogo.src,
+        srcset: optimizedLogo.srcSet?.attribute,
+        sizes: optimizedLogo.attributes.sizes,
+        width: optimizedLogo.attributes.width,
+        height: optimizedLogo.attributes.height,
+      },
+    };
+  }),
+);
 
 const metadata = PAGE_METADATA["work/fun"];
 const siteUrl = getSiteUrl(Astro.site);

@@ -1,4 +1,5 @@
 ---
+import { getImage } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import removeMarkdown from "remove-markdown";
@@ -28,6 +29,16 @@ const summary =
 const description =
   removeMarkdown(summary).replace(/\s+/g, " ").trim() ||
   "A blog post by Andy Merskin.";
+
+// Optimize blog post image if present
+const optimizedImage = entry.data.image
+  ? await getImage({
+      src: entry.data.image,
+      widths: [640, 1280, 1920],
+      sizes: "(max-width: 768px) 100vw, 1280px",
+    })
+  : null;
+
 const ogImage =
   entry.data.image?.src ?? `/open-graph/blog/${entry.id}.png`;
 const ogImageUrl = new URL(ogImage, siteUrl).href;
@@ -82,10 +93,14 @@ const formatDate = (date: Date) =>
   </header>
 
   {
-    entry.data.image && (
+    optimizedImage && (
       <div class="mt-6 aspect-video w-full overflow-hidden rounded-lg">
         <img
-          src={entry.data.image.src}
+          src={optimizedImage.src}
+          srcset={optimizedImage.srcSet?.attribute}
+          sizes={optimizedImage.attributes.sizes}
+          width={optimizedImage.attributes.width}
+          height={optimizedImage.attributes.height}
           alt={entry.data.title}
           class="h-full w-full object-cover"
           loading="lazy"

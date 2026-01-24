@@ -12,7 +12,11 @@
         >
           <div class="flex h-full w-full items-center justify-center p-6">
             <img
-              :src="entry.logoSrc"
+              :src="entry.logoAttrs.src"
+              :srcset="entry.logoAttrs.srcset"
+              :sizes="entry.logoAttrs.sizes"
+              :width="entry.logoAttrs.width"
+              :height="entry.logoAttrs.height"
               alt=""
               class="max-h-[60%] max-w-[85%] object-contain"
               loading="lazy"
@@ -55,7 +59,13 @@ interface WorkGridEntry {
   type: string;
   year: string;
   classes?: string;
-  logoSrc: string;
+  logoAttrs: {
+    src: string;
+    srcset?: string;
+    sizes?: string;
+    width: number;
+    height: number;
+  };
 }
 
 const props = defineProps<{
