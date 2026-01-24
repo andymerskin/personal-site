@@ -7,6 +7,7 @@ import HRule from "../components/HRule.astro";
 import SkillCardsGrid from "../components/SkillCardsGrid.astro";
 import HelloSkillsByGroup from "../components/HelloSkillsByGroup.astro";
 import type { SkillId } from "../content/skills.gen";
+import HelloAlert from "../components/HelloAlert.astro";
 
 const featuredSkills: SkillId[] = [
   "product-discovery",
@@ -45,24 +46,7 @@ const featuredSkills: SkillId[] = [
   </p>
 
   <!-- Rocker alert -->
-  <div
-    class="mt-16 animate-[rocking-alert_5s_ease-in-out_alternate_infinite] px-8"
-  >
-    <div
-      class="alert-glow relative rounded-lg bg-cyan-100 p-8 dark:bg-cyan-700/40"
-    >
-      <p
-        class="font-display flex flex-col items-center gap-4 text-center text-4xl leading-tight font-bold md:flex-row md:text-left"
-      >
-        <span
-          >Need a fresh frontend for your B2B SaaS product <em>FAST?!</em><span
-            class="ml-4">🔥</span
-          ></span
-        >
-        <span class="font-sans whitespace-nowrap">Let's chat.</span>
-      </p>
-    </div>
-  </div>
+  <HelloAlert />
 
   <HRule class="my-16" />
 
@@ -97,17 +81,3 @@ const featuredSkills: SkillId[] = [
 
   <HelloFeaturedWork />
 </Layout>
-
-<style>
-  @reference "tailwindcss";
-
-  :global(.dark) {
-    .alert-glow:before {
-      --max-opacity: 0.33;
-      @apply absolute top-1/2 left-1/2 z-[-1] h-0 w-1/2 -translate-x-1/2 -translate-y-1/2 scale-y-33 bg-transparent;
-      content: "";
-      box-shadow: 0 0 320px 128px var(--color-orange-400);
-      animation: alert-glow 3s ease-in-out infinite;
-    }
-  }
-</style>
