@@ -42,7 +42,6 @@ export const SKILL_IDS = [
   "next-js-apis",
   "node-js",
   "pdf-creation",
-  "photoshop",
   "php",
   "postgresql",
   "product-discovery",

@@ -108,11 +108,6 @@
   icon: ri-file-pdf-line
   type: design
 
-- id: photoshop
-  name: Photoshop
-  icon: ri-image-line
-  type: design
-
 - id: rapid-prototyping
   name: Rapid Prototyping
   icon: ri-rocket-line
