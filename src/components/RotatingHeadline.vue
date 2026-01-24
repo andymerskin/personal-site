@@ -1,7 +1,7 @@
 <template>
   <div :class="className">
     <h1
-      class="min-h-40 text-4xl leading-tight font-bold tracking-tight md:text-5xl lg:text-5xl"
+      class="min-h-48 md:min-h-40 lg:min-h-34 text-4xl leading-tight font-bold tracking-tight md:text-5xl"
     >
       <span class="sr-only">{{ headlines[0] }}</span>
       <span aria-hidden="true" ref="headlineText">{{ headlines[0] }}</span>
