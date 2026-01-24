@@ -2,6 +2,8 @@
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 import PhotosGallery from "../components/PhotosGallery.vue";
+import StructuredData from "../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import Layout from "../layouts/Layout.astro";
 
 const photos = await getCollection("photos");
@@ -36,9 +38,24 @@ const photoItems = await Promise.all(
     };
   }),
 );
+
+const metadata = PAGE_METADATA.photos;
+const siteUrl = getSiteUrl(Astro.site);
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: metadata.title,
+  description: metadata.description,
+  url: new URL("/photos", siteUrl).href,
+};
 ---
 
-<Layout title="Photos">
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  image="/open-graph/photos.png"
+>
+  <StructuredData data={collectionSchema} />
   <h1 class="text-5xl font-bold tracking-tight">Featured Photos</h1>
   <div class="mt-8">
     {

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /work/private
+Sitemap: https://2026.andymerskin.com/sitemap-index.xml
+User-agent: *
+Allow: /
+
+Sitemap: https://andymerskin.com/sitemap-index.xml

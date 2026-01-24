@@ -3,6 +3,8 @@ import "../styles/global.css";
 import "../styles/fonts.css";
 import "remixicon/fonts/remixicon.css";
 import { ClientRouter } from "astro:transitions";
+import { SEO } from "astro-seo";
+import { DEFAULT_DESCRIPTION } from "../config/pageMetadata";
 import LocationBadge from "../components/LocationBadge.astro";
 import ProfileImage from "../components/ProfileImage.astro";
 import SideNav from "../components/SideNav.astro";
@@ -11,22 +13,76 @@ import ThemeToggle from "../components/ThemeToggle.astro";
 
 export interface Props {
   title?: string;
-  titleTemplate?: (pageTitle: string, baseTitle: string) => string;
+  titleTemplate?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  canonical?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  ogType?: string;
+  ogTitle?: string;
 }
 
 const BASE_TITLE = "Andy Merskin";
+const DEFAULT_OG_PATH = "/open-graph/hello.png";
 
-const { title, titleTemplate } = Astro.props;
+const {
+  title,
+  titleTemplate = `%s • ${BASE_TITLE}`,
+  description = DEFAULT_DESCRIPTION,
+  image,
+  imageAlt = `${BASE_TITLE} — Personal Site`,
+  canonical,
+  noindex = false,
+  nofollow = false,
+  ogType = "website",
+  ogTitle,
+} = Astro.props;
 
-const fullTitle = title
-  ? (titleTemplate?.(title, BASE_TITLE) ?? `${BASE_TITLE} • ${title}`)
-  : BASE_TITLE;
+const fullTitle = title ? titleTemplate.replace("%s", title) : BASE_TITLE;
+const ogImageUrl = new URL(image ?? DEFAULT_OG_PATH, Astro.site).href;
+const canonicalUrl = canonical ?? Astro.url.href;
 ---
 
 <!doctype html>
 <html lang="en" data-theme-ready="true" transition:animate="none">
   <head>
     <meta charset="utf-8" />
+    <SEO
+      title={title}
+      titleTemplate={titleTemplate}
+      titleDefault={BASE_TITLE}
+      description={description}
+      canonical={canonicalUrl}
+      noindex={noindex}
+      nofollow={nofollow}
+      openGraph={{
+        basic: {
+          title: ogTitle ?? fullTitle,
+          type: ogType,
+          image: ogImageUrl,
+          url: canonicalUrl,
+        },
+        optional: {
+          description,
+          siteName: BASE_TITLE,
+        },
+        image: {
+          alt: imageAlt,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: ogTitle ?? fullTitle,
+        description,
+        image: ogImageUrl,
+        imageAlt,
+      }}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="viewport" content="width=device-width" />
@@ -84,7 +140,6 @@ const fullTitle = title
         }
       });
     </script>
-    <title>{fullTitle}</title>
   </head>
   <body
     class="bg-primary

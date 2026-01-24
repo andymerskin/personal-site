@@ -6,7 +6,9 @@ import HRule from "../../components/HRule.astro";
 import Prose from "../../components/Prose.astro";
 import RolesGrid from "../../components/RolesGrid.vue";
 import SkillsByGroup from "../../components/SkillsByGroup.astro";
+import StructuredData from "../../components/StructuredData.astro";
 import TooltipWrapper from "../../components/TooltipWrapper.astro";
+import { getSiteUrl } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -19,9 +21,40 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
 const { Content } = await render(entry);
+
+const siteUrl = getSiteUrl(Astro.site);
+const canonicalUrl = new URL(`/work/${entry.id}`, siteUrl).href;
+const description =
+  entry.data.headline ??
+  `${entry.data.type} work from ${entry.data.year}.`;
+const isPrivate = entry.data.category === "private";
+const ogImage = entry.data.logo?.src ?? `/open-graph/work/${entry.id}.png`;
+const ogImageUrl = new URL(String(ogImage), siteUrl).href;
+const creativeWorkSchema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: entry.data.title,
+  description,
+  url: canonicalUrl,
+  image: ogImageUrl,
+  creator: {
+    "@type": "Person",
+    name: "Andy Merskin",
+    url: siteUrl,
+  },
+  sameAs: entry.data.externalUrl,
+};
 ---
 
-<Layout title={entry.data.title}>
+<Layout
+  title={entry.data.title}
+  description={description}
+  canonical={canonicalUrl}
+  image={String(ogImage)}
+  imageAlt={`${entry.data.title} logo`}
+  noindex={isPrivate}
+>
+  <StructuredData data={creativeWorkSchema} />
   <header>
     <!-- Breadcrumb -->
     <nav>

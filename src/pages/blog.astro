@@ -2,14 +2,31 @@
 import { getCollection } from "astro:content";
 import BlogListEntry from "../components/BlogListEntry.astro";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
+import StructuredData from "../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import Layout from "../layouts/Layout.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const metadata = PAGE_METADATA.blog;
+const siteUrl = getSiteUrl(Astro.site);
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: metadata.title,
+  description: metadata.description,
+  url: new URL("/blog", siteUrl).href,
+};
 ---
 
-<Layout title="Blog">
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  image="/open-graph/blog.png"
+>
+  <StructuredData data={collectionSchema} />
   <h1 class="text-5xl font-bold tracking-tight">Blog</h1>
   <h2 class="text-2xl font-bold text-amber-500 mt-8">
     AI-GENERATED CONTENT BELOW, THE REAL STUFF IS COMING SOON!

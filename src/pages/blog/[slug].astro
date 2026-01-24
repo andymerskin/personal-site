@@ -1,7 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import removeMarkdown from "remove-markdown";
+import { getSiteUrl } from "../../config/pageMetadata";
 import Prose from "../../components/Prose.astro";
+import StructuredData from "../../components/StructuredData.astro";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -15,6 +18,35 @@ export async function getStaticPaths() {
 const { entry } = Astro.props as { entry: CollectionEntry<"blog"> };
 const { Content } = await render(entry);
 
+const siteUrl = getSiteUrl(Astro.site);
+const canonicalUrl = new URL(`/blog/${entry.id}`, siteUrl).href;
+const summary =
+  (entry.body ?? "")
+    .split("\n")
+    .map((line) => line.trim())
+    .find((line) => line && !line.startsWith("#")) ?? "";
+const description =
+  removeMarkdown(summary).replace(/\s+/g, " ").trim() ||
+  "A blog post by Andy Merskin.";
+const ogImage =
+  entry.data.image?.src ?? `/open-graph/blog/${entry.id}.png`;
+const ogImageUrl = new URL(ogImage, siteUrl).href;
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: entry.data.title,
+  description,
+  datePublished: entry.data.pubDate.toISOString(),
+  dateModified: entry.data.pubDate.toISOString(),
+  author: {
+    "@type": "Person",
+    name: "Andy Merskin",
+    url: siteUrl,
+  },
+  image: ogImageUrl,
+  mainEntityOfPage: canonicalUrl,
+};
+
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -23,7 +55,15 @@ const formatDate = (date: Date) =>
   }).format(date);
 ---
 
-<Layout title={entry.data.title}>
+<Layout
+  title={entry.data.title}
+  description={description}
+  canonical={canonicalUrl}
+  ogType="article"
+  image={ogImage}
+  imageAlt={`${entry.data.title} — Andy Merskin`}
+>
+  <StructuredData data={articleSchema} />
   <header>
     <nav class="inline">
       <a

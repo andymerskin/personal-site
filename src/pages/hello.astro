@@ -6,6 +6,8 @@ import HelloSkillsByGroup from "../components/HelloSkillsByGroup.astro";
 import HRule from "../components/HRule.astro";
 import RotatingHeadline from "../components/RotatingHeadline.vue";
 import SkillCardsGrid from "../components/SkillCardsGrid.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import type { SkillId } from "../content/skills.gen";
 import Layout from "../layouts/Layout.astro";
 
@@ -33,9 +35,32 @@ const featuredSkills: SkillId[] = [
   "netlify",
   "sdlc",
 ];
+
+const metadata = PAGE_METADATA.hello;
+const siteUrl = getSiteUrl(Astro.site);
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Andy Merskin",
+  url: siteUrl,
+  jobTitle: "Principal Software Engineer & Designer",
+  image: new URL("/open-graph/hello.png", siteUrl).href,
+  sameAs: [
+    "https://github.com/andymerskin",
+    "https://www.linkedin.com/in/andymerskin/",
+    "https://dribbble.com/andymerskin",
+    "https://codepen.io/andymerskin",
+  ],
+};
 ---
 
-<Layout title="Principal Software Engineer & Designer">
+<Layout
+  title="Principal Software Engineer & Designer"
+  description={metadata.description}
+  image="/open-graph/hello.png"
+  imageAlt="Andy Merskin — Personal Site"
+>
+  <StructuredData data={personSchema} />
   <RotatingHeadline client:load class="md:relative md:-top-1" />
   <p class="text-xl leading-relaxed dark:text-neutral-300">
     I'm a Principal Software Engineer (UI + UX, and budding Full Stack) <strong

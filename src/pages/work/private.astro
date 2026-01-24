@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import Tabs from "../../components/Tabs.astro";
 import WorkGrid from "../../components/WorkGrid.vue";
 import WorkPrivateGate from "../../components/WorkPrivateGate.vue";
+import StructuredData from "../../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
 
 const tabs = [
@@ -23,9 +25,25 @@ const privateCards = privateEntries.map(({ id, data }) => ({
   classes: data.classes ?? "",
   logoSrc: String(data.logo.src),
 }));
+
+const metadata = PAGE_METADATA["work/private"];
+const siteUrl = getSiteUrl(Astro.site);
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: metadata.title,
+  description: metadata.description,
+  url: new URL("/work/private", siteUrl).href,
+};
 ---
 
-<Layout title="Work">
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  image="/open-graph/work/private.png"
+  noindex
+>
+  <StructuredData data={collectionSchema} />
   <div class="flex flex-wrap items-center justify-between gap-4">
     <h1 class="text-5xl font-bold tracking-tight">Work</h1>
     <Tabs tabs={tabs} disableTransitions />

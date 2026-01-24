@@ -1,17 +1,34 @@
 ---
 import { getCollection } from "astro:content";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
+import StructuredData from "../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import ThoughtListEntry from "../components/ThoughtListEntry.astro";
 import Layout from "../layouts/Layout.astro";
 
 const thoughts = (await getCollection("thoughts")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+
+const metadata = PAGE_METADATA.thoughts;
+const siteUrl = getSiteUrl(Astro.site);
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: metadata.title,
+  description: metadata.description,
+  url: new URL("/thoughts", siteUrl).href,
+};
 ---
 
-<Layout title="Thoughts">
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  image="/open-graph/thoughts.png"
+>
+  <StructuredData data={collectionSchema} />
   <h1 class="text-5xl font-bold tracking-tight">Thoughts</h1>
-  <h2 class="text-2xl font-bold text-amber-500 mt-8">
+  <h2 class="mt-8 text-2xl font-bold text-amber-500">
     AI-GENERATED CONTENT BELOW, THE REAL STUFF IS COMING SOON!
   </h2>
   <div class="mt-8">

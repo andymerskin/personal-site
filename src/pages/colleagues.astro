@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import InfiniteScroller from "../components/InfiniteScroller.vue";
 import RecommendationCard from "../components/RecommendationCard.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import Layout from "../layouts/Layout.astro";
 
 const rawRecommendations = await getCollection("recommendations");
@@ -20,9 +22,24 @@ const recommendations = await Promise.all(
       };
     }),
 );
+
+const metadata = PAGE_METADATA.colleagues;
+const siteUrl = getSiteUrl(Astro.site);
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: metadata.title,
+  description: metadata.description,
+  url: new URL("/colleagues", siteUrl).href,
+};
 ---
 
-<Layout title="Colleagues">
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  image="/open-graph/colleagues.png"
+>
+  <StructuredData data={collectionSchema} />
   <h1 class="text-5xl font-bold tracking-tight">
     Building great teams starts with caring for your people
   </h1>
