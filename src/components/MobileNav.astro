@@ -11,7 +11,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
 
 <details class="md:hidden" data-mobile-nav>
   <summary
-    class="fixed top-6 right-4 z-50 inline-flex h-11 w-11 list-none items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 shadow-sm transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
+    class="fixed top-6 right-4 z-50 inline-flex h-11 w-11 list-none items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 shadow-sm transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50 cursor-pointer"
   >
     <span class="sr-only">Toggle menu</span>
     <i class="ri-menu-line text-2xl" />
@@ -105,8 +105,8 @@ const currentPath = normalizePathname(Astro.url.pathname);
   }
 
   details[data-mobile-nav][open] .mobile-nav-item {
-    animation: mobileNavItemIn 240ms ease-out both;
-    animation-delay: calc(var(--stagger-index) * 60ms);
+    animation: mobileNavItemIn 300ms ease-out both;
+    animation-delay: calc(var(--stagger-index) * 50ms);
   }
 
   @keyframes mobileNavItemIn {
