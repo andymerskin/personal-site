@@ -10,6 +10,12 @@ import SideNav from "../components/SideNav.astro";
 import MobileNav from "../components/MobileNav.astro";
 import StarsBackground from "../components/StarsBackground.vue";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import {
+  EXTERNAL_NAV_ITEMS,
+  NAV_ITEMS,
+  isActiveNavItem,
+  normalizePathname,
+} from "../config/navigation";
 import { DEFAULT_DESCRIPTION } from "../config/pageMetadata";
 
 export interface Props {
@@ -44,6 +50,7 @@ const {
 const fullTitle = title ? titleTemplate.replace("%s", title) : BASE_TITLE;
 const ogImageUrl = new URL(image ?? DEFAULT_OG_PATH, Astro.site).href;
 const canonicalUrl = canonical ?? Astro.url.href;
+const currentPath = normalizePathname(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -159,31 +166,66 @@ const canonicalUrl = canonical ?? Astro.url.href;
       transition:persist
     />
 
-    <div class="mx-auto max-w-5xl px-4 md:px-16 pt-8 lg:pt-16 pb-32">
+    <div class="mx-auto max-w-5xl px-4 md:px-16 lg:px-4 pt-8 lg:pt-16 pb-32">
       <!-- Mobile header -->
-      <header class="md:mb-16 lg:hidden md:flex md:items-start md:justify-between md:gap-8">
+      <header class="mb-8 md:mb-16 lg:hidden flex flex-col items-center md:items-start">
         <MobileNav />
-        <div class="flex flex-col items-center md:items-start">
-          <div class="flex items-center justify-center md:justify-start">
+        <div class="flex w-full flex-col items-center md:items-start">
+          <div class="flex flex-col items-center md:flex-row md:items-start md:gap-4">
             <a href="/">
               <ProfileImage />
             </a>
-          </div>
-          <div class="mb-8 flex flex-col items-center md:mb-0 md:items-start">
-            <div class="ml-6 flex items-center md:ml-0">
-              <a
-                href="/"
-                class="decoration-amber-500 decoration-2 hover:underline"
-              >
-                <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
-              </a>
-              <ThemeToggle transition:persist />
+            <div class="flex flex-col items-center md:items-start">
+              <div class="flex items-center ml-4 md:ml-0">
+                <a
+                  href="/"
+                  class="decoration-amber-500 decoration-2 hover:underline"
+                >
+                  <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+                </a>
+                <ThemeToggle transition:persist />
+              </div>
+              <LocationBadge />
+              <ul class="hidden items-center gap-x-3 md:flex">
+                {EXTERNAL_NAV_ITEMS.map((item) => (
+                  <li>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center py-1 opacity-66 hover:opacity-100"
+                      aria-label={item.label}
+                    >
+                      <i class:list={[item.icon, "text-2xl"]} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <LocationBadge />
           </div>
-        </div>
-        <div class="hidden md:flex md:flex-1 md:items-start md:mt-4">
-          <SideNav orientation="horizontal" />
+          <ul class="mt-6 hidden flex-wrap items-center justify-start gap-x-6 gap-y-2 md:flex">
+            {NAV_ITEMS.map((item) => {
+              const itemPath = normalizePathname(item.href);
+              const isActive = isActiveNavItem(currentPath, item);
+
+              return (
+                <li>
+                  <a
+                    href={itemPath}
+                    class:list={[
+                      "inline-flex items-center py-1 hover:opacity-100",
+                      isActive
+                        ? "font-bold underline decoration-amber-500 decoration-2 underline-offset-4"
+                        : "font-medium opacity-66",
+                    ]}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </header>
 
