@@ -62,6 +62,8 @@ const gradientId = `${componentId}-gradient`;
 
 let animationTimeline: gsap.core.Tween | null = null;
 let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
+let themeObserver: MutationObserver | null = null;
+let isActive = false;
 
 const setCircleRef = (el: unknown, index: number) => {
   if (el && el instanceof SVGCircleElement) {
@@ -172,12 +174,20 @@ const handleResize = () => {
   }, 150);
 };
 
-onMounted(async () => {
-  // Set initial dimensions from window (only available in browser)
+const isDarkMode = () => {
+  const doc = document.documentElement;
+  return doc.dataset.themeMode === "dark" || doc.classList.contains("dark");
+};
+
+const startAnimation = async () => {
+  if (isActive) return;
+  isActive = true;
+
+  // Set dimensions from window (only available in browser)
   width.value = window.innerWidth;
   height.value = Math.floor(window.innerHeight * props.heightFactor);
 
-  // Generate initial stars after dimensions are set
+  // Generate stars after dimensions are set
   stars.value = generateStars();
 
   // Initialize animation after stars are rendered
@@ -185,10 +195,12 @@ onMounted(async () => {
 
   // Set up resize listener
   window.addEventListener("resize", handleResize);
-});
+};
 
-onUnmounted(() => {
-  // Clean up resize listener
+const stopAnimation = () => {
+  if (!isActive) return;
+  isActive = false;
+
   window.removeEventListener("resize", handleResize);
 
   if (resizeTimeout) {
@@ -196,7 +208,6 @@ onUnmounted(() => {
     resizeTimeout = null;
   }
 
-  // Clean up GSAP animations
   if (animationTimeline) {
     animationTimeline.kill();
     animationTimeline = null;
@@ -205,6 +216,36 @@ onUnmounted(() => {
   if (svgRef.value) {
     const circles = svgRef.value.querySelectorAll("circle");
     gsap.killTweensOf(circles);
+  }
+};
+
+const handleThemeChange = () => {
+  if (isDarkMode()) {
+    startAnimation();
+  } else {
+    stopAnimation();
+  }
+};
+
+onMounted(() => {
+  handleThemeChange();
+
+  themeObserver = new MutationObserver(() => {
+    handleThemeChange();
+  });
+
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class", "data-theme-mode"],
+  });
+});
+
+onUnmounted(() => {
+  stopAnimation();
+
+  if (themeObserver) {
+    themeObserver.disconnect();
+    themeObserver = null;
   }
 });
 </script>
