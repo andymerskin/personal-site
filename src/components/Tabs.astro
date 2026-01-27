@@ -37,8 +37,10 @@ const normalizedCurrent = normalizePath(currentPath);
             "no-underline!",
             "bg-white",
             "ring-1",
-            "ring-neutral-200",
-            "hover:bg-neutral-50",
+            "ring-shade-primary/5",
+            "hover:bg-shade-primary/5",
+            "hover:ring-shade-primary/10",
+            "hover:z-10",
             "focus:z-10",
             "focus:ring-2",
             "focus:ring-amber-500",
@@ -47,9 +49,11 @@ const normalizedCurrent = normalizePath(currentPath);
             "dark:bg-neutral-900",
             "dark:text-neutral-100",
             "dark:hover:bg-neutral-800",
+            "dark:hover:ring-neutral-700",
+            "dark:hover:z-10",
             index > 0 && "border-l border-neutral-200 dark:border-neutral-800",
             isActive &&
-              "bg-neutral-100! font-bold dark:bg-neutral-800! dark:font-bold",
+              "bg-shade-primary/5! ring-shade-primary/10 font-bold dark:bg-neutral-800! dark:ring-neutral-700! dark:font-bold z-10",
           ]}
         >
           {tab.label}
