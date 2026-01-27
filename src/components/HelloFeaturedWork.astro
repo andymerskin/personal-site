@@ -2,6 +2,12 @@
 import { getCollection } from "astro:content";
 import WorkCard from "./WorkCard.astro";
 
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
 const allWork = await getCollection("work");
 const featuredWork = allWork.filter(
   (entry) => entry.id === "unify" || entry.id === "processunity",
@@ -14,7 +20,7 @@ const sortedFeaturedWork = featuredWork.sort((a, b) => {
 });
 ---
 
-<div class="flex items-center justify-between">
+<div class="flex items-center justify-between" class:list={[className]}>
   <h2 class="text-4xl font-bold">Recent work</h2>
   <a
     href="/work"
