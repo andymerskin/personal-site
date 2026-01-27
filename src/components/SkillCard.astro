@@ -1,0 +1,35 @@
+---
+export interface Props {
+  name: string;
+  icon?: string;
+  class?: string;
+  compact?: boolean;
+  titleAs?: "h3" | "h4";
+  titleClass?: string;
+}
+
+const {
+  name,
+  icon,
+  class: className,
+  compact = false,
+  titleAs = "h3",
+  titleClass,
+} = Astro.props;
+
+const TitleTag = titleAs;
+
+const getIconClass = (iconName?: string) => {
+  if (!iconName) return "ri-question-line";
+  return iconName.startsWith("ri-") ? iconName : `ri-${iconName}-line`;
+};
+---
+
+<div class:list={["card-base not-prose", compact && "p-3!", className]}>
+  <div class="flex items-center gap-3">
+    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300">
+      <i class={`${getIconClass(icon)} text-lg leading-none`} aria-hidden="true" />
+    </div>
+    <TitleTag class:list={["text-lg font-medium", titleClass]}>{name}</TitleTag>
+  </div>
+</div>

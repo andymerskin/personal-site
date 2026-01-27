@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { SKILL_TYPE_ORDER } from "../content.config.ts";
 import type { SkillId } from "../content/skills.gen";
+import SkillCard from "./SkillCard.astro";
 
 export interface Props {
   skills: SkillId[];
@@ -43,10 +44,6 @@ const formatTypeName = (type: string) => {
   return type.charAt(0).toUpperCase() + type.slice(1);
 };
 
-const getIconClass = (iconName?: string) => {
-  if (!iconName) return "ri-question-line";
-  return iconName.startsWith("ri-") ? iconName : `ri-${iconName}-line`;
-};
 ---
 
 {
@@ -57,19 +54,13 @@ const getIconClass = (iconName?: string) => {
           <h3 class="text-xl font-bold">{formatTypeName(type)}</h3>
           <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
             {skillsByType[type].map((skill) => (
-              <div class="card-base not-prose p-3!">
-                <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300">
-                    <i
-                      class={`${getIconClass(skill.data.icon)} text-lg leading-none`}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <h4 class="text-lg font-medium dark:font-medium">
-                    {skill.data.name}
-                  </h4>
-                </div>
-              </div>
+              <SkillCard
+                name={skill.data.name}
+                icon={skill.data.icon}
+                compact
+                titleAs="h4"
+                titleClass="dark:font-medium"
+              />
             ))}
           </div>
         </div>
@@ -83,17 +74,7 @@ const getIconClass = (iconName?: string) => {
       ]}
     >
       {skills.map((skill) => (
-        <div class="card-base not-prose">
-          <div class="flex items-center gap-3">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300">
-              <i
-                class={`${getIconClass(skill.data.icon)} text-lg leading-none`}
-                aria-hidden="true"
-              />
-            </div>
-            <h3 class="text-lg font-medium">{skill.data.name}</h3>
-          </div>
-        </div>
+        <SkillCard name={skill.data.name} icon={skill.data.icon} />
       ))}
     </div>
   )
