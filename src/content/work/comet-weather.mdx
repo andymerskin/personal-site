@@ -1,0 +1,121 @@
+---
+title: "Comet Weather App"
+category: "public"
+type: "Engineering & Design"
+year: "2023–Present"
+headline: "The ultra-minimalist weather app"
+externalUrl: "https://www.cometweather.app"
+logo: "../../images/work/comet-weather-logo-512.png"
+---
+
+import { Image } from "astro:assets";
+import ImageCarousel from "../../components/ImageCarousel.vue";
+import comet1 from "../../images/work/screenshots/cometweather-001.png";
+import comet2 from "../../images/work/screenshots/cometweather-002.png";
+import comet3 from "../../images/work/screenshots/cometweather-003.png";
+import comet4 from "../../images/work/screenshots/cometweather-004.png";
+import comet5 from "../../images/work/screenshots/cometweather-005.png";
+
+<ImageCarousel
+  client:load
+  id="comet-weather"
+  alt="Comet Weather screenshot"
+  animate
+  showDots
+  disableFocusRing
+>
+  <Image
+    src={comet1}
+    width={comet1.width}
+    height={comet1.height}
+    alt="Comet Weather screenshot"
+    sizes="(min-width: 768px) 728px, 100vw"
+    class="h-auto w-full max-h-[600px] object-contain select-none"
+    loading="lazy"
+    decoding="async"
+  />
+  <Image
+    src={comet2}
+    width={comet2.width}
+    height={comet2.height}
+    alt="Comet Weather screenshot"
+    sizes="(min-width: 768px) 728px, 100vw"
+    class="h-auto w-full max-h-[600px] object-contain select-none"
+    loading="lazy"
+    decoding="async"
+  />
+  <Image
+    src={comet3}
+    width={comet3.width}
+    height={comet3.height}
+    alt="Comet Weather screenshot"
+    sizes="(min-width: 768px) 728px, 100vw"
+    class="h-auto w-full max-h-[600px] object-contain select-none"
+    loading="lazy"
+    decoding="async"
+  />
+  <Image
+    src={comet4}
+    width={comet4.width}
+    height={comet4.height}
+    alt="Comet Weather screenshot"
+    sizes="(min-width: 768px) 728px, 100vw"
+    class="h-auto w-full max-h-[600px] object-contain select-none"
+    loading="lazy"
+    decoding="async"
+  />
+  <Image
+    src={comet5}
+    width={comet5.width}
+    height={comet5.height}
+    alt="Comet Weather screenshot"
+    sizes="(min-width: 768px) 728px, 100vw"
+    class="h-auto w-full max-h-[600px] object-contain select-none"
+    loading="lazy"
+    decoding="async"
+  />
+</ImageCarousel>
+
+## Rest in peace, Dark Sky
+
+In 2020, Apple acquired Dark Sky, known for its beautiful weather data display. Unfortunately, it was shut down in 2023 and the best parts were lost as Apple focused on its own standard weather app for iOS, leaving Android users in the dust.
+
+While Dark Sky offered a wide range of great features, like its minute-by-minute rain forecasts, radar visualizations, and the "time machine"—which allowed you to see what the weather was like at any point in the past—I decided to create a simple weather app focused on what I missed most: **the ability to see the shape of the temperature forecast for the next 24 hours + week.**
+
+You see, reading a straight list of numbers is enough of a cognitive burden for me that seeing temperatures charted out—relative to one another—is a game-changer for glanceability. In less than a couple seconds, I can tell right away where the day's going, and what to look out for in the coming week without even reading the numbers.
+
+Forget "highs" and "lows" when you can tell by the shape almost right away!
+
+I proudly use [**Comet Weather**](https://www.cometweather.app) every day now, and I'm not sure what I'd do without it—check it out, and let me know what you think! ☄️
+
+## What I used to build it
+
+**Comet Weather's** built as a Progressive Web App (PWA) using Vue 3 and Tailwind CSS. It's hosted on Netlify, and uses the Pirate Weather API for weather data.
+
+<SkillsByGroup
+  order={[
+    ["leadership", "design", "frontend"],
+    ["engineering", "backend", "delivery"],
+  ]}
+  skills={[
+    "css",
+    "feature-flags",
+    "html",
+    "netlify-functions",
+    "netlify",
+    "node-js",
+    "rapid-prototyping",
+    "rest-apis",
+    "tailwind",
+    "typescript",
+    "visual-design",
+    "vite",
+    "vue-3",
+  ]}
+/>
+
+## What's next for Comet Weather?
+
+- Add preference for metric vs imperial units.
+- Add the ability to add saved locations manually—right now, it only uses your current location.
+- Possibly port it to React Native for iOS and Android, as PWAs tend to feel a bit sluggish on mobile devices.
