@@ -18,7 +18,7 @@ const current = normalizePathname(Astro.url.pathname);
 
 <nav
   aria-label="Primary"
-  class:list={[className, "flex flex-wrap justify-between space-y-6 lg:block"]}
+  class:list={[className, "space-y-6 md:space-y-2 lg:block"]}
 >
   <ul
     class:list={[
@@ -51,7 +51,7 @@ const current = normalizePathname(Astro.url.pathname);
       })
     }
   </ul>
-  <hr class="hidden border-neutral-300 lg:block dark:border-neutral-700" />
+  <hr class="hidden border-neutral-300 lg:block w-40 dark:border-neutral-700" />
   <ul class="flex items-center gap-x-3">
     {
       EXTERNAL_NAV_ITEMS.map((item) => {

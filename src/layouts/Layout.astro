@@ -159,28 +159,32 @@ const canonicalUrl = canonical ?? Astro.url.href;
       transition:persist
     />
 
-    <div class="mx-auto max-w-5xl px-4 pt-16 pb-32">
+    <div class="mx-auto max-w-5xl px-4 md:px-16 pt-8 lg:pt-16 pb-32">
       <!-- Mobile header -->
-      <header class="mb-8 lg:hidden">
+      <header class="md:mb-16 lg:hidden md:flex md:items-start md:justify-between md:gap-8">
         <MobileNav />
-        <div class="flex items-center justify-center">
-          <a href="/">
-            <ProfileImage />
-          </a>
-        </div>
-        <div class="mb-8 flex flex-col items-center">
-          <div class="ml-6 flex items-center">
-            <a
-              href="/"
-              class="decoration-amber-500 decoration-2 hover:underline"
-            >
-              <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+        <div class="flex flex-col items-center md:items-start">
+          <div class="flex items-center justify-center md:justify-start">
+            <a href="/">
+              <ProfileImage />
             </a>
-            <ThemeToggle transition:persist />
           </div>
-          <LocationBadge />
+          <div class="mb-8 flex flex-col items-center md:mb-0 md:items-start">
+            <div class="ml-6 flex items-center md:ml-0">
+              <a
+                href="/"
+                class="decoration-amber-500 decoration-2 hover:underline"
+              >
+                <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+              </a>
+              <ThemeToggle transition:persist />
+            </div>
+            <LocationBadge />
+          </div>
         </div>
-        <SideNav orientation="horizontal" class="hidden md:block" />
+        <div class="hidden md:flex md:flex-1 md:items-start md:mt-4">
+          <SideNav orientation="horizontal" />
+        </div>
       </header>
 
       <!-- Desktop header -->
