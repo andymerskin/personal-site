@@ -8,6 +8,7 @@ import LocationBadge from "../components/LocationBadge.astro";
 import ProfileImage from "../components/ProfileImage.astro";
 import SideNav from "../components/SideNav.astro";
 import MobileNav from "../components/MobileNav.astro";
+import BackToTopButton from "../components/BackToTopButton.vue";
 import StarsBackground from "../components/StarsBackground.vue";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import {
@@ -255,5 +256,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
         </main>
       </div>
     </div>
+
+    <BackToTopButton client:load />
   </body>
 </html>
