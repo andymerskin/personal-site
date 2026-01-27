@@ -18,7 +18,7 @@
               :width="entry.logoAttrs.width"
               :height="entry.logoAttrs.height"
               alt=""
-              class="max-h-[60%] max-w-[85%] object-contain"
+              class="max-h-[80%] max-w-[85%] object-contain"
               loading="lazy"
               decoding="async"
             />
