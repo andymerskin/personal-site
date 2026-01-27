@@ -1,0 +1,64 @@
+---
+import type { SkillId } from "../content/skills.gen";
+import HelloSkillsByGroup from "./HelloSkillsByGroup.astro";
+import SkillCardsGrid from "./SkillCardsGrid.astro";
+
+interface Props {
+  featuredSkills: SkillId[];
+  class?: string;
+}
+
+const { featuredSkills, class: className } = Astro.props;
+---
+
+<section
+  class:list={["relative", "skills-expandable", "max-h-[520px] overflow-hidden", className]}
+  data-skill-expandable
+  data-expanded="false"
+>
+  <SkillCardsGrid skills={featuredSkills} groupByType />
+
+  <h3 class="mt-16 text-2xl font-bold">Everything else I'm familiar with:</h3>
+
+  <HelloSkillsByGroup class="mt-6" exclude={featuredSkills} />
+
+  <div class="skills-expandable__overlay absolute inset-x-0 bottom-0 h-40">
+    <div class="flex h-full items-end justify-center bg-linear-to-b from-transparent to-primary dark:to-neutral-950 pb-8">
+      <button
+        type="button"
+        class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-amber-400/50 bg-white px-4 py-2 text-sm font-semibold text-neutral-900 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-400 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 dark:border-amber-400/40 dark:bg-neutral-950/90 dark:text-neutral-100 dark:hover:border-amber-300 dark:hover:bg-neutral-900"
+        aria-expanded="false"
+        data-skill-expand-trigger
+      >
+        See more skills
+        <i class="ri-arrow-down-line text-base" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll("[data-skill-expandable]").forEach((container) => {
+    if (!(container instanceof HTMLElement)) return;
+    const button = container.querySelector("[data-skill-expand-trigger]");
+    if (!(button instanceof HTMLButtonElement)) return;
+
+    button.addEventListener("click", () => {
+      if (container.dataset.expanded === "true") return;
+      container.dataset.expanded = "true";
+      button.setAttribute("aria-expanded", "true");
+    });
+  });
+</script>
+
+<style>
+  [data-skill-expandable][data-expanded="true"] {
+    max-height: none;
+    overflow: visible;
+  }
+
+  [data-skill-expandable][data-expanded="true"] .skills-expandable__overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>

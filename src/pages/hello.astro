@@ -2,10 +2,9 @@
 import HelloAlert from "../components/HelloAlert.astro";
 import HelloFeaturedWork from "../components/HelloFeaturedWork.astro";
 import HelloRecommendations from "../components/HelloRecommendations.astro";
-import HelloSkillsByGroup from "../components/HelloSkillsByGroup.astro";
+import HelloSkillsExpandable from "../components/HelloSkillsExpandable.astro";
 import HRule from "../components/HRule.astro";
 import RotatingHeadline from "../components/RotatingHeadline.vue";
-import SkillCardsGrid from "../components/SkillCardsGrid.astro";
 import StructuredData from "../components/StructuredData.astro";
 import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import type { SkillId } from "../content/skills.gen";
@@ -94,13 +93,9 @@ const personSchema = {
     mobile development more. Here is my core skillset:
   </p>
 
-  <SkillCardsGrid class="mt-6" skills={featuredSkills} groupByType />
+  <HelloSkillsExpandable class="mt-6" featuredSkills={featuredSkills} />
 
-  <h3 class="mt-16 text-2xl font-bold">Everything else I'm familiar with:</h3>
+  <!-- <HRule class="my-12" /> -->
 
-  <HelloSkillsByGroup class="mt-6" exclude={featuredSkills} />
-
-  <HRule class="my-12" />
-
-  <HelloFeaturedWork />
+  <HelloFeaturedWork class="mt-24" />
 </Layout>
