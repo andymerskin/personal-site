@@ -4,57 +4,14 @@ export interface Props {
   class?: string;
 }
 
+import {
+  EXTERNAL_NAV_ITEMS,
+  NAV_ITEMS,
+  isActiveNavItem,
+  normalizePathname,
+} from "../config/navigation";
+
 const { orientation = "vertical", class: className } = Astro.props;
-
-type LinkItem = {
-  readonly href: string;
-  readonly label: string;
-  readonly external?: boolean;
-  readonly activePath?: string;
-};
-
-type IconItem = {
-  readonly href: string;
-  readonly icon: string;
-  readonly label: string;
-};
-
-const items: LinkItem[] = [
-  { href: "/hello", label: "Hello!" },
-  { href: "/work/public", label: "Work", activePath: "/work" },
-  { href: "/colleagues", label: "Colleagues" },
-  { href: "/blog", label: "Blog" },
-  { href: "/thoughts", label: "Thoughts" },
-  { href: "/photos", label: "Photos" },
-];
-
-const externalItems = [
-  {
-    href: "https://github.com/andymerskin",
-    icon: "ri-github-fill",
-    label: "GitHub",
-  },
-  {
-    href: "https://codepen.io/andymerskin",
-    icon: "ri-codepen-fill",
-    label: "CodePen",
-  },
-  {
-    href: "https://www.linkedin.com/in/andymerskin/",
-    icon: "ri-linkedin-fill",
-    label: "LinkedIn",
-  },
-  {
-    href: "https://dribbble.com/andymerskin",
-    icon: "ri-dribbble-fill",
-    label: "Dribbble",
-  },
-] as const satisfies IconItem[];
-
-const normalizePathname = (pathname: string) => {
-  if (pathname === "/") return "/";
-  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-};
 
 const current = normalizePathname(Astro.url.pathname);
 ---
@@ -72,21 +29,9 @@ const current = normalizePathname(Astro.url.pathname);
     ]}
   >
     {
-      items.map((item) => {
-        const itemPath =
-          "external" in item && item.external
-            ? item.href
-            : normalizePathname(item.href);
-        const activePath =
-          "external" in item && item.external
-            ? itemPath
-            : normalizePathname(item.activePath ?? item.href);
-        const isActive =
-          "external" in item && item.external
-            ? current.startsWith(itemPath)
-            : activePath === current ||
-              (activePath !== "/" && current.startsWith(`${activePath}/`));
-
+      NAV_ITEMS.map((item) => {
+        const itemPath = normalizePathname(item.href);
+        const isActive = isActiveNavItem(current, item);
         return (
           <li>
             <a
@@ -109,7 +54,7 @@ const current = normalizePathname(Astro.url.pathname);
   <hr class="hidden border-neutral-300 lg:block dark:border-neutral-700" />
   <ul class="flex items-center gap-x-3">
     {
-      externalItems.map((item) => {
+      EXTERNAL_NAV_ITEMS.map((item) => {
         return (
           <li>
             <a

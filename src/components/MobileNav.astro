@@ -1,0 +1,130 @@
+---
+import {
+  EXTERNAL_NAV_ITEMS,
+  NAV_ITEMS,
+  isActiveNavItem,
+  normalizePathname,
+} from "../config/navigation";
+
+const currentPath = normalizePathname(Astro.url.pathname);
+---
+
+<details class="md:hidden" data-mobile-nav>
+  <summary
+    class="fixed top-6 right-4 z-50 inline-flex h-11 w-11 list-none items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 shadow-sm transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
+  >
+    <span class="sr-only">Toggle menu</span>
+    <i class="ri-menu-line text-2xl" />
+    <i class="ri-close-line text-2xl" />
+  </summary>
+
+  <div class="fixed inset-0 z-40 bg-white dark:bg-neutral-800">
+    <nav
+      aria-label="Primary"
+      class="flex h-full flex-col px-6 pt-24"
+      data-astro-skip-transition="true"
+    >
+      <ul class="flex flex-col">
+        {
+          NAV_ITEMS.map((item, index) => {
+            const itemPath = normalizePathname(item.href);
+            const isActive = isActiveNavItem(currentPath, item);
+
+            return (
+              <li
+                class="mobile-nav-item"
+                style={`--stagger-index: ${index}`}
+              >
+                <a
+                  href={itemPath}
+                  class:list={[
+                    "flex h-12 items-center text-lg hover:opacity-100",
+                    isActive
+                      ? "font-bold underline decoration-amber-500 decoration-2 underline-offset-4"
+                      : "font-medium opacity-80",
+                  ]}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+
+      <div class="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-700">
+        <ul class="flex flex-col">
+          {
+            EXTERNAL_NAV_ITEMS.map((item, index) => {
+              const staggerIndex = NAV_ITEMS.length + index;
+
+              return (
+                <li
+                  class="mobile-nav-item"
+                  style={`--stagger-index: ${staggerIndex}`}
+                >
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex h-12 items-center gap-3 text-lg font-medium opacity-80 hover:opacity-100"
+                  >
+                    <i class:list={[item.icon, "text-2xl"]} />
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </nav>
+  </div>
+</details>
+
+<style>
+  details[data-mobile-nav] summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details[data-mobile-nav] summary i.ri-close-line {
+    display: none;
+  }
+
+  details[data-mobile-nav][open] summary i.ri-menu-line {
+    display: none;
+  }
+
+  details[data-mobile-nav][open] summary i.ri-close-line {
+    display: block;
+  }
+
+  details[data-mobile-nav] .mobile-nav-item {
+    opacity: 0;
+  }
+
+  details[data-mobile-nav][open] .mobile-nav-item {
+    animation: mobileNavItemIn 240ms ease-out both;
+    animation-delay: calc(var(--stagger-index) * 60ms);
+  }
+
+  @keyframes mobileNavItemIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    details[data-mobile-nav][open] .mobile-nav-item {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
