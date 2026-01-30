@@ -1,0 +1,26 @@
+---
+import type { SkillId } from "../content/skills.gen";
+import ExpandableSection from "./ExpandableSection.vue";
+import HelloSkillsByGroup from "./HelloSkillsByGroup.astro";
+import SkillCardsGrid from "./SkillCardsGrid.astro";
+
+interface Props {
+  featuredSkills: SkillId[];
+  class?: string;
+}
+
+const { featuredSkills, class: className } = Astro.props;
+---
+
+<ExpandableSection
+  class={className}
+  maxHeight="520px"
+  buttonText="See more skills"
+  client:load
+>
+  <SkillCardsGrid skills={featuredSkills} groupByType />
+
+  <h3 class="mt-16 text-2xl font-bold">Everything else I'm familiar with:</h3>
+
+  <HelloSkillsByGroup class="mt-6" exclude={featuredSkills} />
+</ExpandableSection>
