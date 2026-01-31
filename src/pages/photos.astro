@@ -56,7 +56,12 @@ const collectionSchema = {
   image="/open-graph/photos.png"
 >
   <StructuredData data={collectionSchema} />
-  <h1 class="text-5xl font-bold tracking-tight">Featured Photos</h1>
+  <h1 class="text-5xl font-bold tracking-tight">{metadata.title}</h1>
+  <p
+    class="mt-6 text-xl leading-relaxed text-neutral-700 dark:text-neutral-300"
+  >
+    {metadata.description}
+  </p>
   <div class="mt-8">
     {
       photos.length === 0 ? (

@@ -17,7 +17,7 @@
         "gsap": "^3.14.2",
         "js-yaml": "^4.1.1",
         "lucide-vue-next": "^0.562.0",
-        "remixicon": "^4.8.0",
+        "remixicon": "^4.9.1",
         "remove-markdown": "^0.6.2",
         "tailwindcss": "^4.1.18",
         "vue": "^3.5.26",
@@ -1641,7 +1641,7 @@
 
     "remark-stringify": ["remark-stringify@11.0.0", "", { "dependencies": { "@types/mdast": "^4.0.0", "mdast-util-to-markdown": "^2.0.0", "unified": "^11.0.0" } }, "sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw=="],
 
-    "remixicon": ["remixicon@4.8.0", "", {}, "sha512-8qTM/bWkmsAWitvcL9XrVPVdqHRrdmnNp4zCFBdmIHBygxfHWwoK6NzitbiMyRzjcXKBMlS/ab5M65/ZlxJTVA=="],
+    "remixicon": ["remixicon@4.9.1", "", {}, "sha512-36gLSoujkabnCFZFDyP17VNh9piuBA/rsXUb4auSJWLGsHVXtmxLj/EM5FjaEAGnk8oIAj1Azob/DZ2N+90lAQ=="],
 
     "remove-markdown": ["remove-markdown@0.6.2", "", {}, "sha512-EijDXJZbzpGbQBd852ViUzcqgpMujthM+SAEHiWCMcZonRbZ+xViWKLJA/vrwbDwYdxrs1aFDjpBhcGrZoJRGA=="],
 

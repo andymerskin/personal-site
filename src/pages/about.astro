@@ -1,0 +1,418 @@
+---
+import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import HRule from "../components/HRule.astro";
+import Prose from "../components/Prose.astro";
+import RecommendationCard from "../components/RecommendationCard.astro";
+import SkillCard from "../components/SkillCard.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
+import corgiImage from "../images/about/corgi.webp";
+import csnScreenshot from "../images/about/csn.png";
+import dormbuddyScreenshot from "../images/about/dormbuddy.jpg";
+import eastHighschoolScreenshot from "../images/about/easthighschool.jpg";
+import infowyoScreenshot from "../images/about/infowyo.jpg";
+import kfbcRadioScreenshot from "../images/about/kfbc-2010.png";
+import livingSecurityTeam from "../images/about/living-security-team.jpg";
+import mmfScreenshot from "../images/about/mmf.jpg";
+import printmasterCover from "../images/about/printmaster.webp";
+import proteusTeamPhoto from "../images/about/proteus-team.jpg";
+import signature from "../images/about/sig.png";
+import cybergrxScreenshot from "../images/work/screenshots/cybergrx-001.png";
+import ftMarketsDataScreenshot from "../images/work/screenshots/ft-001.webp";
+import unifyScreenshot from "../images/work/screenshots/unify-001.webp";
+import Layout from "../layouts/Layout.astro";
+
+const markdown = await createMarkdownProcessor();
+const recommendations = await getCollection("recommendations");
+
+// Sarah Wolfsont recommendation
+const sarahRecommendation = recommendations.find(
+  (r) => r.data.author === "Sarah Wolfsont"
+);
+const sarahBody = sarahRecommendation
+  ? (await markdown.render(sarahRecommendation.body ?? "")).code
+  : "";
+
+// Lexi Mitsuhashi recommendation
+const lexiRecommendation = recommendations.find(
+  (r) => r.data.author === "Lexi Mitsuhashi"
+);
+const lexiBody = lexiRecommendation
+  ? (await markdown.render(lexiRecommendation.body ?? "")).code
+  : "";
+
+// Matt Dew recommendation
+const mattRecommendation = recommendations.find(
+  (r) => r.data.author === "Matt Dew"
+);
+const mattBody = mattRecommendation
+  ? (await markdown.render(mattRecommendation.body ?? "")).code
+  : "";
+
+// Brandon Telle recommendation
+const brandonRecommendation = recommendations.find(
+  (r) => r.data.author === "Brandon Telle"
+);
+const brandonBody = brandonRecommendation
+  ? (await markdown.render(brandonRecommendation.body ?? "")).code
+  : "";
+
+const metadata = PAGE_METADATA.about;
+const siteUrl = getSiteUrl(Astro.site);
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: metadata.title,
+  description: metadata.description,
+  url: new URL("/about", siteUrl).href,
+};
+
+// Optimize images
+const imagesImports = {
+  csnScreenshot,
+  cybergrxScreenshot,
+  dormbuddyScreenshot,
+  eastHighschoolScreenshot,
+  ftMarketsDataScreenshot,
+  infowyoScreenshot,
+  kfbcRadioScreenshot,
+  livingSecurityTeam,
+  mmfScreenshot,
+  printmasterCover,
+  proteusTeamPhoto,
+  unifyScreenshot,
+};
+
+const optimizedImages = Object.fromEntries(
+  await Promise.all(
+    Object.entries(imagesImports).map(async ([key, value]) => [
+      key,
+      await getImage({
+        src: value,
+        widths: [600, 900, 1200],
+        sizes: "(max-width: 768px) 100vw, 800px",
+      }),
+    ])
+  )
+);
+
+const aboutContentIntro = `
+<span class="text-xl leading-relaxed">Hey there! I'm Andy, a passionate software engineer with a strong UX/UI design background. I hail from Cheyenne, WY, and have lived in the Denver area after graduating from Rocky Mountain College of Art + Design in 2013, ever since.</span>
+
+## What I do in my free time
+
+Professional homebody, how can I help you? 👋
+`;
+
+const aboutContentMain = `
+
+<div>
+  <div>10 minute read</div>
+  <h2 class="text-4xl! font-bold! tracking-tight my-0!">How I got into software</h2>
+</div>
+
+20 years of professional experience, and a lifetime of insatiable curiosity, let's dig in!
+
+## Computer-obsessed from a young age
+
+I couldn't get enough of computers the moment I laid hands on one and saw their infinite potential—from playing video games like [Tyrian 2000](https://www.gog.com/en/game/tyrian_2000) to surfing the beginnings of the web on AOL & Compuserve. (Psst! Pro-tip: you can bypass _AOL Kids_ simply by opening **Internet Explorer 6** after you connect your dial-up.)
+
+By around age 7, I was building "custom" computers out of cardboard, with carefully cut CPUs and RAM sticks with chips scribbled on them. It was a **Pentium II**, _you betta believe it!_ For Christmas one year, my parents (they said it was Santa) gave me a 3 x 2 ft whiteboard, and that's what I used as my "screen", where I started planning my own games and software. I had my own company, you know. 😉
+
+I eventually wanted to learn how software was made, and by age 8, I did what anyone else would do: opened **Broderbund PrintMaster** to start building my own operating system (called "ComOS"), and then quickly realized linking between pages in an e-card exported to HTML wasn't enough. It served as _one helluva_ prototyping tool, though!
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.printmasterCover.src}" alt="Broderbund PrintMaster cover" class="my-0! max-h-120" />
+  <figcaption>Broderbund PrintMaster, the ultimate IDE for building your own operating system 😅</figcaption>
+</div>
+
+_My imagination was running wild, I needed more..._
+
+### Visual programming
+
+I knew my way around the web enough to find and download software, and eventually discovered [The Games Factory](https://clickwiki.github.io/games-factory/) from Clickteam. I'd spend hours dinking around with the visual editor to place objects, using their spreadsheet-like programming interface to add event logic to my games.
+
+<div class="flex justify-center">
+  <img src="${optimizedImages.mmfScreenshot.src}" alt="Multimedia Fusion 1.5 Pro screenshot" />
+</div>
+
+Clickteam later released a more advanced version called [Multimedia Fusion 1.5 Pro](https://clickwiki.github.io/fusion/1.5/) which had a wider collection of objects and events to work with, giving me the ability to experiment with UI creation and simple app development. Their forums were second to none, full of passionate people creating extensions and sharing their knowledge.
+
+When I wasn't pranking my computer teacher with fake [BSODs](https://en.wikipedia.org/wiki/Blue_screen_of_death), I was frustrated popular file archiver tools like WinZIP and WinRAR didn't allow you to extract multiple archives in one go. By around age 14, I had built a ZIP unarchiver tool called **Multi-Unzip** to solve this gap, and released it on Softpedia back in 2003. 
+
+The web has changed so much, I can't even find it anymore. It's out there somewhere. 😂 I wish I could show you screenshots, alas.
+
+### A web of opportunities
+
+By high school, our computer class was creating websites and learning the basics of HTML, CSS, JavaScript, and PHP. I felt empowered to create anything I wanted, knowing how much potential the web had for full-fledged applications that went beyond the confines of an operating system.
+
+I designed and built the official website for my high school using **Photoshop 7**, **Dreamweaver MX 2004**, and a little PHP. It was a fun way to learn about the web and how to use it to create something useful, and my instructor was so proud I was able to repeat Apple's Aqua style.
+
+We also built a simple ordering system for our school's cooking class to deliver snacks to classrooms.
+
+![East High School Website screenshot](${optimizedImages.eastHighschoolScreenshot.src})
+
+Now that I was equipped to build simple multi-page websites, I started learning WordPress and writing contracts for local small businesses to build brochure sites with contact info, news, and other content. My mother worked for a news & talk radio station **KFBC 1240 AM Radio** in Cheyenne, WY—and since she was the 2nd in charge (and the accountant), she gave me an opportunity to build their official website in 2007, for a reasonable price.
+
+In 2009, I wrote my first freelance contract to build an affiliate site for the **Cowboy State News Network** called **InfoWyo**:
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.infowyoScreenshot.src}" alt="InfoWyo website screenshot" class="my-0!" />
+  <figcaption>InfoWyo website in 2009</figcaption>
+</div>
+
+In 2010, I rebuilt the KFBC Radio website using WordPress with a much more mature design and info architecture for its many sections:
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.kfbcRadioScreenshot.src}" alt="KFBC Radio website screenshot" class="my-0!" />
+  <figcaption>KFBC 1240 AM Radio website in 2010 • <a href="https://web.archive.org/web/20101023232654/http://www.kfbcradio.com/" target="_blank" rel="noopener noreferrer">Visit the archived website <i class="ri-external-link-line"></i></a></figcaption>
+</div>
+
+In 2013, another news site for their affiliate **Cowboy State News Network** called **Cowboy State News** was built using WordPress:
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.csnScreenshot.src}" alt="Cowboy State News website screenshot" class="my-0!" />
+  <figcaption>Cowboy State News website in 2013 • <a href="https://web.archive.org/web/20131204042206/http://cowboystatenews.com/" target="_blank" rel="noopener noreferrer">Visit the archived website <i class="ri-external-link-line"></i></a></figcaption>
+</div>
+
+This is just a snippet of the freelance work I did over the years—I'm grateful for all the opportunities I had working with a handful of small businesses and organizations to get their online presences established. 🚀
+
+### Webapps were taking off
+
+The summer before my first semester of college (2008), I realized how tricky it felt to organize everything needed for a 4-person apartment, so I built a simple webapp called **dormBuddy** for me and my roommates. What could have been a spreadsheet turned into a simple CRUD experience with a modern UI at the time, I figured why not? Who'd want to wait in line to return their 4th microwave anyway?
+
+> Hold on... you guys bought 4 microwaves? <span class="not-italic!">😂</span>
+
+![dormBuddy screenshot](${optimizedImages.dormbuddyScreenshot.src})
+
+I thought about licensing dormBuddy to universities to setup for their on-campus housing, but with college courses eating up all my time, I never got around to it. Despite my talents in web development and design, I was chasing after a degree in Youth Ministry as a higher calling at the time.
+
+By my 2nd year in school, I had a reality check and decided to pivot to Graphic Design, and transferred to [Rocky Mountain College of Art + Design](https://www.rmcad.edu/) to finish my BFA in Graphic Design.
+
+I continued to freelance for past and new clients, including a non-profit org  [Souls Palette Arts](https://web.archive.org/web/20191213001601/http://soulspalettearts.org/) in Denver, CO—focused on giving hospital patients an outlet for expression through art and music while they recovered. Having gone to an art college, their mission resonated with me.
+
+## Welcome to your first "real" job
+
+Fred Murrell, the Dean of Graphic Design at RMCAD at the time, had tight connections over at **Markit On Demand** (now Communify) in Boulder, CO—it was a no-brainer to apply and start my career there. My interview went exceptionally well, and I was offered a job as a UX / UI Designer for their many institutional and retail brokerage clients.
+
+I couldn't be more excited to start working with a team for the first time, not to mention with friends from school! I got exposure to countless design problems, first-hand user research and synthesis, and a deep understanding of the challenges of designing for the financial industry.
+
+When I joined the Design team, I offered a unique skillset being able to rapidly prototype web-based proof-of-concepts for our clients. I spent most of my time on the Design team not only wireframing and creating visual design mocks, but also wiring them up with **jQuery**, **Angular 1.x**, and **Vue 2** with my existing web-dev chops. This was also my first foray into **Single-Page Apps (SPAs)**, giving a strong interactive edge over our traditional static presentations.
+
+Since we had limited access to cloud-based tools, I created my own prototyping tool similar to **InVision** called [Wires](https://dribbble.com/shots/2015200-Wires-for-Mac-Dock-Icon). At the time, Figma didn't exist yet, so I had to get creative. Lacking a proper UI, it was entirely configuration-driven (YAML), making it stupid-easy to string together SVG exports from Adobe Illustrator and Sketch so we could demo flows to clients.
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.ftMarketsDataScreenshot.src}" alt="The Financial Times Markets Data section screenshot" class="my-0!" />
+  <figcaption>The Financial Times was a personal favorite client, getting to work on their Markets Data section • <a href="/work/ft" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
+</div>
+
+I built a high level of confidence creating complex UIs, charts, trading functionality, and interactivity. I eventually started leading / co-leading projects and driving conversations with our engineers—and our clients—to adjust scope according to their needs within the timeframes we were given.
+
+The company's culture and community were incredible, giving us the space to experiment and build our own tools and become more efficient. I'm grateful for the experience. I still miss it.
+`;
+
+const aboutContentMainPart2 = `
+### Moving to full-time software engineering
+
+By 2018, I wanted to get more serious about engineering and move beyond prototypes to real, production-grade software. Since I'd already built strong connections with our developers at Markit, I interviewed internally and joined a component team dedicated to supporting our feature teams, with a goal of writing shared libraries and components to help reduce our time to market.
+
+The team was incredibly talented and the work we did was amazing. It built my confidence working with a team on development projects collaboratively, and getting an peek into how projects are managed, scoped, and delivered using Agile methodologies and Scrum.
+
+![Proteus team photo](${optimizedImages.proteusTeamPhoto.src})
+
+Unfortunately the leadership at Markit changed their minds about the vision for our team, and we were disbanded within a year. After that, I moved on to developing more full-featured prototypes for our clients on a new prototyping team. By that time, I'd just purchased a home earlier that year, and was seeking higher pay, so I decided to move on.
+
+## Enter startup life
+
+Ready for something new, I reached out to an old colleague from Markit, and joined **CyberGRX** (now ProcessUnity) in late 2019 to help continue building their Third Party Risk Management platform.
+
+Sending third-party risk assessments to vendors and customers is a pain, so CyberGRX built a platform to help automate and standardize the process—a brilliant idea in light of haphazard spreadsheets ruling the day.
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.cybergrxScreenshot.src}" alt="CyberGRX screenshot" class="my-0! w-full" />
+  <figcaption>CyberGRX TPRM • <a href="/work/processunity" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
+</div>
+
+There, I was able to flex my leadership muscles more and help guide the evolution of their design system and component library, and build out new features while improving the overall user experience. I also helped lead a complete overhaul of their authentication flow, adding MFA capabilities to help customers fulfill compliance requirements using **AWS Cognito**, with a fully custom sign-in UI, forgot password flow, TOTP code validation, and more.
+
+I served as a central point of contact to keep our product team aligned, our backend team in sync, and QA testers in the loop to ensure what we were shipping was rock-solid.
+
+It's commonly known that working at a startup is a rollercoaster, and needless to say, it put me through the ringer in the best ways possible. It filled a lot of the knowledge gaps I had in front-end development that my more siloed work couldn't provide at previous jobs. I got to work with a lot of talented folks, and had the autonomy to help drive product decisions and choose cutting-edge technologies, like migrating to Tailwind CSS.
+`;
+
+const aboutContentMainPart3 = `
+## Onward to Living Security!
+
+Towards the end of my time at CyberGRX, our product planning was beginning to stagnate, leading to a complete standstill in engineering for a few months. Around the same time, a previous manager reached out to me to see if I'd be interested in a more senior UX / UI engineering role at **Living Security** based in Austin, TX. I was immediately interested, and after a few interviews, I was offered the role with haste!
+
+I found Living Security's business focus to be refreshing. I'd always hated how strict IT compliance could be at companies who put their locked down systems ahead of a great employee experience, limiting the tools available to keep the company efficient. Living Security's philosophy has always been zero-trust at the core, but that humans are ultimately the weakest link in any company's security posture, not just systems.
+
+Their focus was on cybersecurity training and compliance at first, but later started integrating it with their new product: [Unify](https://www.livingsecurity.com/platform/unify-enterprise), which is essentially a UEBA (User and Entity Behavior Analytics) platform on steroids, bringing in dozens of integrations to generate insights from user behavior and entity activity.
+
+<div class="flex flex-col items-center justify-center card-base">
+  <img src="${optimizedImages.unifyScreenshot.src}" alt="Living Security Unify screenshot" class="my-0! w-full" />
+  <figcaption>Living Security Unify • <a href="/work/unify" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
+</div>
+
+### My impact on Living Security
+
+Living Security was one of the most formative times in my career, with a culture that valued ownership, autonomy, and mutual trust in their engineering talent. Their [Unify platform](/work/unify) was still pretty greenfield, so their frontend development phase had only just started. I took the opportunity to add [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/) (through [Twin.Macro](https://github.com/ben-rogerson/twin.macro)), [React Query](https://tanstack.com/query/), and [Vite](https://vite.dev/)—all to modernize and set us up for success down the road as the product matured.
+
+This led to an estimated **~40% reduction in development time** (roughly 12-15 hours per week of tedium eliminated per engineer). **Vite reduced our build times by up to 70%** in our CI/CD pipelines, reducing build-time costs in GitHub Actions and Vercel, and a much more pleasant developer experience.
+`;
+
+const aboutContentMainPart4 = `
+I was soon asked to take ownership of the frontend development and help guide our architecture decisions, code quality, and the dev experience. I was responsible for coordinating with our product owners to help assess level of effort for new features in conjunction with our backend team. I also bridged the gap between our design team and engineers to help ensure their vision was fulfilled as we iterated.
+
+![Living Security onsite photo](${optimizedImages.livingSecurityTeam.src})
+
+### We built an award-winning product together
+
+In 2024, [we took the lead in **The Forrester Wave™**](https://www.livingsecurity.com/forrester-wave-report-2024) in their new Human Risk Management category—in fact, _we invented the category_ because our product offering was so unique, with competitors closing in fast. I'd never worked on a team so efficient before, and it felt amazing. I couldn't be more proud of the work we did, and the level of skill and humility everyone brought to the table.
+
+>Living Security punches above its weight to drive HRM adoption... Its vision clearly states how HRM works with adjacent security categories, receiving risk data and providing actionable insight. <span class="not-italic!">— The Forrester Wave</span>
+
+### Living Security's future
+
+As Unify inspired the market to catch up, Living Security needed to ensure they kept the lead in HRM, and decided to consolidate their products more, so with the help of LLMs, the engineering leadership pivoted to vibe-code (risky move!) the new Living Security Platform as quickly as possible, using everything we had learned from Unify, with AI-native features baked in.
+
+This also meant that our engineering team needed fewer people to fulfill that vision with the efficiency gains they'd built into their new process, and they decided to let me go despite being a top-performer and a key contributor to the success of Unify. I knew layoffs were inevitable, so it came as no surprise to me. There wasn't much else for me to learn there, and my role was effectively redundant with too many senior-level engineers on the team.
+
+I was given generous severance pay to help ease me into whatever's next. I'm grateful for the 4 years of growth I had there, and for the leadership's willingness to take care of me as I transitioned out. 💪
+`;
+
+const aboutContentMainPart5 = `
+## What's next?
+
+Now I'm seeking a new **Principal UX / UI Engineer** role (Staff roles are welcome too, if the compensation is right!). As someone who follows Jesus Christ 🙏, I fully trust He's got something carved out for me, so I'm leaning on Him to orchestrate the right opportunities.
+
+### If you have a position open that you think would be a great fit, hit me up!
+
+I'm currently looking for roles that will challenge me more in full-stack development (specifically TypeScript backends), or React Native for mobile apps—something that might stretch my skillset beyond front-end development. I'm also more than open to flex my existing skills if it means building something exciting and it's a good fit.
+
+What a journey this has been—it's not over yet!
+
+Cheers, and thanks for reading! 🙌
+
+<div class="not-prose">
+<img src="${signature.src}" alt="Signed, Andy Merskin" class="my-0! w-20 dark:invert" /></div>
+`;
+
+const { code: aboutHtmlIntro } = await markdown.render(aboutContentIntro);
+const { code: aboutHtmlMain } = await markdown.render(aboutContentMain);
+const { code: aboutHtmlMainPart2 } = await markdown.render(
+  aboutContentMainPart2
+);
+const { code: aboutHtmlMainPart3 } = await markdown.render(
+  aboutContentMainPart3
+);
+const { code: aboutHtmlMainPart4 } = await markdown.render(
+  aboutContentMainPart4
+);
+const { code: aboutHtmlMainPart5 } = await markdown.render(
+  aboutContentMainPart5
+);
+
+const hobbies = [
+  { name: "PC Gaming", icon: "ri-gamepad-line" },
+  { name: "Side projects", icon: "ri-code-line" },
+  { name: "Volleyball", icon: "ri-football-line" },
+  { name: "Hiking", icon: "ri-walk-line" },
+  { name: "Backpacking & Camping", icon: "ri-tent-line" },
+  { name: "Photography", icon: "ri-camera-4-line" },
+  { name: "Writing", icon: "ri-pencil-line" },
+  { name: "Cooking", icon: "ri-restaurant-2-line" },
+  { name: "Piano by ear", icon: "ri-piano-grand-line" },
+  { name: "MBTI / Enneagram", icon: "ri-brain-4-line" },
+  { name: "Politics & Debates", icon: "ri-quill-pen-line" },
+  { name: "Corgi-obsessed", image: corgiImage },
+];
+---
+
+<Layout title={metadata.title} description={metadata.description}>
+  <StructuredData data={pageSchema} />
+  <h1 class="text-5xl font-bold tracking-tight">About me</h1>
+  <h2 class="mt-6 text-xl leading-relaxed"></h2>
+  <div class="mt-8">
+    <Prose>
+      <div set:html={aboutHtmlIntro} />
+    </Prose>
+
+    <div class="grid grid-cols-2 gap-2">
+      {
+        hobbies.map((hobby) => (
+          <SkillCard
+            compact
+            name={hobby.name}
+            icon={hobby.icon}
+            image={hobby.image}
+          />
+        ))
+      }
+    </div>
+
+    <HRule class="my-8" />
+
+    <Prose>
+      <div set:html={aboutHtmlMain} />
+    </Prose>
+
+    <div class="my-12">
+      {
+        sarahRecommendation && (
+          <RecommendationCard recommendation={sarahRecommendation.data}>
+            <div set:html={sarahBody} />
+          </RecommendationCard>
+        )
+      }
+    </div>
+
+    <Prose>
+      <div set:html={aboutHtmlMainPart2} />
+    </Prose>
+
+    <div class="my-12">
+      {
+        lexiRecommendation && (
+          <RecommendationCard recommendation={lexiRecommendation.data}>
+            <div set:html={lexiBody} />
+          </RecommendationCard>
+        )
+      }
+    </div>
+
+    <Prose>
+      <div set:html={aboutHtmlMainPart3} />
+    </Prose>
+
+    <div class="my-12">
+      {
+        mattRecommendation && (
+          <RecommendationCard recommendation={mattRecommendation.data}>
+            <div set:html={mattBody} />
+          </RecommendationCard>
+        )
+      }
+    </div>
+
+    <Prose>
+      <div set:html={aboutHtmlMainPart4} />
+    </Prose>
+
+    <div class="my-12">
+      {
+        brandonRecommendation && (
+          <RecommendationCard recommendation={brandonRecommendation.data}>
+            <div set:html={brandonBody} />
+          </RecommendationCard>
+        )
+      }
+    </div>
+
+    <Prose>
+      <div set:html={aboutHtmlMainPart5} />
+    </Prose>
+  </div>
+</Layout>

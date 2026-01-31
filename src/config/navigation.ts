@@ -17,6 +17,7 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/blog", label: "Blog" },
   { href: "/thoughts", label: "Thoughts" },
   { href: "/photos", label: "Photos" },
+  { href: "/about", label: "About" },
 ];
 
 export const EXTERNAL_NAV_ITEMS = [

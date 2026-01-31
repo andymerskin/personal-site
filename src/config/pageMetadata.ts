@@ -40,6 +40,10 @@ export const PAGE_METADATA = {
   },
   photos: {
     title: "Photos",
-    description: "A few shots of life.",
+    description: "A few shots capturing life, adventures in Norway, and treks around the majestic Rocky Mountains.",
+  },
+  about: {
+    title: "About",
+    description: "Learn more about Andy Merskin.",
   },
 } as const;
