@@ -28,15 +28,19 @@ const getIconClass = (iconName?: string) => {
   if (!iconName) return "ri-question-line";
   return iconName.startsWith("ri-") ? iconName : `ri-${iconName}-line`;
 };
-
-console.log(image);
 ---
 
-<div class:list={["card-base not-prose hover:bg-shade-primary/2! dark:hover:bg-cyan-900! transition-colors duration-2000 ease-in-out hover:duration-0", compact && "p-3!", className]}>
+<div
+  class:list={[
+    "card-base not-prose hover:bg-shade-primary/2! transition-colors duration-2000 ease-in-out hover:duration-0 dark:hover:bg-cyan-900!",
+    compact && "p-3!",
+    className,
+  ]}
+>
   <div class="flex items-center gap-3">
     {
       image ? (
-        <div class="flex h-10 w-10 p-1 shrink-0 items-center justify-center">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center p-1">
           <Image src={image} alt={name} />
         </div>
       ) : (

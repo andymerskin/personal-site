@@ -26,8 +26,6 @@ const recommendations = await Promise.all(
     );
     const { code: bodyHtml } = await markdown.render(rec.body ?? "");
 
-    console.log({ previewBodyHtml, bodyHtml });
-
     return {
       id: rec.id,
       data: rec.data,
