@@ -121,7 +121,7 @@ I couldn't get enough of computers the moment I laid hands on one and saw their 
 
 By around age 7, I was building "custom" computers out of cardboard, with carefully cut CPUs and RAM sticks with chips scribbled on them. It was a **Pentium II**, _you betta believe it!_ For Christmas one year, my parents (they said it was Santa) gave me a 3 x 2 ft whiteboard, and that's what I used as my "screen", where I started planning my own games and software. I had my own company, you know. 😉
 
-I eventually wanted to learn how software was made, and by age 8, I did what anyone else would do: opened **Broderbund PrintMaster** to start building my own operating system (called "ComOS"), and then quickly realized linking between pages in an e-card exported to HTML wasn't enough. It served as _one helluva_ prototyping tool, though!
+I deeply desired to learn how software was made, and by age 8, I did what anyone else would do: opened **Broderbund PrintMaster** to start building my own operating system (called "ComOS"), and then quickly realized linking between pages in an e-card exported to HTML wasn't enough. It served as _one helluva_ prototyping tool, though!
 
 <div class="flex flex-col items-center justify-center card-base">
   <img src="${optimizedImages.printmasterCover.src}" alt="Broderbund PrintMaster cover" class="my-0! max-h-120" />
@@ -199,14 +199,14 @@ Fred Murrell, the Dean of Graphic Design at RMCAD at the time, had tight connect
 
 I couldn't be more excited to start working with a team for the first time, not to mention with friends from school! I got exposure to countless design problems, first-hand user research and synthesis, and a deep understanding of the challenges of designing for the financial industry.
 
-When I joined the Design team, I offered a unique skillset being able to rapidly prototype web-based proof-of-concepts for our clients. I spent most of my time on the Design team not only wireframing and creating visual design mocks, but also wiring them up with **jQuery**, **Angular 1.x**, and **Vue 2** with my existing web-dev chops. This was also my first foray into **Single-Page Apps (SPAs)**, giving a strong interactive edge over our traditional static presentations.
-
-Since we had limited access to cloud-based tools, I created my own prototyping tool similar to **InVision** called [Wires](https://dribbble.com/shots/2015200-Wires-for-Mac-Dock-Icon). At the time, Figma didn't exist yet, so I had to get creative. Lacking a proper UI, it was entirely configuration-driven (YAML), making it stupid-easy to string together SVG exports from Adobe Illustrator and Sketch so we could demo flows to clients.
-
 <div class="flex flex-col items-center justify-center card-base">
   <img src="${optimizedImages.ftMarketsDataScreenshot.src}" alt="The Financial Times Markets Data section screenshot" class="my-0!" />
   <figcaption>The Financial Times was a personal favorite client, getting to work on their Markets Data section • <a href="/work/ft" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
 </div>
+
+When I joined the Design team, I offered a unique skillset being able to rapidly prototype web-based proof-of-concepts for our clients. I spent most of my time on the Design team not only wireframing and creating visual design mocks, but also wiring them up with **jQuery**, **Angular 1.x**, and **Vue 2** with my existing web-dev chops. This was also my first foray into **Single-Page Apps (SPAs)**, giving a strong interactive edge over our traditional static presentations.
+
+Since we had limited access to cloud-based tools, I created my own prototyping tool similar to **InVision** called [Wires](https://dribbble.com/shots/2015200-Wires-for-Mac-Dock-Icon). At the time, Figma didn't exist yet, so I had to get creative. Lacking a proper UI, it was entirely configuration-driven (YAML), making it stupid-easy to string together SVG exports from Adobe Illustrator and Sketch so we could demo flows to clients.
 
 I built a high level of confidence creating complex UIs, charts, trading functionality, and interactivity. I eventually started leading / co-leading projects and driving conversations with our engineers—and our clients—to adjust scope according to their needs within the timeframes we were given.
 
@@ -340,7 +340,7 @@ const hobbies = [
       <div set:html={aboutHtmlIntro} />
     </Prose>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       {
         hobbies.map((hobby) => (
           <SkillCard
