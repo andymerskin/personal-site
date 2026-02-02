@@ -32,7 +32,7 @@ const getIconClass = (iconName?: string) => {
 console.log(image);
 ---
 
-<div class:list={["card-base not-prose", compact && "p-3!", className]}>
+<div class:list={["card-base not-prose hover:bg-shade-primary/2! dark:hover:bg-cyan-900! transition-colors duration-2000 ease-in-out hover:duration-0", compact && "p-3!", className]}>
   <div class="flex items-center gap-3">
     {
       image ? (
