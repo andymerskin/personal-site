@@ -66,7 +66,27 @@
   src: "../images/photos/sunflower.jpg"
   caption: "Wyoming Summer Sunflower"
   year: 2017
-- id: "zion-np"
-  src: "../images/photos/zion-np.jpg"
+- id: "zion-2016-001"
+  src: "../images/photos/zion-2016-001.jpg"
+  caption: "Zion National Park"
+  year: 2016
+- id: "zion-2017-001"
+  src: "../images/photos/zion-2017-001.jpg"
   caption: "Zion National Park"
   year: 2017
+- id: "zion-2017-002"
+  src: "../images/photos/zion-2017-002.jpg"
+  caption: "Zion National Park"
+  year: 2017
+- id: "zion-2018-001"
+  src: "../images/photos/zion-2018-001.jpg"
+  caption: "Zion National Park"
+  year: 2018
+- id: "zion-2018-002"
+  src: "../images/photos/zion-2018-002.jpg"
+  caption: "Zion National Park"
+  year: 2018
+- id: "zion-2018-003"
+  src: "../images/photos/zion-2018-003.jpg"
+  caption: "Zion National Park"
+  year: 2018
