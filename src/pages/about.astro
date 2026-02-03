@@ -32,7 +32,7 @@ const sarahRecommendation = recommendations.find(
   (r) => r.data.author === "Sarah Wolfsont"
 );
 const sarahBody = sarahRecommendation
-  ? (await markdown.render(sarahRecommendation.body ?? "")).code
+  ? (await markdown.render(sarahRecommendation.data.previewBody ?? sarahRecommendation.body ?? "")).code
   : "";
 
 // Lexi Mitsuhashi recommendation
@@ -40,7 +40,7 @@ const lexiRecommendation = recommendations.find(
   (r) => r.data.author === "Lexi Mitsuhashi"
 );
 const lexiBody = lexiRecommendation
-  ? (await markdown.render(lexiRecommendation.body ?? "")).code
+  ? (await markdown.render(lexiRecommendation.data.previewBody ?? lexiRecommendation.body ?? "")).code
   : "";
 
 // Matt Dew recommendation
@@ -48,7 +48,7 @@ const mattRecommendation = recommendations.find(
   (r) => r.data.author === "Matt Dew"
 );
 const mattBody = mattRecommendation
-  ? (await markdown.render(mattRecommendation.body ?? "")).code
+  ? (await markdown.render(mattRecommendation.data.previewBody ?? mattRecommendation.body ?? "")).code
   : "";
 
 // Brandon Telle recommendation
@@ -56,7 +56,7 @@ const brandonRecommendation = recommendations.find(
   (r) => r.data.author === "Brandon Telle"
 );
 const brandonBody = brandonRecommendation
-  ? (await markdown.render(brandonRecommendation.body ?? "")).code
+  ? (await markdown.render(brandonRecommendation.data.previewBody ?? brandonRecommendation.body ?? "")).code
   : "";
 
 const metadata = PAGE_METADATA.about;
