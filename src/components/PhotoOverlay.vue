@@ -29,9 +29,7 @@
       <div
         class="pointer-events-none relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-6 lg:p-8 xl:p-12"
       >
-        <div
-          class="pointer-events-none w-full max-w-[98vw]"
-        >
+        <div class="pointer-events-none w-full max-w-[98vw]">
           <ImageCarousel
             ref="carouselRef"
             class="pointer-events-none"
@@ -61,7 +59,7 @@
                 <p
                   class="pointer-events-auto text-base text-neutral-900 dark:text-neutral-50"
                 >
-                  {{ photo.caption }}
+                  {{ photo.caption }} • {{ photo.year }}
                 </p>
               </div>
             </div>
@@ -79,18 +77,9 @@ import ImageCarousel from "./ImageCarousel.vue";
 interface PhotoItem {
   id: string;
   caption: string;
-  thumbAttrs: {
-    src: string;
-    srcset?: string;
-    sizes?: string;
-    width: number;
-    height: number;
-  };
-  fullAttrs: {
-    src: string;
-    width: number;
-    height: number;
-  };
+  year: number;
+  thumbAttrs: ImageMetadata;
+  fullAttrs: ImageMetadata;
 }
 
 const props = defineProps<{

@@ -77,6 +77,7 @@ const photos = defineCollection({
     z.object({
       src: image(),
       caption: z.string(),
+      year: z.number(),
     }),
 });
 

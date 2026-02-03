@@ -11,8 +11,8 @@ const photoItems = await Promise.all(
   photos.map(async (photo) => {
     const thumb = await getImage({
       src: photo.data.src,
-      widths: [360, 600],
-      sizes: "(max-width: 639px) 600px, 360px",
+      widths: [360, 800],
+      sizes: "(max-width: 768px) 800px, 360px",
     });
 
     const full = await getImage({
@@ -23,17 +23,20 @@ const photoItems = await Promise.all(
     return {
       id: photo.id,
       caption: photo.data.caption,
+      year: photo.data.year,
       thumbAttrs: {
         src: thumb.src,
         srcset: thumb.srcSet?.attribute,
         sizes: thumb.attributes.sizes,
         width: thumb.attributes.width,
         height: thumb.attributes.height,
+        format: thumb.attributes.format,
       },
       fullAttrs: {
         src: full.src,
         width: full.attributes.width,
         height: full.attributes.height,
+        format: full.attributes.format,
       },
     };
   }),

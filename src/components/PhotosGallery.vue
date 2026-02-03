@@ -12,7 +12,7 @@
       >
         <img
           v-bind="photo.thumbAttrs"
-          :alt="photo.caption"
+          :alt="`${photo.caption} (${photo.year})`"
           class="h-full w-full object-cover"
           loading="lazy"
           decoding="async"
@@ -40,18 +40,9 @@ import PhotoOverlay from "./PhotoOverlay.vue";
 interface PhotoItem {
   id: string;
   caption: string;
-  thumbAttrs: {
-    src: string;
-    srcset?: string;
-    sizes?: string;
-    width: number;
-    height: number;
-  };
-  fullAttrs: {
-    src: string;
-    width: number;
-    height: number;
-  };
+  year: number;
+  thumbAttrs: ImageMetadata;
+  fullAttrs: ImageMetadata;
 }
 
 const props = defineProps<{
@@ -92,22 +83,22 @@ const animatePhotos = async () => {
 
 const getPhotoIdFromUrl = () => {
   const url = new URL(window.location.href);
-  return url.searchParams.get("photo");
+  return url.searchParams.get("item");
 };
 
 const getIndexFromPhotoId = (photoId: string) =>
   props.photos.findIndex((photo) => photo.id === photoId);
 
-const setUrlPhotoParam = (
+const setUrlItemParam = (
   photoId: string | null,
   method: "push" | "replace",
   state?: unknown,
 ) => {
   const url = new URL(window.location.href);
   if (photoId) {
-    url.searchParams.set("photo", photoId);
+    url.searchParams.set("item", photoId);
   } else {
-    url.searchParams.delete("photo");
+    url.searchParams.delete("item");
   }
 
   const fn = method === "push" ? history.pushState : history.replaceState;
@@ -134,7 +125,10 @@ const syncFromUrl = () => {
 const openOverlay = (index: number) => {
   const photo = props.photos[index];
   if (!photo) return;
-  setUrlPhotoParam(photo.id, "push", { photoOverlay: true, photoId: photo.id });
+  setUrlItemParam(photo.id, "push", {
+    photoOverlay: true,
+    photoId: photo.id,
+  });
   activeIndex.value = index + 1;
   isOpen.value = true;
 };
@@ -146,7 +140,7 @@ const closeOverlay = () => {
     return;
   }
 
-  setUrlPhotoParam(null, "replace", null);
+  setUrlItemParam(null, "replace", null);
   isOpen.value = false;
 };
 
@@ -155,7 +149,7 @@ const handleOverlayChange = (nextIndex: number) => {
   const photo = props.photos[nextIndex - 1];
   if (!photo) return;
   activeIndex.value = nextIndex;
-  setUrlPhotoParam(photo.id, "replace");
+  setUrlItemParam(photo.id, "replace");
 };
 
 const handlePopState = () => {
