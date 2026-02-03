@@ -91,10 +91,9 @@ const optimizedImages = Object.fromEntries(
       key,
       await getImage({
         src: value,
-        quality: "high",
-        // densities: [2, 3],
-        widths: [800, 1600],
-        sizes: "(min-width: 768px) 1600px, 800px"
+        quality: "max",
+        widths: [728, 1600],
+        sizes: "(min-width: 768px) 1600px, 728px"
       }),
     ])
   )
