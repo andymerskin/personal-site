@@ -24,56 +24,18 @@ import comet5 from "../../images/work/screenshots/cometweather-005.png";
   showDots
   disableFocusRing
 >
-  <Image
-    src={comet5}
-    width={comet5.width}
-    height={comet5.height}
-    alt="Comet Weather screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full max-h-[600px] object-contain select-none"
-    loading="lazy"
-    decoding="async"
-  />
-  <Image
-    src={comet1}
-    width={comet1.width}
-    height={comet1.height}
-    alt="Comet Weather screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full max-h-[600px] object-contain select-none"
-    loading="lazy"
-    decoding="async"
-  />
-  <Image
-    src={comet2}
-    width={comet2.width}
-    height={comet2.height}
-    alt="Comet Weather screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full max-h-[600px] object-contain select-none"
-    loading="lazy"
-    decoding="async"
-  />
-  <Image
-    src={comet3}
-    width={comet3.width}
-    height={comet3.height}
-    alt="Comet Weather screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full max-h-[600px] object-contain select-none"
-    loading="lazy"
-    decoding="async"
-  />
-  <Image
-    src={comet4}
-    width={comet4.width}
-    height={comet4.height}
-    alt="Comet Weather screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full max-h-[600px] object-contain select-none"
-    loading="lazy"
-    decoding="async"
-  />
+  {[comet5, comet1, comet2, comet3, comet4].map((image) => (
+    <Image
+      src={image}
+      alt="Comet Weather screenshot"
+      width={280}
+      quality="high"
+      densities={[2, 3]}
+      class="object-contain select-none rounded-xl"
+      loading="lazy"
+      decoding="async"
+    />
+  ))}
 </ImageCarousel>
 
 ## Rest in peace, Dark Sky

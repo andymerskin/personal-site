@@ -11,7 +11,14 @@ logo: "../../images/work/utb-logo.svg"
 import { Image } from "astro:assets";
 import utbScreenshot from "../../images/work/screenshots/utb-001.webp";
 
-<Image src={utbScreenshot} alt="Unite the Bride screenshot" width={728} />
+<Image
+  src={utbScreenshot}
+  alt="Unite the Bride screenshot"
+  quality="high"
+  densities={[2, 3]}
+  loading="lazy"
+  decoding="async"
+/>
 
 I designed the branding and built a landing page for Unite the Bride, a non-profit dedicated to the rehabilitation and reintegration of formerly incarcerated individuals, as well as trafficking survivors. The project focused on communicating their mission to provide critical housing and support services, helping individuals navigate to stable, independent living.
 

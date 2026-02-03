@@ -11,7 +11,15 @@ logo: "../../images/work/spriggan-256.png"
 import { Image } from "astro:assets";
 import sprigganAnimation from "../../images/work/screenshots/spriggan.gif";
 
-<Image src={sprigganAnimation} alt="Spriggan screenshot" width={728} />
+<Image
+  src={sprigganAnimation}
+  alt="Spriggan screenshot"
+  width={728}
+  quality="high"
+  densities={[2, 3]}
+  loading="lazy"
+  decoding="async"
+/>
 
 <div class="text-sm text-neutral-500">
   Amazing logo and branding by my talented friend, [Brian

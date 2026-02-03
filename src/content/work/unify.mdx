@@ -27,31 +27,28 @@ import unify3 from "../../images/work/screenshots/unify-003.webp";
 >
   <Image
     src={unify1}
-    width={unify1.width}
-    height={unify1.height}
+    quality="high"
+    densities={[2, 3]}
     alt="Unify screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full object-contain select-none"
+    class="h-auto w-full object-contain select-none rounded-lg"
     loading="lazy"
     decoding="async"
   />
   <Image
     src={unify2}
-    width={unify2.width}
-    height={unify2.height}
+    quality="high"
+    densities={[2, 3]}
     alt="Unify screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full object-contain select-none"
+    class="h-auto w-full object-contain select-none rounded-lg"
     loading="lazy"
     decoding="async"
   />
   <Image
     src={unify3}
-    width={unify3.width}
-    height={unify3.height}
+    quality="high"
+    densities={[2, 3]}
     alt="Unify screenshot"
-    sizes="(min-width: 768px) 728px, 100vw"
-    class="h-auto w-full object-contain select-none"
+    class="h-auto w-full object-contain select-none rounded-lg"
     loading="lazy"
     decoding="async"
   />
@@ -78,7 +75,15 @@ Unify analyzes security data from multiple integrations to generate risk scores 
   <span>I wore many hats</span>
   <Tooltip class="inline">
     <ChefHat slot="trigger" class="cursor-help" />
-    <Image src={rataouille} alt="Andy wearing many hats" width={240} />
+    <Image
+      src={rataouille}
+      alt="Andy wearing many hats"
+      width={240}
+      sizes="240px"
+      densities={[2, 3]}
+      loading="lazy"
+      decoding="async"
+    />
   </Tooltip>
 </h2>
 

@@ -1,4 +1,6 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import removeMarkdown from "remove-markdown";
 
 export interface Props {
@@ -8,12 +10,7 @@ export interface Props {
     data: {
       title: string;
       pubDate: Date;
-      image?: {
-        src: string;
-        width: number;
-        height: number;
-        format: string;
-      };
+      image?: ImageMetadata;
     };
     body?: string;
   };
@@ -66,8 +63,10 @@ const getPlainText = (markdown: string | undefined): string => {
       post.data.image && (
         <a href={`/blog/${post.id}/`} class="block">
           <div class="aspect-3/2 overflow-hidden rounded-lg">
-            <img
-              src={post.data.image.src}
+            <Image
+              src={post.data.image}
+              densities={[2, 3]}
+              quality="high"
               alt={post.data.title}
               class="h-full w-full object-cover"
               loading="lazy"

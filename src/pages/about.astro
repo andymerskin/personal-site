@@ -91,8 +91,10 @@ const optimizedImages = Object.fromEntries(
       key,
       await getImage({
         src: value,
-        widths: [600, 900, 1200],
-        sizes: "(max-width: 768px) 100vw, 800px",
+        quality: "high",
+        // densities: [2, 3],
+        widths: [800, 1600],
+        sizes: "(min-width: 768px) 1600px, 800px"
       }),
     ])
   )
@@ -124,7 +126,7 @@ By around age 7, I was building "custom" computers out of cardboard, with carefu
 I deeply desired to learn how software was made, and by age 8, I did what anyone else would do: opened **Broderbund PrintMaster** to start building my own operating system (called "ComOS"), and then quickly realized linking between pages in an e-card exported to HTML wasn't enough. It served as _one helluva_ prototyping tool, though!
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.printmasterCover.src}" alt="Broderbund PrintMaster cover" class="my-0! max-h-120" />
+  <img src="${optimizedImages.printmasterCover.src}" srcset="${optimizedImages.printmasterCover.srcSet?.attribute}" sizes="${optimizedImages.printmasterCover.attributes.sizes}" alt="Broderbund PrintMaster cover" class="my-0! h-120 w-auto" loading="lazy" decoding="async" />
   <figcaption>Broderbund PrintMaster, the ultimate IDE for building your own operating system 😅</figcaption>
 </div>
 
@@ -135,7 +137,7 @@ _My imagination was running wild, I needed more..._
 I knew my way around the web enough to find and download software, and eventually discovered [The Games Factory](https://clickwiki.github.io/games-factory/) from Clickteam. I'd spend hours dinking around with the visual editor to place objects, using their spreadsheet-like programming interface to add event logic to my games.
 
 <div class="flex justify-center">
-  <img src="${optimizedImages.mmfScreenshot.src}" alt="Multimedia Fusion 1.5 Pro screenshot" />
+  <img src="${optimizedImages.mmfScreenshot.src}" srcset="${optimizedImages.mmfScreenshot.srcSet?.attribute}" sizes="${optimizedImages.mmfScreenshot.attributes.sizes}" alt="Multimedia Fusion 1.5 Pro screenshot" loading="lazy" decoding="async" />
 </div>
 
 Clickteam later released a more advanced version called [Multimedia Fusion 1.5 Pro](https://clickwiki.github.io/fusion/1.5/) which had a wider collection of objects and events to work with, giving me the ability to experiment with UI creation and simple app development. Their forums were second to none, full of passionate people creating extensions and sharing their knowledge.
@@ -152,28 +154,28 @@ I designed and built my high school's official site using **Photoshop 7**, **Dre
 
 We also built a simple ordering system for our school's cooking class to deliver snacks to classrooms.
 
-![East High School Website screenshot](${optimizedImages.eastHighschoolScreenshot.src})
+<img src="${optimizedImages.eastHighschoolScreenshot.src}" srcset="${optimizedImages.eastHighschoolScreenshot.srcSet?.attribute}" sizes="${optimizedImages.eastHighschoolScreenshot.attributes.sizes}" alt="East High School Website screenshot" loading="lazy" decoding="async" />
 
 Now that I was equipped to build simple multi-page sites, I started learning WordPress and writing contracts for local small businesses to build brochure sites with contact info, news, and other content. My mother worked for a news & talk radio station **KFBC 1240 AM Radio** in Cheyenne, WY—and since she was the 2nd in charge (and the accountant 💰), she gave me an opportunity to build their official site in 2007, for a reasonable price.
 
 Not much later, I drew up my first freelance contract to build an affiliate site for the **Cowboy State News Network** called **InfoWyo**, and negotiated time, scope, and budget with my mom's co-worker. Great practice!
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.infowyoScreenshot.src}" alt="InfoWyo website screenshot" class="my-0!" />
+  <img src="${optimizedImages.infowyoScreenshot.src}" srcset="${optimizedImages.infowyoScreenshot.srcSet?.attribute}" sizes="${optimizedImages.infowyoScreenshot.attributes.sizes}" alt="InfoWyo website screenshot" class="my-0!" loading="lazy" decoding="async" />
   <figcaption>InfoWyo website in 2009</figcaption>
 </div>
 
 In 2010, I rebuilt the KFBC Radio website using WordPress with a much more mature design and info architecture for its many sections, and gave the team the ability to publish short audio snippets featured on the home page:
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.kfbcRadioScreenshot.src}" alt="KFBC Radio website screenshot" class="my-0!" />
+  <img src="${optimizedImages.kfbcRadioScreenshot.src}" srcset="${optimizedImages.kfbcRadioScreenshot.srcSet?.attribute}" sizes="${optimizedImages.kfbcRadioScreenshot.attributes.sizes}" alt="KFBC Radio website screenshot" class="my-0!" loading="lazy" decoding="async" />
   <figcaption>KFBC 1240 AM Radio website in 2010 • <a href="https://web.archive.org/web/20101023232654/http://www.kfbcradio.com/" target="_blank" rel="noopener noreferrer">Visit the archived website <i class="ri-external-link-line"></i></a></figcaption>
 </div>
 
 In 2013, I built another news site for their affiliate **Cowboy State News Network** using WordPress:
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.csnScreenshot.src}" alt="Cowboy State News website screenshot" class="my-0!" />
+  <img src="${optimizedImages.csnScreenshot.src}" srcset="${optimizedImages.csnScreenshot.srcSet?.attribute}" sizes="${optimizedImages.csnScreenshot.attributes.sizes}" alt="Cowboy State News website screenshot" class="my-0!" loading="lazy" decoding="async" />
   <figcaption>Cowboy State News website in 2013 • <a href="https://web.archive.org/web/20131204042206/http://cowboystatenews.com/" target="_blank" rel="noopener noreferrer">Visit the archived website <i class="ri-external-link-line"></i></a></figcaption>
 </div>
 
@@ -185,7 +187,7 @@ The summer before my first semester in college (2008), I realized how tricky it 
 
 > Hold on... you guys bought 4 microwaves? <span class="not-italic!">😂</span>
 
-![dormBuddy screenshot](${optimizedImages.dormbuddyScreenshot.src})
+<img src="${optimizedImages.dormbuddyScreenshot.src}" srcset="${optimizedImages.dormbuddyScreenshot.srcSet?.attribute}" sizes="${optimizedImages.dormbuddyScreenshot.attributes.sizes}" alt="dormBuddy screenshot" loading="lazy" decoding="async" />
 
 I thought about licensing dormBuddy to universities to setup for their on-campus housing, but with college courses eating up all my time, I never got around to it. Despite my talents in web development and design, I was chasing after a degree in Youth Ministry as a higher calling at the time.
 
@@ -200,7 +202,7 @@ I continued to freelance for current and new clients. One of my favorites was a 
 I couldn't be more excited to start working with a team for the first time, not to mention with friends from school! I got exposure to countless design problems, first-hand user research and synthesis, and a deep understanding of the challenges of designing for finance.
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.ftMarketsDataScreenshot.src}" alt="The Financial Times Markets Data section screenshot" class="my-0!" />
+  <img src="${optimizedImages.ftMarketsDataScreenshot.src}" srcset="${optimizedImages.ftMarketsDataScreenshot.srcSet?.attribute}" sizes="${optimizedImages.ftMarketsDataScreenshot.attributes.sizes}" alt="The Financial Times Markets Data section screenshot" class="my-0!" loading="lazy" decoding="async" />
   <figcaption>The Financial Times was a personal favorite client, getting to work on their Markets Data section • <a href="/work/ft" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
 </div>
 
@@ -220,7 +222,7 @@ By 2018, I wanted to get more serious about engineering and move beyond prototyp
 
 The team was incredibly talented and the work we did was amazing. It built my confidence working with a team on development projects collaboratively, and getting a peek into how projects are managed, scoped, and delivered using Agile methodologies and Scrum.
 
-![Proteus team photo](${optimizedImages.proteusTeamPhoto.src})
+<img src="${optimizedImages.proteusTeamPhoto.src}" srcset="${optimizedImages.proteusTeamPhoto.srcSet?.attribute}" sizes="${optimizedImages.proteusTeamPhoto.attributes.sizes}" alt="Proteus team photo" loading="lazy" decoding="async" />
 
 Unfortunately the leadership at Markit changed their minds about the vision for our team, and we were disbanded within a year. After that, I joined a new prototyping team to build more full-featured prototypes for our clients. Although by that time, I'd purchased a home earlier that year and was seeking higher pay, so I decided to move on.
 
@@ -231,7 +233,7 @@ Ready for something new, I reached out to an old colleague from Markit, and join
 Sending third-party risk assessments to vendors and customers is a pain, so CyberGRX built a platform to help automate and standardize the process—a brilliant idea in light of haphazard spreadsheets ruling the day.
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.cybergrxScreenshot.src}" alt="CyberGRX screenshot" class="my-0! w-full" />
+  <img src="${optimizedImages.cybergrxScreenshot.src}" srcset="${optimizedImages.cybergrxScreenshot.srcSet?.attribute}" sizes="${optimizedImages.cybergrxScreenshot.attributes.sizes}" alt="CyberGRX screenshot" class="my-0! w-full" loading="lazy" decoding="async" />
   <figcaption>CyberGRX TPRM • <a href="/work/processunity" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
 </div>
 
@@ -252,7 +254,7 @@ I found Living Security's business focus to be refreshing. I'd always hated how 
 Their focus was on cybersecurity training and compliance at first, but later started integrating it with their new product: [Unify](https://www.livingsecurity.com/platform/unify-enterprise), which is essentially a UEBA (User and Entity Behavior Analytics) platform on steroids, bringing in dozens of integrations to generate insights from user behavior and entity activity.
 
 <div class="flex flex-col items-center justify-center card-base">
-  <img src="${optimizedImages.unifyScreenshot.src}" alt="Living Security Unify screenshot" class="my-0! w-full" />
+  <img src="${optimizedImages.unifyScreenshot.src}" srcset="${optimizedImages.unifyScreenshot.srcSet?.attribute}" sizes="${optimizedImages.unifyScreenshot.attributes.sizes}" alt="Living Security Unify screenshot" class="my-0! w-full" loading="lazy" decoding="async" />
   <figcaption>Living Security Unify • <a href="/work/unify" target="_blank">Read more on the Work page <i class="ri-arrow-right-line"></i></a></figcaption>
 </div>
 
@@ -266,7 +268,7 @@ This led to an estimated **~40% reduction in development time** (roughly 12-15 h
 const aboutContentMainPart4 = `
 I was soon asked to take ownership of the frontend development and help guide our architecture decisions, code quality, and the dev experience. I was responsible for coordinating with our product owners to help assess level of effort for new features in conjunction with our backend team. I also bridged the gap between our design team and engineers to help ensure their vision was fulfilled as we iterated.
 
-![Living Security onsite photo](${optimizedImages.livingSecurityTeam.src})
+<img src="${optimizedImages.livingSecurityTeam.src}" srcset="${optimizedImages.livingSecurityTeam.srcSet?.attribute}" sizes="${optimizedImages.livingSecurityTeam.attributes.sizes}" alt="Living Security onsite photo" loading="lazy" decoding="async" />
 
 ### We built an award-winning product together
 

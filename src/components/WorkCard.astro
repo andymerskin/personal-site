@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
@@ -28,9 +29,11 @@ const { entry } = Astro.props as { entry: CollectionEntry<"work"> };
       ]}
     >
       <div class="flex h-full w-full items-center justify-center p-6">
-        <img
-          src={entry.data.logo.src}
-          alt=""
+        <Image
+          src={entry.data.logo}
+          densities={[2, 3]}
+          quality="high"
+          alt={`${entry.data.title} logo`}
           class="max-h-[80%] max-w-[85%] object-contain"
           loading="lazy"
           decoding="async"

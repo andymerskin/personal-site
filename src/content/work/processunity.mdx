@@ -8,7 +8,18 @@ externalUrl: "https://www.processunity.com/third-party-risk-management/"
 logo: "../../images/work/process-unity.png"
 ---
 
-![CyberGRX TPRM screenshot](../../images/work/screenshots/cybergrx-001.png)
+import { Image } from "astro:assets";
+import cybergrxScreenshot from "../../images/work/screenshots/cybergrx-001.png";
+
+<Image
+  src={cybergrxScreenshot}
+  alt="CyberGRX TPRM screenshot"
+  width={728}
+  quality="max"
+  densities={[2, 3]}
+  loading="lazy"
+  decoding="async"
+/>
 
 ## Concept & Objectives
 
