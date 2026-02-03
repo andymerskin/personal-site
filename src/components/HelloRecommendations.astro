@@ -54,16 +54,15 @@ const hasRecommendations = recommendations?.length > 0;
         >
           {recommendations.map((recommendation) => (
             <div class="max-w-sm shrink-0 md:max-w-lg lg:max-w-xl">
-              <a
-                href={`/colleagues#${recommendation.id}`}
-                class="block transition-opacity hover:opacity-80"
+              <RecommendationCard
+                recommendation={recommendation.data}
+                id={recommendation.id}
+                linkTo={true}
               >
-                <RecommendationCard recommendation={recommendation.data}>
-                  <div
-                    set:html={recommendation.previewBody ?? recommendation.body}
-                  />
-                </RecommendationCard>
-              </a>
+                <div
+                  set:html={recommendation.previewBody ?? recommendation.body}
+                />
+              </RecommendationCard>
             </div>
           ))}
         </div>

@@ -6,33 +6,67 @@ import Prose from "./Prose.astro";
 export interface Props {
   recommendation: CollectionEntry<"recommendations">["data"];
   id?: string;
+  linkTo?: boolean;
 }
 
-const { recommendation, id } = Astro.props;
+const { recommendation, id, linkTo = false } = Astro.props;
 const { author, photo, job, position } = recommendation;
+const linkUrl = linkTo && id ? `/colleagues#${id}` : null;
 ---
 
-<div class="group relative flex items-start gap-4 even:flex-row-reverse" id={id}>
-  <Image
-    src={photo}
-    width={64}
-    height={64}
-    alt={author}
-    class="not-prose absolute mt-3 h-16 w-16 rounded-full group-odd:left-2 group-even:right-2"
-  />
-  <div
-    class="bg-shade-primary/3 rounded-lg p-6 group-odd:ml-12 group-odd:pl-10 group-even:mr-12 group-even:pr-10 dark:bg-neutral-800"
+{linkUrl ? (
+  <a
+    href={linkUrl}
+    class="block transition-transform duration-300 ease-in-out hover:scale-105"
   >
-    <Prose class="prose-sm leading-relaxed [&_p:first-child]:mt-0">
-      <slot />
-    </Prose>
-    <div class="mt-2">
-      <div class="font-display text-2xl font-bold">
-        {author}
+    <div class="group relative flex items-start gap-4 even:flex-row-reverse" id={id}>
+      <Image
+        src={photo}
+        width={64}
+        height={64}
+        alt={author}
+        class="not-prose absolute mt-3 h-16 w-16 rounded-full group-odd:left-2 group-even:right-2"
+      />
+      <div
+        class="bg-shade-primary/3 rounded-lg p-6 group-odd:ml-12 group-odd:pl-10 group-even:mr-12 group-even:pr-10 dark:bg-neutral-800"
+      >
+        <Prose class="prose-sm leading-relaxed [&_p:first-child]:mt-0">
+          <slot />
+        </Prose>
+        <div class="mt-2">
+          <div class="font-display text-2xl font-bold">
+            {author}
+          </div>
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">
+            {position} • {job}
+          </div>
+        </div>
       </div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">
-        {position} • {job}
+    </div>
+  </a>
+) : (
+  <div class="group relative flex items-start gap-4 even:flex-row-reverse" id={id}>
+    <Image
+      src={photo}
+      width={64}
+      height={64}
+      alt={author}
+      class="not-prose absolute mt-3 h-16 w-16 rounded-full group-odd:left-2 group-even:right-2"
+    />
+    <div
+      class="bg-shade-primary/3 rounded-lg p-6 group-odd:ml-12 group-odd:pl-10 group-even:mr-12 group-even:pr-10 dark:bg-neutral-800"
+    >
+      <Prose class="prose-sm leading-relaxed [&_p:first-child]:mt-0">
+        <slot />
+      </Prose>
+      <div class="mt-2">
+        <div class="font-display text-2xl font-bold">
+          {author}
+        </div>
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          {position} • {job}
+        </div>
       </div>
     </div>
   </div>
-</div>
+)}
