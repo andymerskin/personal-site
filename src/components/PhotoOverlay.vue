@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div
       :class="[
-        'bg-primary/80 fixed inset-0 z-50 backdrop-blur-lg dark:bg-neutral-950/90',
+        'bg-primary/80 fixed inset-0 z-100 backdrop-blur-lg dark:bg-neutral-950/90',
         isOpen ? 'flex' : 'hidden',
       ]"
       role="dialog"
@@ -16,15 +16,25 @@
         @click="handleBackdropClick"
       ></button>
 
+      <button
+        type="button"
+        class="fixed right-4 top-6 z-100 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 shadow-sm transition duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50 dark:focus-visible:ring-offset-neutral-900"
+        aria-label="Close photo overlay"
+        @click="emitClose"
+      >
+        <span class="sr-only">Close</span>
+        <i class="ri-close-line text-2xl" aria-hidden="true"></i>
+      </button>
+
       <div
         class="pointer-events-none relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-6 lg:p-8 xl:p-12"
       >
         <div
-          class="pointer-events-auto w-full max-w-[98vw]"
-          @click="handleContentClick"
+          class="pointer-events-none w-full max-w-[98vw]"
         >
           <ImageCarousel
             ref="carouselRef"
+            class="pointer-events-none"
             :animate="false"
             :activeIndex="activeIndex"
             :showDots="false"
@@ -36,17 +46,21 @@
             <div
               v-for="photo in photos"
               :key="photo.id"
-              class="flex w-full flex-none"
+              class="pointer-events-none flex w-full flex-none"
             >
-              <div class="flex w-full flex-col items-center gap-4">
+              <div
+                class="pointer-events-none flex w-full flex-col items-center gap-4"
+              >
                 <img
                   v-bind="photo.fullAttrs"
                   :alt="photo.caption"
-                  class="h-auto max-h-[92vh] w-full max-w-full object-contain"
+                  class="pointer-events-auto h-auto max-h-[92vh] w-full max-w-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
-                <p class="text-base text-neutral-900 dark:text-neutral-50">
+                <p
+                  class="pointer-events-auto text-base text-neutral-900 dark:text-neutral-50"
+                >
                   {{ photo.caption }}
                 </p>
               </div>
@@ -96,9 +110,6 @@ const emitClose = () => emit("close");
 const emitChange = (index: number) => emit("change", index);
 const handleBackdropClick = (event: MouseEvent) => {
   emitClose();
-};
-const handleContentClick = (event: MouseEvent) => {
-  event.stopPropagation();
 };
 
 const handleCarouselChange = (nextIndex: number) => {
