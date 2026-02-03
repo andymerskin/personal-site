@@ -362,9 +362,17 @@ const hobbies = [
     <div class="my-12">
       {
         sarahRecommendation && (
-          <RecommendationCard recommendation={sarahRecommendation.data}>
-            <div set:html={sarahBody} />
-          </RecommendationCard>
+          <a
+            href={`/colleagues#${sarahRecommendation.id}`}
+            class="block transition-opacity hover:opacity-80"
+          >
+            <RecommendationCard
+              recommendation={sarahRecommendation.data}
+              id={sarahRecommendation.id}
+            >
+              <div set:html={sarahBody} />
+            </RecommendationCard>
+          </a>
         )
       }
     </div>
@@ -376,9 +384,17 @@ const hobbies = [
     <div class="my-12">
       {
         lexiRecommendation && (
-          <RecommendationCard recommendation={lexiRecommendation.data}>
-            <div set:html={lexiBody} />
-          </RecommendationCard>
+          <a
+            href={`/colleagues#${lexiRecommendation.id}`}
+            class="block transition-opacity hover:opacity-90"
+          >
+            <RecommendationCard
+              recommendation={lexiRecommendation.data}
+              id={lexiRecommendation.id}
+            >
+              <div set:html={lexiBody} />
+            </RecommendationCard>
+          </a>
         )
       }
     </div>
@@ -390,9 +406,17 @@ const hobbies = [
     <div class="my-12">
       {
         mattRecommendation && (
-          <RecommendationCard recommendation={mattRecommendation.data}>
-            <div set:html={mattBody} />
-          </RecommendationCard>
+          <a
+            href={`/colleagues#${mattRecommendation.id}`}
+            class="block transition-opacity hover:opacity-90"
+          >
+            <RecommendationCard
+              recommendation={mattRecommendation.data}
+              id={mattRecommendation.id}
+            >
+              <div set:html={mattBody} />
+            </RecommendationCard>
+          </a>
         )
       }
     </div>
@@ -404,9 +428,17 @@ const hobbies = [
     <div class="my-12">
       {
         brandonRecommendation && (
-          <RecommendationCard recommendation={brandonRecommendation.data}>
-            <div set:html={brandonBody} />
-          </RecommendationCard>
+          <a
+            href={`/colleagues#${brandonRecommendation.id}`}
+            class="block transition-opacity hover:opacity-90"
+          >
+            <RecommendationCard
+              recommendation={brandonRecommendation.data}
+              id={brandonRecommendation.id}
+            >
+              <div set:html={brandonBody} />
+            </RecommendationCard>
+          </a>
         )
       }
     </div>

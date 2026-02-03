@@ -86,7 +86,10 @@ const collectionSchema = {
     <div class="space-y-12">
       {
         recommendations.map((recommendation) => (
-          <RecommendationCard recommendation={recommendation.data}>
+          <RecommendationCard
+            recommendation={recommendation.data}
+            id={recommendation.id}
+          >
             <div set:html={recommendation.body} />
           </RecommendationCard>
         ))
@@ -94,3 +97,51 @@ const collectionSchema = {
     </div>
   </InfiniteScroller>
 </Layout>
+
+<script>
+  function scrollToAnchor(): void {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const targetId = hash.slice(1); // Remove the # symbol
+    const targetElement = document.getElementById(targetId);
+
+    if (!targetElement) {
+      // If element not found, wait a bit for InfiniteScroller to render
+      setTimeout(() => {
+        const retryElement = document.getElementById(targetId);
+        if (retryElement) {
+          const elementPosition = retryElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - 48;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+      return;
+    }
+
+    // Scroll to the element with 48px offset from the top
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - 48;
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+
+  // Handle initial page load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(scrollToAnchor, 200); // Small delay to ensure InfiniteScroller has rendered
+    });
+  } else {
+    setTimeout(scrollToAnchor, 200);
+  }
+
+  // Handle Astro view transitions
+  document.addEventListener("astro:page-load", () => {
+    setTimeout(scrollToAnchor, 200);
+  });
+</script>

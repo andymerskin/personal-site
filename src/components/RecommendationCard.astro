@@ -5,13 +5,14 @@ import Prose from "./Prose.astro";
 
 export interface Props {
   recommendation: CollectionEntry<"recommendations">["data"];
+  id?: string;
 }
 
-const { recommendation } = Astro.props;
+const { recommendation, id } = Astro.props;
 const { author, photo, job, position } = recommendation;
 ---
 
-<div class="group relative flex items-start gap-4 even:flex-row-reverse">
+<div class="group relative flex items-start gap-4 even:flex-row-reverse" id={id}>
   <Image
     src={photo}
     width={64}
