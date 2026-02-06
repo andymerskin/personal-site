@@ -1,8 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import type { SkillId } from "../content/skills.gen";
 
 export interface Props {
-  skills: string[];
+  skills: SkillId[];
   heading: string;
 }
 
@@ -13,19 +14,21 @@ const allSkills = await getCollection("skills");
 
 type Skill = (typeof allSkills)[number];
 
+const isSkill = (value: Skill | undefined): value is Skill => Boolean(value);
+
 // Create a map for quick lookup
-const skillsMap = new Map();
-allSkills.forEach((skill: Skill) => {
-  skillsMap.set(skill.id, skill);
+const skillsMap = new Map<SkillId, Skill>();
+allSkills.forEach((skill) => {
+  skillsMap.set(skill.id as SkillId, skill);
 });
 
 // Get the skill data for the provided slugs and sort by name
 const skillData = skillSlugs
   .map((slug) => skillsMap.get(slug))
-  .filter(Boolean)
+  .filter(isSkill)
   .sort((a: Skill, b: Skill) =>
     a.data.name.localeCompare(b.data.name),
-  ) as Skill[];
+  );
 ---
 
 <div>
