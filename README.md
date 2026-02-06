@@ -139,6 +139,7 @@ This serves the `dist/` directory locally, allowing you to test the production b
 | `bun run build`          | Build the production site to `./dist/`                   |
 | `bun run preview`        | Preview the production build locally                     |
 | `bun run format`         | Format all code with Prettier (Astro & Tailwind plugins) |
+| `bun run update-link-previews` | Refresh cached Open Graph metadata for LinkWithPreview cards |
 | `bun run astro`          | Run Astro CLI commands (e.g., `bun run astro check`)     |
 | `bun run sort-skills`    | Sort skills in `src/content/skills.yaml` alphabetically  |
 | `bun run add-skill`      | Interactive script to add a new skill to the catalog     |
@@ -149,6 +150,7 @@ This serves the `dist/` directory locally, allowing you to test the production b
 - **`sort-skills`**: Automatically sorts skills in the YAML file alphabetically
 - **`add-skill`**: Interactive CLI tool to add new skills with proper formatting
 - **`sync-skill-ids`**: Syncs skill IDs from skills.yaml to skills.gen.ts
+- **`update-link-previews`**: Fetches Open Graph metadata for `<LinkWithPreview />` and updates the cache
 
 ## Content Management
 

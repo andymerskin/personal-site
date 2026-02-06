@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { readingTime } from "reading-time-estimator";
 import removeMarkdown from "remove-markdown";
+import LinkWithPreview from "../../components/LinkWithPreview.astro";
 import Prose from "../../components/Prose.astro";
 import StructuredData from "../../components/StructuredData.astro";
 import { getSiteUrl } from "../../config/pageMetadata";
@@ -131,7 +132,7 @@ const readingTimeText = minutes >= 1 ? formatReadingTime(minutes) : null;
 
   <div class="mt-8">
     <Prose>
-      <Content />
+      <Content components={{ LinkWithPreview }} />
     </Prose>
   </div>
 </Layout>

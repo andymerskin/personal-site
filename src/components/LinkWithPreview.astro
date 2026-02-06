@@ -1,0 +1,66 @@
+---
+import linkPreviews from "../content/link-previews.json";
+import { decode } from "html-entities";
+import { normalizeLinkUrl, type LinkPreview } from "../utils/linkPreviews";
+
+interface Props {
+  href: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  class?: string;
+}
+
+const { href, title, description, image, class: className } = Astro.props;
+const normalizedUrl = normalizeLinkUrl(href);
+const preview = (linkPreviews as Record<string, LinkPreview>)[normalizedUrl];
+const resolvedTitle = decode(title ?? preview?.title ?? href);
+const resolvedDescription = decode(description ?? preview?.description ?? "");
+const resolvedImage = image ?? preview?.image;
+const isExternal = /^https?:\/\//i.test(href);
+const displayUrl = (() => {
+  try {
+    return new URL(href).hostname.replace(/^www\./, "");
+  } catch {
+    return href;
+  }
+})();
+---
+
+<div class={`not-prose ${className ?? ""}`.trim()}>
+  <a
+    class="card-base group flex flex-col gap-4 transition-shadow hover:shadow-md md:flex-row"
+    href={href}
+    target={isExternal ? "_blank" : undefined}
+    rel={isExternal ? "noopener noreferrer" : undefined}
+  >
+    {
+      resolvedImage && (
+        <div class="aspect-video w-full overflow-hidden rounded-md bg-neutral-100 md:w-56 dark:bg-neutral-900">
+          <img
+            src={resolvedImage}
+            alt=""
+            class="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      )
+    }
+    <div class="flex flex-1 flex-col justify-center gap-2">
+      <div class="text-lg font-semibold leading-tight text-neutral-900 dark:text-neutral-100">
+        {resolvedTitle}
+      </div>
+      {
+        resolvedDescription && (
+          <p class="text-sm text-neutral-600 dark:text-neutral-300">
+            {resolvedDescription}
+          </p>
+        )
+      }
+      <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+        {displayUrl}
+      </div>
+    </div>
+  </a>
+</div>

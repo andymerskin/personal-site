@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write --log-level silent .",
+    "update-link-previews": "bun scripts/update-link-previews.ts",
     "sort-skills": "node scripts/sort-skills.js",
     "add-skill": "node scripts/add-skill.js",
     "sync-skill-ids": "node scripts/sync-skill-ids.js"
@@ -24,6 +25,7 @@
     "astro-og-canvas": "^0.10.0",
     "astro-seo": "^1.1.0",
     "gsap": "^3.14.2",
+    "html-entities": "^2.6.0",
     "js-yaml": "^4.1.1",
     "lucide-vue-next": "^0.562.0",
     "reading-time-estimator": "^2.1.1",
