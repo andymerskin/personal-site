@@ -30,6 +30,7 @@ import { onMounted, onUnmounted } from "vue";
 declare global {
   interface Window {
     __themeToggleSetup?: boolean;
+    __themeToggleAnimationTimes?: number[][];
   }
 }
 
@@ -88,10 +89,25 @@ const handleClick = (e: Event) => {
 
 const handleBeforeSwap = (event: Event) => {
   // Apply the current theme state to the incoming document before navigation
-  const astroEvent = event as CustomEvent<{ newDocument: Document }>;
+  const astroEvent = event as CustomEvent<{ newDocument?: Document }>;
+  const newDocument = astroEvent?.detail?.newDocument;
+
+  const elements = Array.from(
+    document.querySelectorAll("[data-theme-toggle] [data-icon], [data-theme-toggle] i"),
+  );
+
+  window.__themeToggleAnimationTimes = elements.map((element) =>
+    element.getAnimations().map((animation) =>
+      typeof animation.currentTime === "number" ? animation.currentTime : 0,
+    ),
+  );
+
+  if (!newDocument) return;
+
   const currentMode = getCurrentMode();
-  const newDoc = astroEvent.detail.newDocument.documentElement;
   const isDark = currentMode === "dark";
+  const newDoc = newDocument.documentElement;
+
   newDoc.classList.toggle("dark", isDark);
   newDoc.dataset.themeMode = currentMode;
 };
@@ -101,6 +117,24 @@ const handleAfterSwap = () => {
   const currentMode = getCurrentMode();
   apply(currentMode);
   updateButtons();
+
+  const savedTimes = window.__themeToggleAnimationTimes;
+  if (!savedTimes) return;
+
+  const elements = Array.from(
+    document.querySelectorAll("[data-theme-toggle] [data-icon], [data-theme-toggle] i"),
+  );
+
+  elements.forEach((element, elementIndex) => {
+    const times = savedTimes[elementIndex];
+    if (!times) return;
+    element.getAnimations().forEach((animation, animationIndex) => {
+      const time = times[animationIndex];
+      if (typeof time === "number") {
+        animation.currentTime = time;
+      }
+    });
+  });
 };
 
 onMounted(() => {

@@ -165,8 +165,9 @@ const currentPath = normalizePathname(Astro.url.pathname);
     <StarsBackground
       heightFactor={0.5}
       class="hidden dark:block -z-10"
-      client:visible
+      client:load
       transition:persist
+      transition:name="stars-background"
     />
 
     <!-- Scroll-based navigation bar (md-lg breakpoints) -->
@@ -192,7 +193,11 @@ const currentPath = normalizePathname(Astro.url.pathname);
                 >
                   <h1 class="text-xl font-bold">{SITE_NAME}</h1>
                 </a>
-                <ThemeToggle client:load transition:persist />
+                <ThemeToggle
+                  client:load
+                  transition:persist
+                  transition:name="theme-toggle-mobile"
+                />
               </div>
               <LocationBadge />
               <ul class="hidden items-center gap-x-3 md:flex">
@@ -254,7 +259,11 @@ const currentPath = normalizePathname(Astro.url.pathname);
               >
                 <h1 class="text-xl font-bold">{SITE_NAME}</h1>
               </a>
-              <ThemeToggle client:load transition:persist />
+              <ThemeToggle
+                client:load
+                transition:persist
+                transition:name="theme-toggle-desktop"
+              />
             </div>
             <LocationBadge />
           </div>

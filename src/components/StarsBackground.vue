@@ -64,6 +64,16 @@ let animationTimeline: gsap.core.Tween | null = null;
 let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 let themeObserver: MutationObserver | null = null;
 let isActive = false;
+let beforeSwapListener: (() => void) | null = null;
+let afterSwapListener: (() => void) | null = null;
+let isSwapping = false;
+
+declare global {
+  interface Window {
+    __starsBackgroundAnimationTime?: number;
+    __starsBackgroundAnimationTimeScale?: number;
+  }
+}
 
 const setCircleRef = (el: unknown, index: number) => {
   if (el && el instanceof SVGCircleElement) {
@@ -158,6 +168,28 @@ const initAnimation = async () => {
   animationTimeline = tweens[0] || null;
 };
 
+const saveAnimationState = () => {
+  if (!animationTimeline) return;
+  window.__starsBackgroundAnimationTime = animationTimeline.time();
+  window.__starsBackgroundAnimationTimeScale = animationTimeline.timeScale();
+};
+
+const restoreAnimationState = () => {
+  if (!animationTimeline) return;
+  const savedTime = window.__starsBackgroundAnimationTime;
+  const savedScale = window.__starsBackgroundAnimationTimeScale;
+
+  if (typeof savedTime === "number") {
+    animationTimeline.time(savedTime);
+  }
+
+  if (typeof savedScale === "number") {
+    animationTimeline.timeScale(savedScale);
+  }
+
+  animationTimeline.play();
+};
+
 const handleResize = () => {
   // Debounce resize handler
   if (resizeTimeout) {
@@ -220,6 +252,8 @@ const stopAnimation = () => {
 };
 
 const handleThemeChange = () => {
+  if (isSwapping) return;
+
   if (isDarkMode()) {
     startAnimation();
   } else {
@@ -229,6 +263,20 @@ const handleThemeChange = () => {
 
 onMounted(() => {
   handleThemeChange();
+
+  beforeSwapListener = () => {
+    isSwapping = true;
+    saveAnimationState();
+  };
+
+  afterSwapListener = () => {
+    isSwapping = false;
+    restoreAnimationState();
+    handleThemeChange();
+  };
+
+  document.addEventListener("astro:before-swap", beforeSwapListener);
+  document.addEventListener("astro:after-swap", afterSwapListener);
 
   themeObserver = new MutationObserver(() => {
     handleThemeChange();
@@ -242,6 +290,16 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopAnimation();
+
+  if (beforeSwapListener) {
+    document.removeEventListener("astro:before-swap", beforeSwapListener);
+    beforeSwapListener = null;
+  }
+
+  if (afterSwapListener) {
+    document.removeEventListener("astro:after-swap", afterSwapListener);
+    afterSwapListener = null;
+  }
 
   if (themeObserver) {
     themeObserver.disconnect();
