@@ -1,0 +1,17 @@
+---
+import Tabs from "./Tabs.astro";
+
+type WorkTabsProps = {
+  disableTransitions?: boolean;
+};
+
+const { disableTransitions = true } = Astro.props as WorkTabsProps;
+
+const tabs = [
+  { label: "Public", href: "/work/public" },
+  { label: "Private", href: "/work/private" },
+  { label: "Fun", href: "/work/fun" },
+];
+---
+
+<Tabs tabs={tabs} disableTransitions={disableTransitions} />

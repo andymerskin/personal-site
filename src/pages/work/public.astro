@@ -2,16 +2,10 @@
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 import StructuredData from "../../components/StructuredData.astro";
-import Tabs from "../../components/Tabs.astro";
 import WorkGrid from "../../components/WorkGrid.vue";
+import WorkTabs from "../../components/WorkTabs.astro";
 import { getSiteUrl, PAGE_METADATA } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
-
-const tabs = [
-  { label: "Public", href: "/work/public" },
-  { label: "Private", href: "/work/private" },
-  { label: "Fun", href: "/work/fun" },
-];
 
 const preferredOrder = [
   "unify",
@@ -79,8 +73,14 @@ const collectionSchema = {
   <StructuredData data={collectionSchema} />
   <div class="flex flex-wrap items-center justify-between gap-4">
     <h1 class="text-5xl font-bold tracking-tight">Work</h1>
-    <Tabs tabs={tabs} disableTransitions />
+    <!-- <WorkTabs /> -->
   </div>
+
+  <p
+    class="mt-6 text-xl leading-relaxed text-neutral-700 dark:text-neutral-300"
+  >
+    Here's a few selected projects I'm proud to share, demonstrating a wide range of experience in the web development space.
+  </p>
 
   <section class="mt-8">
     <WorkGrid entries={workCards} client:only="vue" />
