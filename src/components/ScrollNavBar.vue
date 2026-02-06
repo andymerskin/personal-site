@@ -2,7 +2,7 @@
   <nav
     aria-label="Primary"
     :class="[
-      'fixed top-0 left-0 right-0 z-50 hidden md:block xl:hidden',
+      'fixed top-0 left-0 right-0 z-50 hidden md:block lg:hidden',
       'bg-white dark:bg-neutral-900',
       'shadow-lg dark:shadow-none',
       'transition-opacity duration-200',
@@ -13,36 +13,14 @@
   >
     <div class="mx-auto max-w-5xl px-4 md:px-16 lg:px-4">
       <div class="flex flex-wrap items-center gap-x-10 gap-y-2 py-2">
-        <div class="flex items-center w-56">
+        <div class="flex items-center">
           <a
             href="/"
             class="decoration-amber-500 decoration-2 hover:underline"
           >
             <h1 class="text-xl font-bold">{{ siteName }}</h1>
           </a>
-          <button
-            type="button"
-            data-theme-toggle
-            aria-label="Toggle theme"
-            class="relative top-px inline-flex cursor-pointer items-center justify-center w-10 h-10 px-0 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:outline-none dark:focus-visible:ring-neutral-500"
-          >
-            <span
-              data-icon="light"
-              class="inline-flex animate-[shining-sun_1s_ease-in-out_alternate_infinite]"
-              aria-hidden="true"
-            >
-              <i
-                class="ri-sun-fill animate-[spin_30s_linear_infinite] text-2xl leading-none text-amber-500"
-              ></i>
-            </span>
-            <span
-              data-icon="dark"
-              class="inline-flex animate-[rocking-moon_3s_ease-in-out_alternate_infinite]"
-              aria-hidden="true"
-            >
-              <i class="ri-moon-fill text-2xl leading-none text-indigo-500"></i>
-            </span>
-          </button>
+          <ThemeToggle />
         </div>
         <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
           <li v-for="item in navItems" :key="item.href">
@@ -73,6 +51,7 @@ import {
   normalizePathname,
 } from "../config/navigation";
 import { SITE_NAME } from "../config/pageMetadata";
+import ThemeToggle from "./ThemeToggle.vue";
 
 const THRESHOLD = 240;
 const isVisible = ref(false);
@@ -130,17 +109,3 @@ onUnmounted(() => {
   document.removeEventListener("astro:page-load", handlePageLoad);
   });
 </script>
-
-<style>
-  [data-theme-toggle] [data-icon] {
-    display: none;
-  }
-
-  html:not(.dark) [data-theme-toggle] [data-icon="light"] {
-    display: inline-flex;
-  }
-
-  html.dark [data-theme-toggle] [data-icon="dark"] {
-    display: inline-flex;
-  }
-</style>

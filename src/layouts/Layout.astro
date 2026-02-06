@@ -12,7 +12,7 @@ import BackToTopButton from "../components/BackToTopButton.vue";
 import ScrollNavBar from "../components/ScrollNavBar.vue";
 import ScrollSideNav from "../components/ScrollSideNav.vue";
 import StarsBackground from "../components/StarsBackground.vue";
-import ThemeToggle from "../components/ThemeToggle.astro";
+import ThemeToggle from "../components/ThemeToggle.vue";
 import {
   EXTERNAL_NAV_ITEMS,
   NAV_ITEMS,
@@ -191,7 +191,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
                 >
                   <h1 class="text-xl font-bold">{SITE_NAME}</h1>
                 </a>
-                <ThemeToggle transition:persist />
+                <ThemeToggle client:load transition:persist />
               </div>
               <LocationBadge />
               <ul class="hidden items-center gap-x-3 md:flex">
@@ -251,7 +251,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
               >
                 <h1 class="text-xl font-bold">{SITE_NAME}</h1>
               </a>
-              <ThemeToggle transition:persist />
+              <ThemeToggle client:load transition:persist />
             </div>
             <LocationBadge />
           </div>
