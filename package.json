@@ -26,6 +26,7 @@
     "gsap": "^3.14.2",
     "js-yaml": "^4.1.1",
     "lucide-vue-next": "^0.562.0",
+    "reading-time-estimator": "^2.1.1",
     "remixicon": "^4.9.1",
     "remove-markdown": "^0.6.2",
     "tailwindcss": "^4.1.18",

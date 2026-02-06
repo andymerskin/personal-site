@@ -2,12 +2,14 @@
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import { readingTime } from "reading-time-estimator";
 import HRule from "../components/HRule.astro";
 import Prose from "../components/Prose.astro";
 import RecommendationCard from "../components/RecommendationCard.astro";
 import SkillCard from "../components/SkillCard.astro";
 import StructuredData from "../components/StructuredData.astro";
 import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
+import { formatReadingTime } from "../utils/readingTime";
 import corgiImage from "../images/about/corgi.webp";
 import csnScreenshot from "../images/about/csn.png";
 import dormbuddyScreenshot from "../images/about/dormbuddy.jpg";
@@ -128,9 +130,8 @@ Professional homebody, how can I help you? 🏡
 `;
 
 content.part1 = `
-
 <div>
-  <div>10 minute read</div>
+  <div>{{readingTimeText}}</div>
   <h2 class="text-4xl! font-bold! tracking-tight my-0!">How I got into software</h2>
 </div>
 
@@ -320,6 +321,14 @@ Cheers, and thanks for reading! 🙌
 <div class="not-prose">
 <img src="${signature.src}" alt="Signed, Andy Merskin" class="my-0! w-20 dark:invert" /></div>
 `;
+
+// Calculate reading time from all content sections
+const allContent = Object.values(content).join("\n\n");
+const { minutes } = readingTime(allContent, { wordsPerMinute: 200 });
+const readingTimeText = formatReadingTime(minutes);
+
+// Replace placeholder with actual reading time in part1 markdown string before rendering
+content.part1 = content.part1.replace("{{readingTimeText}}", readingTimeText);
 
 const renderedContent = Object.fromEntries(
   await Promise.all(

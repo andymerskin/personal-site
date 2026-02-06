@@ -2,11 +2,13 @@
 import { getImage } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import { readingTime } from "reading-time-estimator";
 import removeMarkdown from "remove-markdown";
 import Prose from "../../components/Prose.astro";
 import StructuredData from "../../components/StructuredData.astro";
 import { getSiteUrl } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
+import { formatReadingTime } from "../../utils/readingTime";
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog");
@@ -78,6 +80,9 @@ const formatDate = (date: Date) =>
     day: "numeric",
     year: "numeric",
   }).format(date);
+
+const { minutes } = readingTime(entry.body ?? "", { wordsPerMinute: 200 });
+const readingTimeText = minutes >= 1 ? formatReadingTime(minutes) : null;
 ---
 
 <Layout
@@ -99,9 +104,17 @@ const formatDate = (date: Date) =>
       </a>
     </nav>
     <h1 class="mt-8 text-3xl font-bold tracking-tight">{entry.data.title}</h1>
-    <div class="mt-2 flex gap-2 text-sm">
+    <div class="mt-2 text-sm">
       <span class="text-neutral-600 dark:text-neutral-400">
         {formatDate(entry.data.pubDate)}
+        {
+          readingTimeText && (
+            <>
+              <span class="mx-1">•</span>
+              {readingTimeText}
+            </>
+          )
+        }
       </span>
     </div>
   </header>
