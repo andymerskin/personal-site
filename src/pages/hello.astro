@@ -1,9 +1,10 @@
 ---
-import HelloAlert from "../components/HelloAlert.astro";
+import HelloCallToAction from "../components/HelloCallToAction.astro";
 import HelloFeaturedWork from "../components/HelloFeaturedWork.astro";
 import HelloRecommendations from "../components/HelloRecommendations.astro";
 import HelloSkills from "../components/HelloSkills.astro";
 import HRule from "../components/HRule.astro";
+import RolesGrid from "../components/RolesGrid.vue";
 import RotatingHeadline from "../components/RotatingHeadline.vue";
 import StructuredData from "../components/StructuredData.astro";
 import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
@@ -69,19 +70,59 @@ const personSchema = {
     unified visual language, energizing motion, and well organized & optimized architecture.
   </p>
 
-  <!-- Rocker alert -->
-  <HelloAlert />
+  <!-- Call to action -->
+  <HelloCallToAction />
+
+  <!-- Roles -->
+  <h2 class="mt-32 -rotate-1 text-center text-4xl font-bold md:text-left">
+    Let's work together to build your dream product!
+  </h2>
+  <p class="mt-6">
+    Here's just a snippet of the roles I play, balancing rapid development with quality, and edge cases covered.
+  </p>
+  <div class="not-prose mt-12">
+    <RolesGrid
+      roles={[
+        {
+          icon: "user-check",
+          title: "Product Leadership",
+          description:
+            "I can help you plan your product roadmap and features with strong usability and visual quality in mind.",
+        },
+        {
+          icon: "users",
+          title: "Team Leadership",
+          description:
+            "I help teams stay aligned with the grand plan and keep the momentum going, removing obstacles, and finding better ways to work.",
+        },
+        {
+          icon: "code",
+          title: "Software Development",
+          description:
+            "I'm a front-end development specialist with a wide range of experience, from building brochure sites to complex web applications.",
+        },
+        {
+          icon: "palette",
+          title: "Design Direction",
+          description:
+            "I can provide your team with design consultation and guidance to ensure everything is consistent with your brand and design system.",
+        },
+      ]}
+    />
+  </div>
 
   <!-- Recommendations -->
   <h2
-    class="mt-32 -rotate-1 text-center text-4xl font-bold transition-transform duration-1200 hover:rotate-0 md:text-left"
+    class="mt-16 -rotate-1 text-center text-4xl font-bold transition-transform duration-1200 hover:rotate-0 md:text-left"
   >
     <a href="/colleagues" class="decoration-amber-500 hover:underline"
       >Happy teams lead to happy users!</a
     >
   </h2>
-  <p class="mt-6">Here's what a few colleagues had to say about working with me throughout my career:</p>
-
+  <p class="mt-6">
+    Here's what a few colleagues had to say about working with me throughout my
+    career:
+  </p>
   <HelloRecommendations class="mt-6" />
 
   <!-- Featured Work -->
@@ -89,7 +130,7 @@ const personSchema = {
 
   <!-- Skills & Technologies -->
 
-  <h2 class="mt-16 text-4xl font-bold">Skills & Technologies</h2>
+  <h2 class="mt-16 text-4xl font-bold -rotate-1 text-center md:text-left">Skills & Technologies</h2>
 
   <p class="mt-6">
     As an individual contributor, I specialize in expert-level front-end
