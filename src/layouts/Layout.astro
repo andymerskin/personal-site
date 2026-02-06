@@ -9,6 +9,8 @@ import ProfileImage from "../components/ProfileImage.astro";
 import SideNav from "../components/SideNav.astro";
 import MobileNav from "../components/MobileNav.astro";
 import BackToTopButton from "../components/BackToTopButton.vue";
+import ScrollNavBar from "../components/ScrollNavBar.vue";
+import ScrollSideNav from "../components/ScrollSideNav.vue";
 import StarsBackground from "../components/StarsBackground.vue";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import {
@@ -17,7 +19,7 @@ import {
   isActiveNavItem,
   normalizePathname,
 } from "../config/navigation";
-import { DEFAULT_DESCRIPTION } from "../config/pageMetadata";
+import { DEFAULT_DESCRIPTION, SITE_NAME } from "../config/pageMetadata";
 
 export interface Props {
   title?: string;
@@ -32,15 +34,14 @@ export interface Props {
   ogTitle?: string;
 }
 
-const BASE_TITLE = "Andy Merskin";
 const DEFAULT_OG_PATH = "/open-graph/hello.png";
 
 const {
   title,
-  titleTemplate = `%s • ${BASE_TITLE}`,
+  titleTemplate = `%s • ${SITE_NAME}`,
   description = DEFAULT_DESCRIPTION,
   image,
-  imageAlt = `${BASE_TITLE} — Personal Site`,
+  imageAlt = `${SITE_NAME} — Personal Site`,
   canonical,
   noindex = false,
   nofollow = false,
@@ -48,7 +49,7 @@ const {
   ogTitle,
 } = Astro.props;
 
-const fullTitle = title ? titleTemplate.replace("%s", title) : BASE_TITLE;
+const fullTitle = title ? titleTemplate.replace("%s", title) : SITE_NAME;
 const ogImageUrl = new URL(image ?? DEFAULT_OG_PATH, Astro.site).href;
 const canonicalUrl = canonical ?? Astro.url.href;
 const currentPath = normalizePathname(Astro.url.pathname);
@@ -61,7 +62,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
     <SEO
       title={title}
       titleTemplate={titleTemplate}
-      titleDefault={BASE_TITLE}
+      titleDefault={SITE_NAME}
       description={description}
       canonical={canonicalUrl}
       noindex={noindex}
@@ -75,7 +76,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
         },
         optional: {
           description,
-          siteName: BASE_TITLE,
+          siteName: SITE_NAME,
         },
         image: {
           alt: imageAlt,
@@ -167,6 +168,12 @@ const currentPath = normalizePathname(Astro.url.pathname);
       transition:persist
     />
 
+    <!-- Scroll-based navigation bar (md-lg breakpoints) -->
+    <ScrollNavBar client:load />
+
+    <!-- Scroll-based sidebar navigation (xl breakpoint) -->
+    <ScrollSideNav client:load />
+
     <div class="mx-auto max-w-5xl px-4 md:px-16 lg:px-4 pt-8 lg:pt-16 pb-32">
       <!-- Mobile header -->
       <header class="mb-8 md:mb-16 lg:hidden flex flex-col items-center md:items-start">
@@ -182,7 +189,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
                   href="/"
                   class="decoration-amber-500 decoration-2 hover:underline"
                 >
-                  <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+                  <h1 class="text-xl font-bold">{SITE_NAME}</h1>
                 </a>
                 <ThemeToggle transition:persist />
               </div>
@@ -242,7 +249,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
                 href="/"
                 class="decoration-amber-500 decoration-2 hover:underline"
               >
-                <h1 class="text-xl font-bold">{BASE_TITLE}</h1>
+                <h1 class="text-xl font-bold">{SITE_NAME}</h1>
               </a>
               <ThemeToggle transition:persist />
             </div>
