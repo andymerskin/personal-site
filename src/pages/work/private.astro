@@ -62,7 +62,7 @@ const collectionSchema = {
 
   <section class="mt-8">
     <WorkPrivateGate client:load password="hello">
-      <WorkGrid entries={privateCards} client:only="vue" />
+      <WorkGrid entries={privateCards} client:idle />
     </WorkPrivateGate>
   </section>
 </Layout>

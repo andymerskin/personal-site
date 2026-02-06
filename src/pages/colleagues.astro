@@ -80,18 +80,20 @@ const collectionSchema = {
   {/* Recommendation items */}
   <InfiniteScroller
     itemClass="recommendation-entry"
-    :batchSize="5"
-    client:only="vue"
+    batchSize={5}
+    client:idle
   >
     <div class="space-y-12">
       {
         recommendations.map((recommendation) => (
-          <RecommendationCard
-            recommendation={recommendation.data}
-            id={recommendation.id}
-          >
-            <div set:html={recommendation.body} />
-          </RecommendationCard>
+          <div class="recommendation-entry">
+            <RecommendationCard
+              recommendation={recommendation.data}
+              id={recommendation.id}
+            >
+              <div set:html={recommendation.body} />
+            </RecommendationCard>
+          </div>
         ))
       }
     </div>
