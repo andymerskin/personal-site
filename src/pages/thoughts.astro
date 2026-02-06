@@ -28,15 +28,8 @@ const collectionSchema = {
 >
   <StructuredData data={collectionSchema} />
   <h1 class="text-5xl font-bold tracking-tight">Thoughts</h1>
-  <h2 class="mt-8 text-2xl font-bold text-amber-500">
-    AI-GENERATED CONTENT BELOW, THE REAL STUFF IS COMING SOON!
-  </h2>
   <div class="mt-8">
-    <InfiniteScroller
-      itemClass="thought-entry"
-      batchSize={5}
-      client:load
-    >
+    <InfiniteScroller itemClass="thought-entry" batchSize={5} client:load>
       <div class="space-y-8">
         {
           thoughts.map((thought) => (
