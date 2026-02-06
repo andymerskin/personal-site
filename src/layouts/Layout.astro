@@ -99,7 +99,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
-    <!-- Theme initialization -->
+    {/* Theme initialization */}
     <script is:inline>
       (() => {
         const doc = document.documentElement;
@@ -137,7 +137,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
         doc.dataset.themeReady = "true";
       })();
     </script>
-    <!-- Skip view transitions for elements with data-astro-skip-transition="true" -->
+    {/* Skip view transitions for elements with data-astro-skip-transition="true" */}
     <script is:inline>
       document.addEventListener("astro:before-swap", (event) => {
         const source = event.sourceElement;
@@ -161,7 +161,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
     dark:bg-neutral-950
     dark:text-neutral-50"
   >
-    <!-- Dark mode stars -->
+    {/* Dark mode stars */}
     <StarsBackground
       heightFactor={0.5}
       class="hidden dark:block -z-10"
@@ -170,14 +170,14 @@ const currentPath = normalizePathname(Astro.url.pathname);
       transition:name="stars-background"
     />
 
-    <!-- Scroll-based navigation bar (md-lg breakpoints) -->
+    {/* Scroll-based navigation bar (md-lg breakpoints) */}
     <ScrollNavBar client:load />
 
-    <!-- Scroll-based sidebar navigation (xl breakpoint) -->
+    {/* Scroll-based sidebar navigation (xl breakpoint) */}
     <ScrollSideNav client:load />
 
     <div class="mx-auto max-w-5xl px-4 md:px-16 lg:px-4 pt-8 lg:pt-16 pb-32">
-      <!-- Mobile header -->
+      {/* Mobile header */}
       <header class="mb-8 md:mb-16 lg:hidden flex flex-col items-center md:items-start">
         <MobileNav />
         <div class="flex w-full flex-col items-center md:items-start">
@@ -245,7 +245,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
         </div>
       </header>
 
-      <!-- Desktop header -->
+      {/* Desktop header */}
       <div class="lg:flex lg:gap-10">
         <aside class="hidden lg:block lg:w-56">
           <a href="/">

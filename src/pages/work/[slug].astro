@@ -55,7 +55,7 @@ const creativeWorkSchema = {
 >
   <StructuredData data={creativeWorkSchema} />
   <header>
-    <!-- Breadcrumb -->
+    {/* Breadcrumb */}
     <nav>
       <a
         class="underline-offset-4 opacity-70 hover:underline hover:opacity-100"
@@ -63,14 +63,14 @@ const creativeWorkSchema = {
       >
     </nav>
 
-    <!-- Headline -->
+    {/* Headline */}
     <div class="mt-4 text-5xl font-bold tracking-tight">
       {entry.data.headline}
     </div>
 
     <HRule />
 
-    <!-- Title and link -->
+    {/* Title and link */}
     <div class="mt-8 flex items-start justify-between flex-col md:flex-row gap-4">
       <div>
         <h1 class="text-3xl font-bold tracking-tight">{entry.data.title}</h1>
