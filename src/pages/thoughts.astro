@@ -34,8 +34,8 @@ const collectionSchema = {
   <div class="mt-8">
     <InfiniteScroller
       itemClass="thought-entry"
-      :batchSize="5"
-      client:only="vue"
+      batchSize={5}
+      client:load
     >
       <div class="space-y-8">
         {

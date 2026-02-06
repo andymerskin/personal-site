@@ -37,7 +37,7 @@ const collectionSchema = {
     AI-GENERATED CONTENT BELOW, THE REAL STUFF IS COMING SOON!
   </h2>
   <div class="mt-8 grid gap-10">
-    <InfiniteScroller itemClass="blog-entry" batchSize={10} client:only="vue">
+    <InfiniteScroller itemClass="blog-entry" batchSize={10} client:load>
       <div class="space-y-12">
         {posts.map((post) => <BlogListEntry post={post} class="blog-entry" />)}
       </div>
