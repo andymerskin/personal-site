@@ -163,6 +163,13 @@ This serves the `dist/` directory locally, allowing you to test the production b
 
 All content files use frontmatter for metadata. See individual content collection schemas in `src/content.config.ts` for required fields.
 
+### Test Blog Posts
+
+For E2E fixtures, blog posts can include `test: true` in frontmatter. These posts:
+
+- appear in `/blog` and render at `/blog/<slug>` during local dev
+- are excluded from production builds unless `VITE_SHOW_TEST_CONTENT` is exactly `"true"`
+
 ## Deployment
 
 The site is configured for deployment to Netlify. The build output (`dist/`) is a fully static site that can be deployed to any static hosting service.

@@ -37,6 +37,7 @@ const blog = defineCollection({
       pubDate: z.date(),
       image: image().optional(),
       draft: z.boolean().default(false),
+      test: z.boolean().default(false),
     }),
 });
 

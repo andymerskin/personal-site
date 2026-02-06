@@ -17,19 +17,26 @@ const toSummary = (body: string, maxLength = 160) => {
   return `${cleaned.slice(0, Math.max(0, maxLength - 3)).trimEnd()}...`;
 };
 
+const showTestContent =
+  import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
+
 const [blogEntries, workEntries] = await Promise.all([
   getCollection("blog"),
   getCollection("work"),
 ]);
 
 const blogPages = Object.fromEntries(
-  blogEntries.map((entry) => [
-    `blog/${entry.id}`,
-    {
-      title: entry.data.title,
-      description: toSummary(entry.body ?? "") ?? "A post by Andy Merskin.",
-    },
-  ]),
+  blogEntries
+    .filter(
+      (entry) => !entry.data.draft && (showTestContent || !entry.data.test),
+    )
+    .map((entry) => [
+      `blog/${entry.id}`,
+      {
+        title: entry.data.title,
+        description: toSummary(entry.body ?? "") ?? "A post by Andy Merskin.",
+      },
+    ]),
 );
 
 const workPages = Object.fromEntries(

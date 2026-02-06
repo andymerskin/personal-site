@@ -6,8 +6,13 @@ import StructuredData from "../components/StructuredData.astro";
 import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import Layout from "../layouts/Layout.astro";
 
+const showTestContent =
+  import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
+
 const posts = (await getCollection("blog"))
-  .filter((post) => !post.data.draft)
+  .filter(
+    (post) => !post.data.draft && (showTestContent || !post.data.test),
+  )
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const metadata = PAGE_METADATA.blog;

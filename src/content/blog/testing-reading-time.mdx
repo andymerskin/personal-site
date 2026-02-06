@@ -1,0 +1,60 @@
+---
+title: "Testing reading time calculation"
+pubDate: 2025-02-05
+draft: false
+test: true
+---
+
+This is a test blog post designed to verify that the reading time calculation is working correctly. The reading time feature should display the estimated time it takes to read this content, calculated at build time using the reading-time-estimator package.
+
+## Understanding reading time
+
+Reading time calculations are based on the average reading speed of 200 words per minute, which is considered the standard reading speed for most adults. This metric helps readers understand how long it will take them to consume the content before they start reading.
+
+## Why reading time matters
+
+Providing reading time estimates helps users make informed decisions about whether to engage with content. It's particularly useful for:
+
+- **Time management**: Readers can plan their reading sessions accordingly
+- **Content discovery**: Users can quickly assess if an article matches their available time
+- **Engagement**: Setting expectations upfront can improve user experience
+
+## The technical implementation
+
+The reading time feature in this blog is implemented using the `reading-time-estimator` package, which analyzes the markdown content and calculates the estimated reading time. The calculation happens at build time, ensuring optimal performance with no client-side JavaScript required.
+
+The package processes the raw markdown content, counts words, and applies the standard 200 words-per-minute reading speed. The result is then formatted with proper pluralization—showing "1 minute read" for single minutes and "X minutes read" for multiple minutes.
+
+## Content structure and reading flow
+
+Well-structured content with clear headings, paragraphs, and sections makes it easier for readers to consume information. This test post includes various elements to simulate a real blog post:
+
+- Multiple sections with headings
+- Paragraphs of varying lengths
+- Lists and structured information
+- Examples and explanations
+
+## Best practices for blog content
+
+When creating blog content, consider these best practices:
+
+1. **Clear structure**: Use headings to organize content hierarchically
+2. **Scannable format**: Break up long paragraphs with shorter ones
+3. **Visual elements**: Include images, code blocks, or other visual aids where appropriate
+4. **Consistent tone**: Maintain a consistent voice throughout the post
+5. **Actionable insights**: Provide value that readers can apply
+
+## The reading experience
+
+A good reading experience is about more than just the words on the page. It involves:
+
+- **Typography**: Choosing readable fonts and appropriate sizes
+- **Spacing**: Providing adequate whitespace between sections
+- **Navigation**: Making it easy to move through content
+- **Accessibility**: Ensuring content is accessible to all readers
+
+## Conclusion
+
+Reading time is a simple but effective feature that enhances the user experience by providing transparency about content length. By calculating this at build time, we ensure fast page loads and a smooth reading experience.
+
+This test post should generate a reading time of approximately 3-4 minutes, demonstrating that the feature works correctly for longer-form content. The implementation is clean, performant, and user-friendly.

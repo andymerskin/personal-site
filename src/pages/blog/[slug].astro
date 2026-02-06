@@ -11,28 +11,20 @@ import Layout from "../../layouts/Layout.astro";
 import { formatReadingTime } from "../../utils/readingTime";
 
 export async function getStaticPaths() {
+  const showTestContent =
+    import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
   const entries = await getCollection("blog");
-  return entries.map((entry) => {
-    // Redirect draft posts to /blog
-    if (entry.data.draft) {
-      return {
-        params: { slug: entry.id },
-        redirect: "/blog",
-      };
-    }
-    return {
+  return entries
+    .filter(
+      (entry) => !entry.data.draft && (showTestContent || !entry.data.test),
+    )
+    .map((entry) => ({
       params: { slug: entry.id },
       props: { entry },
-    };
-  });
+    }));
 }
 
-const { entry } = Astro.props as { entry?: CollectionEntry<"blog"> };
-
-// If entry is undefined, this is a draft post redirect scenario
-if (!entry) {
-  return Astro.redirect("/blog", 301);
-}
+const { entry } = Astro.props as { entry: CollectionEntry<"blog"> };
 
 const { Content } = await render(entry);
 
