@@ -18,6 +18,7 @@ import {
   NAV_ITEMS,
   isActiveNavItem,
   normalizePathname,
+  getNavLinkAttributes,
 } from "../config/navigation";
 import { DEFAULT_DESCRIPTION, SITE_NAME } from "../config/pageMetadata";
 
@@ -215,11 +216,13 @@ const currentPath = normalizePathname(Astro.url.pathname);
             {NAV_ITEMS.map((item) => {
               const itemPath = normalizePathname(item.href);
               const isActive = isActiveNavItem(currentPath, item);
+              const linkAttributes = getNavLinkAttributes(item);
 
               return (
                 <li>
                   <a
                     href={itemPath}
+                    {...linkAttributes}
                     class:list={[
                       "inline-flex items-center py-1 hover:opacity-100",
                       isActive

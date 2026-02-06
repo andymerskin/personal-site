@@ -27,6 +27,7 @@
         <li v-for="item in navItems" :key="item.href">
           <a
             :href="normalizePathname(item.href)"
+            v-bind="getNavLinkAttributes(item)"
             :class="[
               'inline-flex items-center py-1 hover:opacity-100',
               currentPath && isActiveNavItem(currentPath, item)
@@ -51,6 +52,7 @@ import {
   isActiveNavItem,
   NAV_ITEMS,
   normalizePathname,
+  getNavLinkAttributes,
 } from "../config/navigation";
 import { SITE_NAME } from "../config/pageMetadata";
 import ThemeToggle from "./ThemeToggle.vue";

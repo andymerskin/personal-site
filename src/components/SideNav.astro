@@ -9,6 +9,7 @@ import {
   NAV_ITEMS,
   isActiveNavItem,
   normalizePathname,
+  getNavLinkAttributes,
 } from "../config/navigation";
 
 const { orientation = "vertical", class: className } = Astro.props;
@@ -32,10 +33,12 @@ const current = normalizePathname(Astro.url.pathname);
       NAV_ITEMS.map((item) => {
         const itemPath = normalizePathname(item.href);
         const isActive = isActiveNavItem(current, item);
+        const linkAttributes = getNavLinkAttributes(item);
         return (
           <li>
             <a
               href={itemPath}
+              {...linkAttributes}
               class:list={[
                 "inline-flex items-center py-1 hover:opacity-100",
                 isActive

@@ -2,6 +2,8 @@ export type NavItem = {
   readonly href: string;
   readonly label: string;
   readonly activePath?: string;
+  readonly target?: "_blank";
+  readonly rel?: "noopener noreferrer";
 };
 
 export type ExternalNavItem = {
@@ -18,6 +20,12 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/thoughts", label: "Thoughts" },
   { href: "/photos", label: "Photos" },
   { href: "/about", label: "About" },
+  { 
+    href: "/Andy-Merskin-Resume-2026.pdf", 
+    label: "Resume",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  },
 ];
 
 export const EXTERNAL_NAV_ITEMS = [
@@ -57,4 +65,14 @@ export const isActiveNavItem = (currentPath: string, item: NavItem) => {
     activePath === normalizedCurrent ||
     (activePath !== "/" && normalizedCurrent.startsWith(`${activePath}/`))
   );
+};
+
+export const getNavLinkAttributes = (item: NavItem): {
+  target?: "_blank";
+  rel?: "noopener noreferrer";
+} => {
+  return {
+    ...(item.target && { target: item.target }),
+    ...(item.rel && { rel: item.rel }),
+  };
 };
