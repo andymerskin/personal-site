@@ -6,13 +6,10 @@ import StructuredData from "../components/StructuredData.astro";
 import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
 import Layout from "../layouts/Layout.astro";
 
-const showTestContent =
-  import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
+const showTestContent = import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
 
 const posts = (await getCollection("blog"))
-  .filter(
-    (post) => !post.data.draft && (showTestContent || !post.data.test),
-  )
+  .filter((post) => !post.data.draft && (showTestContent || !post.data.test))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const metadata = PAGE_METADATA.blog;
@@ -33,14 +30,19 @@ const collectionSchema = {
 >
   <StructuredData data={collectionSchema} />
   <h1 class="text-5xl font-bold tracking-tight">Blog</h1>
-  <h2 class="mt-8 text-2xl font-bold text-amber-500">
-    AI-GENERATED CONTENT BELOW, THE REAL STUFF IS COMING SOON!
-  </h2>
-  <div class="mt-8 grid gap-10">
-    <InfiniteScroller itemClass="blog-entry" batchSize={10} client:load>
-      <div class="space-y-12">
-        {posts.map((post) => <BlogListEntry post={post} class="blog-entry" />)}
+  {
+    posts.length > 0 ? (
+      <div class="mt-8 grid gap-10">
+        <InfiniteScroller itemClass="blog-entry" batchSize={10} client:load>
+          <div class="space-y-12">
+            {posts.map((post) => (
+              <BlogListEntry post={post} class="blog-entry" />
+            ))}
+          </div>
+        </InfiniteScroller>
       </div>
-    </InfiniteScroller>
-  </div>
+    ) : (
+      <p class="mt-6 text-xl text-neutral-600 dark:text-neutral-400">No posts yet</p>
+    )
+  }
 </Layout>
