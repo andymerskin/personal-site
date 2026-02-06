@@ -17,8 +17,7 @@ const toSummary = (body: string, maxLength = 160) => {
   return `${cleaned.slice(0, Math.max(0, maxLength - 3)).trimEnd()}...`;
 };
 
-const showTestContent =
-  import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
+const showTestContent = import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
 
 const [blogEntries, workEntries] = await Promise.all([
   getCollection("blog"),

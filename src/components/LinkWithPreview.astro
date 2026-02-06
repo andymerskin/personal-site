@@ -1,6 +1,6 @@
 ---
-import linkPreviews from "../content/link-previews.json";
 import { decode } from "html-entities";
+import linkPreviews from "../content/link-previews.json";
 import { normalizeLinkUrl, type LinkPreview } from "../utils/linkPreviews";
 
 interface Props {
@@ -48,7 +48,9 @@ const displayUrl = (() => {
       )
     }
     <div class="flex flex-1 flex-col justify-center gap-2">
-      <div class="text-lg font-semibold leading-tight text-neutral-900 dark:text-neutral-100">
+      <div
+        class="text-lg leading-tight font-semibold text-neutral-900 dark:text-neutral-100"
+      >
         {resolvedTitle}
       </div>
       {
@@ -58,7 +60,9 @@ const displayUrl = (() => {
           </p>
         )
       }
-      <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+      <div
+        class="text-xs tracking-wide text-neutral-500 uppercase dark:text-neutral-400"
+      >
         {displayUrl}
       </div>
     </div>

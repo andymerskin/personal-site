@@ -9,7 +9,6 @@ import RecommendationCard from "../components/RecommendationCard.astro";
 import SkillCard from "../components/SkillCard.astro";
 import StructuredData from "../components/StructuredData.astro";
 import { getSiteUrl, PAGE_METADATA } from "../config/pageMetadata";
-import { formatReadingTime } from "../utils/readingTime";
 import corgiImage from "../images/about/corgi.webp";
 import csnScreenshot from "../images/about/csn.png";
 import dormbuddyScreenshot from "../images/about/dormbuddy.jpg";
@@ -25,6 +24,7 @@ import cybergrxScreenshot from "../images/work/screenshots/cybergrx-001.png";
 import ftMarketsDataScreenshot from "../images/work/screenshots/ft-001.webp";
 import unifyScreenshot from "../images/work/screenshots/unify-001.webp";
 import Layout from "../layouts/Layout.astro";
+import { formatReadingTime } from "../utils/readingTime";
 
 const markdown = await createMarkdownProcessor();
 const recommendations = await getCollection("recommendations");

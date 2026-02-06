@@ -15,10 +15,7 @@
   >
     <div class="flex flex-col gap-y-4">
       <div class="flex items-center">
-        <a
-          href="/"
-          class="decoration-amber-500 decoration-2 hover:underline"
-        >
+        <a href="/" class="decoration-amber-500 decoration-2 hover:underline">
           <h1 class="text-xl font-bold">{{ siteName }}</h1>
         </a>
         <ThemeToggle />
@@ -35,7 +32,9 @@
                 : 'font-medium opacity-66',
             ]"
             :aria-current="
-              currentPath && isActiveNavItem(currentPath, item) ? 'page' : undefined
+              currentPath && isActiveNavItem(currentPath, item)
+                ? 'page'
+                : undefined
             "
           >
             {{ item.label }}
@@ -49,10 +48,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import {
+  getNavLinkAttributes,
   isActiveNavItem,
   NAV_ITEMS,
   normalizePathname,
-  getNavLinkAttributes,
 } from "../config/navigation";
 import { SITE_NAME } from "../config/pageMetadata";
 import ThemeToggle from "./ThemeToggle.vue";
@@ -81,7 +80,6 @@ const handleScroll = () => {
     updateVisibility();
   });
 };
-
 
 const updatePath = () => {
   if (typeof window !== "undefined") {

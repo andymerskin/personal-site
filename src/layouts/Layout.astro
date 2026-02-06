@@ -4,21 +4,21 @@ import "../styles/fonts.css";
 import "remixicon/fonts/remixicon.css";
 import { ClientRouter } from "astro:transitions";
 import { SEO } from "astro-seo";
-import LocationBadge from "../components/LocationBadge.astro";
-import ProfileImage from "../components/ProfileImage.astro";
-import SideNav from "../components/SideNav.astro";
-import MobileNav from "../components/MobileNav.astro";
 import BackToTopButton from "../components/BackToTopButton.vue";
+import LocationBadge from "../components/LocationBadge.astro";
+import MobileNav from "../components/MobileNav.astro";
+import ProfileImage from "../components/ProfileImage.astro";
 import ScrollNavBar from "../components/ScrollNavBar.vue";
 import ScrollSideNav from "../components/ScrollSideNav.vue";
+import SideNav from "../components/SideNav.astro";
 import StarsBackground from "../components/StarsBackground.vue";
 import ThemeToggle from "../components/ThemeToggle.vue";
 import {
   EXTERNAL_NAV_ITEMS,
-  NAV_ITEMS,
-  isActiveNavItem,
-  normalizePathname,
   getNavLinkAttributes,
+  isActiveNavItem,
+  NAV_ITEMS,
+  normalizePathname,
 } from "../config/navigation";
 import { DEFAULT_DESCRIPTION, SITE_NAME } from "../config/pageMetadata";
 
@@ -137,7 +137,9 @@ const currentPath = normalizePathname(Astro.url.pathname);
         doc.dataset.themeReady = "true";
       })();
     </script>
-    {/* Skip view transitions for elements with data-astro-skip-transition="true" */}
+    {
+      /* Skip view transitions for elements with data-astro-skip-transition="true" */
+    }
     <script is:inline>
       document.addEventListener("astro:before-swap", (event) => {
         const source = event.sourceElement;
@@ -164,7 +166,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
     {/* Dark mode stars */}
     <StarsBackground
       heightFactor={0.5}
-      class="hidden dark:block -z-10"
+      class="-z-10 hidden dark:block"
       client:load
       transition:persist
       transition:name="stars-background"
@@ -176,17 +178,21 @@ const currentPath = normalizePathname(Astro.url.pathname);
     {/* Scroll-based sidebar navigation (xl breakpoint) */}
     <ScrollSideNav client:load />
 
-    <div class="mx-auto max-w-5xl px-4 md:px-16 lg:px-4 pt-8 lg:pt-16 pb-32">
+    <div class="mx-auto max-w-5xl px-4 pt-8 pb-32 md:px-16 lg:px-4 lg:pt-16">
       {/* Mobile header */}
-      <header class="mb-8 md:mb-16 lg:hidden flex flex-col items-center md:items-start">
+      <header
+        class="mb-8 flex flex-col items-center md:mb-16 md:items-start lg:hidden"
+      >
         <MobileNav />
         <div class="flex w-full flex-col items-center md:items-start">
-          <div class="flex flex-col items-center md:flex-row md:items-start md:gap-4">
+          <div
+            class="flex flex-col items-center md:flex-row md:items-start md:gap-4"
+          >
             <a href="/">
               <ProfileImage />
             </a>
             <div class="flex flex-col items-center md:items-start">
-              <div class="flex items-center ml-4 md:ml-0">
+              <div class="ml-4 flex items-center md:ml-0">
                 <a
                   href="/"
                   class="decoration-amber-500 decoration-2 hover:underline"
@@ -201,46 +207,52 @@ const currentPath = normalizePathname(Astro.url.pathname);
               </div>
               <LocationBadge />
               <ul class="hidden items-center gap-x-3 md:flex">
-                {EXTERNAL_NAV_ITEMS.map((item) => (
-                  <li>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center py-1 opacity-66 hover:opacity-100"
-                      aria-label={item.label}
-                    >
-                      <i class:list={[item.icon, "text-2xl"]} />
-                    </a>
-                  </li>
-                ))}
+                {
+                  EXTERNAL_NAV_ITEMS.map((item) => (
+                    <li>
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center py-1 opacity-66 hover:opacity-100"
+                        aria-label={item.label}
+                      >
+                        <i class:list={[item.icon, "text-2xl"]} />
+                      </a>
+                    </li>
+                  ))
+                }
               </ul>
             </div>
           </div>
-          <ul class="mt-6 hidden flex-wrap items-center justify-start gap-x-6 gap-y-2 md:flex">
-            {NAV_ITEMS.map((item) => {
-              const itemPath = normalizePathname(item.href);
-              const isActive = isActiveNavItem(currentPath, item);
-              const linkAttributes = getNavLinkAttributes(item);
+          <ul
+            class="mt-6 hidden flex-wrap items-center justify-start gap-x-6 gap-y-2 md:flex"
+          >
+            {
+              NAV_ITEMS.map((item) => {
+                const itemPath = normalizePathname(item.href);
+                const isActive = isActiveNavItem(currentPath, item);
+                const linkAttributes = getNavLinkAttributes(item);
 
-              return (
-                <li>
-                  <a
-                    href={itemPath}
-                    {...linkAttributes}
-                    class:list={[
-                      "inline-flex items-center py-1 hover:opacity-100",
-                      isActive
-                        ? "font-bold underline decoration-amber-500 decoration-2 underline-offset-4"
-                        : "font-medium opacity-66",
-                    ]}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              );
-            })}
+                return (
+                  <li>
+                    <a
+                      href={itemPath}
+                      {...linkAttributes}
+                      class:list={[
+                        "inline-flex items-center py-1 hover:opacity-100",
+                        isActive
+                          ? "font-bold underline decoration-amber-500 decoration-2 underline-offset-4"
+                          : "font-medium opacity-66",
+                      ]}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })
+            }
           </ul>
         </div>
       </header>

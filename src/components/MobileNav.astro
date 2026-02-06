@@ -1,10 +1,10 @@
 ---
 import {
   EXTERNAL_NAV_ITEMS,
-  NAV_ITEMS,
-  isActiveNavItem,
-  normalizePathname,
   getNavLinkAttributes,
+  isActiveNavItem,
+  NAV_ITEMS,
+  normalizePathname,
 } from "../config/navigation";
 
 const currentPath = normalizePathname(Astro.url.pathname);
@@ -12,11 +12,11 @@ const currentPath = normalizePathname(Astro.url.pathname);
 
 <details class="md:hidden" data-mobile-nav>
   <summary
-    class="fixed top-6 right-4 z-50 inline-flex h-11 w-11 list-none items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 shadow-sm transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50 cursor-pointer"
+    class="fixed top-6 right-4 z-50 inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-900 shadow-sm transition dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
   >
     <span class="sr-only">Toggle menu</span>
-    <i class="ri-menu-line text-2xl" />
-    <i class="ri-close-line text-2xl" />
+    <i class="ri-menu-line text-2xl"></i>
+    <i class="ri-close-line text-2xl"></i>
   </summary>
 
   <div class="fixed inset-0 z-40 bg-white dark:bg-neutral-800">
@@ -33,10 +33,7 @@ const currentPath = normalizePathname(Astro.url.pathname);
             const linkAttributes = getNavLinkAttributes(item);
 
             return (
-              <li
-                class="mobile-nav-item"
-                style={`--stagger-index: ${index}`}
-              >
+              <li class="mobile-nav-item" style={`--stagger-index: ${index}`}>
                 <a
                   href={itemPath}
                   {...linkAttributes}
@@ -56,7 +53,9 @@ const currentPath = normalizePathname(Astro.url.pathname);
         }
       </ul>
 
-      <div class="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-700">
+      <div
+        class="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-700"
+      >
         <ul class="flex flex-col">
           {
             EXTERNAL_NAV_ITEMS.map((item, index) => {

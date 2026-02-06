@@ -14,10 +14,7 @@
     <div class="mx-auto max-w-5xl px-4 md:px-16 lg:px-4">
       <div class="flex flex-wrap items-center gap-x-10 gap-y-2 py-2">
         <div class="flex items-center">
-          <a
-            href="/"
-            class="decoration-amber-500 decoration-2 hover:underline"
-          >
+          <a href="/" class="decoration-amber-500 decoration-2 hover:underline">
             <h1 class="text-xl font-bold">{{ siteName }}</h1>
           </a>
           <ThemeToggle />
@@ -33,7 +30,11 @@
                   ? 'font-bold underline decoration-amber-500 decoration-2 underline-offset-4'
                   : 'font-medium opacity-66',
               ]"
-              :aria-current="currentPath && isActiveNavItem(currentPath, item) ? 'page' : undefined"
+              :aria-current="
+                currentPath && isActiveNavItem(currentPath, item)
+                  ? 'page'
+                  : undefined
+              "
             >
               {{ item.label }}
             </a>
@@ -47,10 +48,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import {
-  NAV_ITEMS,
-  isActiveNavItem,
-  normalizePathname,
   getNavLinkAttributes,
+  isActiveNavItem,
+  NAV_ITEMS,
+  normalizePathname,
 } from "../config/navigation";
 import { SITE_NAME } from "../config/pageMetadata";
 import ThemeToggle from "./ThemeToggle.vue";
@@ -109,5 +110,5 @@ onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
   window.removeEventListener("resize", handleResize);
   document.removeEventListener("astro:page-load", handlePageLoad);
-  });
+});
 </script>

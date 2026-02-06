@@ -133,17 +133,17 @@ This serves the `dist/` directory locally, allowing you to test the production b
 
 ## Scripts
 
-| Script                   | Description                                              |
-| ------------------------ | -------------------------------------------------------- |
-| `bun run dev`            | Start the development server at `localhost:4321`         |
-| `bun run build`          | Build the production site to `./dist/`                   |
-| `bun run preview`        | Preview the production build locally                     |
-| `bun run format`         | Format all code with Prettier (Astro & Tailwind plugins) |
+| Script                         | Description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| `bun run dev`                  | Start the development server at `localhost:4321`             |
+| `bun run build`                | Build the production site to `./dist/`                       |
+| `bun run preview`              | Preview the production build locally                         |
+| `bun run format`               | Format all code with Prettier (Astro & Tailwind plugins)     |
 | `bun run update-link-previews` | Refresh cached Open Graph metadata for LinkWithPreview cards |
-| `bun run astro`          | Run Astro CLI commands (e.g., `bun run astro check`)     |
-| `bun run sort-skills`    | Sort skills in `src/content/skills.yaml` alphabetically  |
-| `bun run add-skill`      | Interactive script to add a new skill to the catalog     |
-| `bun run sync-skill-ids` | Syncs skill IDs from skills.yaml to skills.gen.ts        |
+| `bun run astro`                | Run Astro CLI commands (e.g., `bun run astro check`)         |
+| `bun run sort-skills`          | Sort skills in `src/content/skills.yaml` alphabetically      |
+| `bun run add-skill`            | Interactive script to add a new skill to the catalog         |
+| `bun run sync-skill-ids`       | Syncs skill IDs from skills.yaml to skills.gen.ts            |
 
 ### Content Management Scripts
 

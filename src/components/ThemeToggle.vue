@@ -93,13 +93,17 @@ const handleBeforeSwap = (event: Event) => {
   const newDocument = astroEvent?.detail?.newDocument;
 
   const elements = Array.from(
-    document.querySelectorAll("[data-theme-toggle] [data-icon], [data-theme-toggle] i"),
+    document.querySelectorAll(
+      "[data-theme-toggle] [data-icon], [data-theme-toggle] i",
+    ),
   );
 
   window.__themeToggleAnimationTimes = elements.map((element) =>
-    element.getAnimations().map((animation) =>
-      typeof animation.currentTime === "number" ? animation.currentTime : 0,
-    ),
+    element
+      .getAnimations()
+      .map((animation) =>
+        typeof animation.currentTime === "number" ? animation.currentTime : 0,
+      ),
   );
 
   if (!newDocument) return;
@@ -122,7 +126,9 @@ const handleAfterSwap = () => {
   if (!savedTimes) return;
 
   const elements = Array.from(
-    document.querySelectorAll("[data-theme-toggle] [data-icon], [data-theme-toggle] i"),
+    document.querySelectorAll(
+      "[data-theme-toggle] [data-icon], [data-theme-toggle] i",
+    ),
   );
 
   elements.forEach((element, elementIndex) => {

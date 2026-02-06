@@ -12,8 +12,7 @@ import Layout from "../../layouts/Layout.astro";
 import { formatReadingTime } from "../../utils/readingTime";
 
 export async function getStaticPaths() {
-  const showTestContent =
-    import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
+  const showTestContent = import.meta.env.VITE_SHOW_TEST_CONTENT === "true";
   const entries = await getCollection("blog");
   return entries
     .filter(

@@ -6,12 +6,7 @@ export type LinkPreview = {
 };
 
 const TRACKING_PARAM_PREFIXES = ["utm_"];
-const TRACKING_PARAMS = new Set([
-  "fbclid",
-  "gclid",
-  "mc_cid",
-  "mc_eid",
-]);
+const TRACKING_PARAMS = new Set(["fbclid", "gclid", "mc_cid", "mc_eid"]);
 
 export const normalizeLinkUrl = (rawUrl: string): string => {
   const trimmed = rawUrl.trim();

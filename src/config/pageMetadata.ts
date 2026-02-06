@@ -1,7 +1,7 @@
 export const SITE_NAME = "Andy Merskin";
 
 export const DEFAULT_DESCRIPTION =
-  "Principal UX / UI Engineer leading engineering teams to success!"
+  "Principal UX / UI Engineer leading engineering teams to success!";
 
 export const DEFAULT_SITE_URL = "https://2026.andymerskin.com";
 
@@ -42,7 +42,8 @@ export const PAGE_METADATA = {
   },
   photos: {
     title: "Photos",
-    description: "A few shots capturing life, adventures in Norway, and treks around the majestic Rocky Mountains.",
+    description:
+      "A few shots capturing life, adventures in Norway, and treks around the majestic Rocky Mountains.",
   },
   about: {
     title: "About",

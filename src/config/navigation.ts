@@ -20,11 +20,11 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/thoughts", label: "Thoughts" },
   { href: "/photos", label: "Photos" },
   { href: "/about", label: "About" },
-  { 
-    href: "/Andy-Merskin-Resume-2026.pdf", 
+  {
+    href: "/Andy-Merskin-Resume-2026.pdf",
     label: "Resume",
     target: "_blank",
-    rel: "noopener noreferrer"
+    rel: "noopener noreferrer",
   },
 ];
 
@@ -67,7 +67,9 @@ export const isActiveNavItem = (currentPath: string, item: NavItem) => {
   );
 };
 
-export const getNavLinkAttributes = (item: NavItem): {
+export const getNavLinkAttributes = (
+  item: NavItem,
+): {
   target?: "_blank";
   rel?: "noopener noreferrer";
 } => {

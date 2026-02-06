@@ -1,9 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import {
-  normalizeLinkUrl,
-  type LinkPreview,
-} from "../src/utils/linkPreviews";
+import { normalizeLinkUrl, type LinkPreview } from "../src/utils/linkPreviews";
 
 const CONTENT_DIRECTORIES = [
   path.resolve("src/content/blog"),
