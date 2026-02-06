@@ -3,7 +3,6 @@ import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 import StructuredData from "../../components/StructuredData.astro";
 import WorkGrid from "../../components/WorkGrid.vue";
-import WorkTabs from "../../components/WorkTabs.astro";
 import { getSiteUrl, PAGE_METADATA } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
 
@@ -15,12 +14,15 @@ const preferredOrder = [
   "utb",
   "spriggan",
 ] as const;
+const preferredOrderIndex = new Map<string, number>(
+  preferredOrder.map((id, idx) => [id, idx]),
+);
 
 const workItems = (await getCollection("work"))
   .filter((entry) => entry.data.category === "public")
   .sort((a, b) => {
-    const aIdx = preferredOrder.indexOf(a.id as any);
-    const bIdx = preferredOrder.indexOf(b.id as any);
+    const aIdx = preferredOrderIndex.get(a.id) ?? -1;
+    const bIdx = preferredOrderIndex.get(b.id) ?? -1;
 
     if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
     if (aIdx !== -1) return -1;
@@ -73,7 +75,6 @@ const collectionSchema = {
   <StructuredData data={collectionSchema} />
   <div class="flex flex-wrap items-center justify-between gap-4">
     <h1 class="text-5xl font-bold tracking-tight">Work</h1>
-    {/* <WorkTabs /> */}
   </div>
 
   <p

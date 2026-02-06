@@ -4,7 +4,6 @@ import { getCollection } from "astro:content";
 import StructuredData from "../../components/StructuredData.astro";
 import WorkGrid from "../../components/WorkGrid.vue";
 import WorkPrivateGate from "../../components/WorkPrivateGate.vue";
-import WorkTabs from "../../components/WorkTabs.astro";
 import { getSiteUrl, PAGE_METADATA } from "../../config/pageMetadata";
 import Layout from "../../layouts/Layout.astro";
 
@@ -57,7 +56,6 @@ const collectionSchema = {
   <StructuredData data={collectionSchema} />
   <div class="flex flex-wrap items-center justify-between gap-4">
     <h1 class="text-5xl font-bold tracking-tight">Work</h1>
-    {/* <WorkTabs /> */}
   </div>
 
   <section class="mt-8">
