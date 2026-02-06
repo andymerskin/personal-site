@@ -33,7 +33,7 @@ const getPlainText = (markdown: string | undefined): string => {
 ---
 
 <article class:list={["flex gap-4", className]}>
-  <div class="w-2/3">
+  <div class:list={[post.data.image ? "w-2/3" : "w-full"]}>
     <div class="space-y-0">
       <a
         href={`/blog/${post.id}/`}
@@ -58,9 +58,9 @@ const getPlainText = (markdown: string | undefined): string => {
       {getPlainText(post.body)}
     </p>
   </div>
-  <div class="w-1/3">
-    {
-      post.data.image && (
+  {
+    post.data.image && (
+      <div class="w-1/3">
         <a href={`/blog/${post.id}/`} class="block">
           <div class="aspect-3/2 overflow-hidden rounded-lg">
             <Image
@@ -74,7 +74,7 @@ const getPlainText = (markdown: string | undefined): string => {
             />
           </div>
         </a>
-      )
-    }
-  </div>
+      </div>
+    )
+  }
 </article>
