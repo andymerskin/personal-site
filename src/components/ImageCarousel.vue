@@ -4,7 +4,7 @@
       :id="carouselId"
       ref="rootEl"
       :class="[
-        'group relative overflow-hidden transition-shadow duration-200 outline-none',
+        'group relative overflow-hidden transition-shadow duration-200 outline-none touch-pan-y',
         props.disableFocusRing
           ? ''
           : 'focus-within:ring-2 focus-within:ring-amber-500',
@@ -15,16 +15,24 @@
       :style="{
         '--carousel-index': index,
         '--carousel-count': total,
+        '--carousel-drag': '0px',
+        '--carousel-gap': '40px',
       }"
       @keydown="handleKeydown"
+      @pointerdown="handlePointerDown"
+      @pointermove="handlePointerMove"
+      @pointerup="handlePointerUp"
+      @pointercancel="handlePointerUp"
     >
       <!-- Track -->
       <div
         ref="trackEl"
         :class="[
-          'track flex w-full',
+          'track flex w-full gap-10',
           props.centerSlides ? 'items-center' : 'items-start',
-          shouldAnimate ? 'transition-transform duration-500 ease-out' : '',
+          shouldAnimate || swipeAnimating
+            ? 'transition-transform duration-500 ease-out'
+            : '',
         ]"
       >
         <slot />
@@ -105,6 +113,7 @@ interface Props {
   showDots?: boolean;
   disableFocusRing?: boolean;
   centerSlides?: boolean;
+  swipeAnimate?: boolean;
 }
 
 const emit = defineEmits<{
@@ -117,6 +126,7 @@ const props = withDefaults(defineProps<Props>(), {
   showDots: false,
   disableFocusRing: false,
   centerSlides: false,
+  swipeAnimate: true,
 });
 
 const rootEl = ref<HTMLElement | null>(null);
@@ -125,9 +135,14 @@ const trackEl = ref<HTMLElement | null>(null);
 const index = ref(1);
 const isAnimating = ref(false);
 const total = ref(0);
+const swipeAnimating = ref(false);
 
 const shouldAnimate = computed(() => {
   return props.animate && !prefersReducedMotion();
+});
+
+const shouldAnimateSwipe = computed(() => {
+  return props.swipeAnimate && !prefersReducedMotion();
 });
 
 const carouselId = computed(() => {
@@ -171,11 +186,26 @@ function setIndex(nextIndex: number, animate = true) {
 }
 
 let currentTransitionHandler: ((event?: TransitionEvent) => void) | null = null;
+let activePointerId: number | null = null;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragDeltaX = 0;
+let isPointerDown = false;
+let isHorizontalDrag = false;
+let hasLockedDirection = false;
+let rafId: number | null = null;
+const dragSensitivity = 0.18;
+const minDragThreshold = 40;
 
-function move(dir: number) {
+function move(dir: number, options?: { forceAnimate?: boolean }) {
   if (!trackEl.value || !rootEl.value) return;
 
-  if (!shouldAnimate.value) {
+  const animate =
+    typeof options?.forceAnimate === "boolean"
+      ? options.forceAnimate
+      : shouldAnimate.value;
+
+  if (!animate) {
     const nextIndex = index.value + dir;
     setIndex(nextIndex, false);
     if (index.value === 0 || index.value === total.value + 1) {
@@ -214,6 +244,7 @@ function move(dir: number) {
   }
 
   isAnimating.value = true;
+  swipeAnimating.value = options?.forceAnimate === true;
   setIndex(index.value + dir, true);
 
   const onEnd = (event?: TransitionEvent) => {
@@ -230,6 +261,7 @@ function move(dir: number) {
       setIndex(target, false);
     }
     isAnimating.value = false;
+    swipeAnimating.value = false;
   };
 
   currentTransitionHandler = onEnd;
@@ -281,6 +313,101 @@ function handleKeydown(event: KeyboardEvent) {
     event.preventDefault();
     move(1);
   }
+}
+
+function setDragOffset(nextOffset: number) {
+  if (!rootEl.value) return;
+  rootEl.value.style.setProperty("--carousel-drag", `${nextOffset}px`);
+}
+
+function setDraggingState(isDragging: boolean) {
+  if (!trackEl.value) return;
+  trackEl.value.classList.toggle("is-dragging", isDragging);
+}
+
+function resetDragState(cancelAnimation = true) {
+  if (cancelAnimation && rafId) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+  activePointerId = null;
+  isPointerDown = false;
+  isHorizontalDrag = false;
+  hasLockedDirection = false;
+  dragStartX = 0;
+  dragStartY = 0;
+  dragDeltaX = 0;
+}
+
+function handlePointerDown(event: PointerEvent) {
+  if (isAnimating.value) return;
+  if (!event.isPrimary) return;
+  if (event.pointerType === "mouse") return;
+
+  activePointerId = event.pointerId;
+  isPointerDown = true;
+  dragStartX = event.clientX;
+  dragStartY = event.clientY;
+  dragDeltaX = 0;
+  isHorizontalDrag = false;
+  hasLockedDirection = false;
+
+  rootEl.value?.setPointerCapture(event.pointerId);
+}
+
+function handlePointerMove(event: PointerEvent) {
+  if (!isPointerDown) return;
+  if (activePointerId !== event.pointerId) return;
+  if (!rootEl.value || !trackEl.value) return;
+
+  const deltaX = event.clientX - dragStartX;
+  const deltaY = event.clientY - dragStartY;
+  const absX = Math.abs(deltaX);
+  const absY = Math.abs(deltaY);
+
+  if (!hasLockedDirection) {
+    if (absX < 4 && absY < 4) return;
+    hasLockedDirection = true;
+    isHorizontalDrag = absX > absY;
+  }
+
+  if (!isHorizontalDrag) return;
+
+  event.preventDefault();
+  dragDeltaX = deltaX;
+  setDraggingState(true);
+  setDragOffset(dragDeltaX);
+}
+
+function handlePointerUp(event: PointerEvent) {
+  if (!isPointerDown) return;
+  if (activePointerId !== event.pointerId) return;
+  if (!rootEl.value || !trackEl.value) {
+    resetDragState();
+    return;
+  }
+
+  rootEl.value.releasePointerCapture(event.pointerId);
+
+  if (!isHorizontalDrag) {
+    resetDragState();
+    return;
+  }
+
+  const width = rootEl.value.clientWidth || 1;
+  const threshold = Math.max(minDragThreshold, width * dragSensitivity);
+  const shouldMove = Math.abs(dragDeltaX) > threshold;
+  const direction = dragDeltaX < 0 ? 1 : -1;
+
+  setDraggingState(false);
+  rafId = requestAnimationFrame(() => {
+    setDragOffset(0);
+    if (shouldMove) {
+      move(direction, { forceAnimate: shouldAnimateSwipe.value });
+    }
+  });
+
+  resetDragState(false);
 }
 
 onMounted(() => {
@@ -372,10 +499,19 @@ defineExpose({ move, goToSlide });
 @import "../styles/global.css";
 
 .track {
-  transform: translateX(calc(var(--carousel-index) * -100%));
+  transform: translateX(
+    calc(
+      (var(--carousel-index) * (-100% - var(--carousel-gap))) +
+        var(--carousel-drag)
+    )
+  );
 }
 
 .track.is-snapping {
+  transition: none !important;
+}
+
+.track.is-dragging {
   transition: none !important;
 }
 
