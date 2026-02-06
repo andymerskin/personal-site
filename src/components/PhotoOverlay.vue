@@ -1,6 +1,7 @@
 <template>
-  <Teleport to="body">
+  <Teleport v-if="isMounted" to="body">
     <div
+      ref="overlayRef"
       :class="[
         'bg-primary/80 fixed inset-0 z-100 backdrop-blur-lg dark:bg-neutral-950/90',
         isOpen ? 'flex' : 'hidden',
@@ -94,10 +95,21 @@ const emit = defineEmits<{
 }>();
 
 const carouselRef = ref<InstanceType<typeof ImageCarousel> | null>(null);
+const overlayRef = ref<HTMLElement | null>(null);
+const isMounted = ref(false);
 let scrollPosition = 0;
 let isScrollLocked = false;
 
-const emitClose = () => emit("close");
+const emitClose = () => {
+  // Remove focus from any element inside the overlay before closing
+  // to prevent aria-hidden accessibility warnings
+  if (document.activeElement && overlayRef.value) {
+    if (overlayRef.value.contains(document.activeElement)) {
+      (document.activeElement as HTMLElement).blur();
+    }
+  }
+  emit("close");
+};
 const emitChange = (index: number) => emit("change", index);
 const handleBackdropClick = (event: MouseEvent) => {
   emitClose();
@@ -168,6 +180,7 @@ watch(
 );
 
 onMounted(() => {
+  isMounted.value = true;
   window.addEventListener("keydown", handleKeydown);
 });
 
