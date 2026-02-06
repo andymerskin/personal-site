@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref } from "vue";
 
 interface Props {
@@ -29,6 +28,14 @@ const props = withDefaults(defineProps<Props>(), {
 const sentinel = ref<HTMLElement>();
 const observer = ref<IntersectionObserver>();
 const container = ref<HTMLElement | null>(null);
+let gsapLib: typeof import("gsap")["gsap"] | null = null;
+
+const loadGsap = async () => {
+  if (gsapLib) return gsapLib;
+  const { gsap } = await import("gsap");
+  gsapLib = gsap;
+  return gsapLib;
+};
 
 let allItems: HTMLElement[] = [];
 let displayedCount = 0;
@@ -107,31 +114,32 @@ const loadMore = async () => {
   }
 };
 
-const animateNewItems = (items: HTMLElement[]) => {
-  nextTick().then(() => {
-    if (!items || items.length === 0) return;
+const animateNewItems = async (items: HTMLElement[]) => {
+  await nextTick();
+  if (!items || items.length === 0) return;
 
-    gsap.fromTo(
-      items,
-      {
-        opacity: 0,
-        y: props.animationOffset,
+  const gsap = await loadGsap();
+
+  gsap.fromTo(
+    items,
+    {
+      opacity: 0,
+      y: props.animationOffset,
+    },
+    {
+      opacity: 1,
+      y: 0,
+      duration: props.animationDuration,
+      ease: "power3.out",
+      stagger: props.animationStagger,
+      onComplete: () => {
+        // Remove animate-in class after animation completes
+        items.forEach((item) => {
+          item.classList.remove("infinite-scroller-animate-in");
+        });
       },
-      {
-        opacity: 1,
-        y: 0,
-        duration: props.animationDuration,
-        ease: "power3.out",
-        stagger: props.animationStagger,
-        onComplete: () => {
-          // Remove animate-in class after animation completes
-          items.forEach((item) => {
-            item.classList.remove("infinite-scroller-animate-in");
-          });
-        },
-      },
-    );
-  });
+    },
+  );
 };
 
 const handleScroll = () => {

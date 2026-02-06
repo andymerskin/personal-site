@@ -50,7 +50,6 @@
 </template>
 
 <script setup lang="ts">
-import { gsap } from "gsap";
 import { nextTick, onMounted, onUnmounted, ref } from "vue";
 import { prefersReducedMotion } from "../utils/prefersReducedMotion";
 
@@ -74,12 +73,22 @@ const props = defineProps<{
 }>();
 
 const gridRef = ref<HTMLElement | null>(null);
+let gsapLib: typeof import("gsap")["gsap"] | null = null;
+
+const loadGsap = async () => {
+  if (gsapLib) return gsapLib;
+  const { gsap } = await import("gsap");
+  gsapLib = gsap;
+  return gsapLib;
+};
 
 const animateCards = async () => {
   await nextTick();
 
   const cards = gridRef.value?.querySelectorAll(".work-card") ?? [];
   if (cards.length === 0) return;
+
+  const gsap = await loadGsap();
 
   if (prefersReducedMotion()) {
     // Skip animation, show cards immediately
@@ -107,9 +116,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (gridRef.value) {
+  if (gridRef.value && gsapLib) {
     const cards = gridRef.value.querySelectorAll(".work-card");
-    gsap.killTweensOf(cards);
+    gsapLib.killTweensOf(cards);
   }
 });
 </script>
