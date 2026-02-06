@@ -10,13 +10,28 @@ import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog");
-  return entries.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return entries.map((entry) => {
+    // Redirect draft posts to /blog
+    if (entry.data.draft) {
+      return {
+        params: { slug: entry.id },
+        redirect: "/blog",
+      };
+    }
+    return {
+      params: { slug: entry.id },
+      props: { entry },
+    };
+  });
 }
 
-const { entry } = Astro.props as { entry: CollectionEntry<"blog"> };
+const { entry } = Astro.props as { entry?: CollectionEntry<"blog"> };
+
+// If entry is undefined, this is a draft post redirect scenario
+if (!entry) {
+  return Astro.redirect("/blog", 301);
+}
+
 const { Content } = await render(entry);
 
 const siteUrl = getSiteUrl(Astro.site);
