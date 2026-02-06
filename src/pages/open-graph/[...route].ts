@@ -65,22 +65,25 @@ export const { getStaticPaths, GET } = await OGImageRoute({
       side: "inline-start",
     },
     logo: {
-      path: "./src/images/andy.jpg",
-      size: [96, 96],
+      path: "./src/images/og-logo.png",
+      size: [192, 192],
     },
     fonts: [
-      "https://fonts.gstatic.com/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDptfpA4Q.woff2",
+      // Known limitation: astro-og-canvas issue #68 - multiple font variations don't work
+      // Workaround: Use only bold font, title will be bold, description will also be bold
+      // but we can make it appear lighter with smaller size and different color
+      "./src/fonts/work-sans-700.woff2",
     ],
     font: {
       title: {
         color: [255, 255, 255],
         size: 84,
-        weight: "Bold",
+        weight: "Normal", // Will use bold font since that's what's loaded
         lineHeight: 1.1,
         families: ["Work Sans"],
       },
       description: {
-        color: [226, 232, 240],
+        color: [254, 243, 199], // #fef3c7 - Lighter color to compensate for bold weight
         size: 36,
         weight: "Normal",
         lineHeight: 1.3,

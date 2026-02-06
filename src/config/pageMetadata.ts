@@ -1,7 +1,7 @@
 export const SITE_NAME = "Andy Merskin";
 
 export const DEFAULT_DESCRIPTION =
-  "Principal Software Engineer leading engineering teams to success creating digital products, backed by thoughtful research, delightful user interactions, unified visual language, energizing motion, and well organized & optimized architecture.";
+  "Principal UX / UI Engineer leading engineering teams to success!"
 
 export const DEFAULT_SITE_URL = "https://2026.andymerskin.com";
 
