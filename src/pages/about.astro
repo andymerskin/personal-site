@@ -29,34 +29,52 @@ const recommendations = await getCollection("recommendations");
 
 // Sarah Wolfsont recommendation
 const sarahRecommendation = recommendations.find(
-  (r) => r.data.author === "Sarah Wolfsont"
+  (r) => r.data.author === "Sarah Wolfsont",
 );
 const sarahBody = sarahRecommendation
-  ? (await markdown.render(sarahRecommendation.data.previewBody ?? sarahRecommendation.body ?? "")).code
+  ? (
+      await markdown.render(
+        sarahRecommendation.data.previewBody ?? sarahRecommendation.body ?? "",
+      )
+    ).code
   : "";
 
 // Lexi Mitsuhashi recommendation
 const lexiRecommendation = recommendations.find(
-  (r) => r.data.author === "Lexi Mitsuhashi"
+  (r) => r.data.author === "Lexi Mitsuhashi",
 );
 const lexiBody = lexiRecommendation
-  ? (await markdown.render(lexiRecommendation.data.previewBody ?? lexiRecommendation.body ?? "")).code
+  ? (
+      await markdown.render(
+        lexiRecommendation.data.previewBody ?? lexiRecommendation.body ?? "",
+      )
+    ).code
   : "";
 
 // Matt Dew recommendation
 const mattRecommendation = recommendations.find(
-  (r) => r.data.author === "Matt Dew"
+  (r) => r.data.author === "Matt Dew",
 );
 const mattBody = mattRecommendation
-  ? (await markdown.render(mattRecommendation.data.previewBody ?? mattRecommendation.body ?? "")).code
+  ? (
+      await markdown.render(
+        mattRecommendation.data.previewBody ?? mattRecommendation.body ?? "",
+      )
+    ).code
   : "";
 
 // Brandon Telle recommendation
 const brandonRecommendation = recommendations.find(
-  (r) => r.data.author === "Brandon Telle"
+  (r) => r.data.author === "Brandon Telle",
 );
 const brandonBody = brandonRecommendation
-  ? (await markdown.render(brandonRecommendation.data.previewBody ?? brandonRecommendation.body ?? "")).code
+  ? (
+      await markdown.render(
+        brandonRecommendation.data.previewBody ??
+          brandonRecommendation.body ??
+          "",
+      )
+    ).code
   : "";
 
 const metadata = PAGE_METADATA.about;
@@ -93,13 +111,15 @@ const optimizedImages = Object.fromEntries(
         src: value,
         quality: "max",
         widths: [728, 1600],
-        sizes: "(min-width: 768px) 1600px, 728px"
+        sizes: "(min-width: 768px) 1600px, 728px",
       }),
-    ])
-  )
+    ]),
+  ),
 );
 
-const aboutContentIntro = `
+const content: Record<string, string> = {};
+
+content.intro = `
 <span class="text-xl leading-relaxed">Hey there! I'm Andy, a passionate software engineer with a strong UX/UI design background. I hail from Cheyenne, WY, and have lived in the Denver area after graduating from Rocky Mountain College of Art + Design in 2013, ever since.</span>
 
 ## What I do in my free time
@@ -107,7 +127,7 @@ const aboutContentIntro = `
 Professional homebody, how can I help you? 🏡
 `;
 
-const aboutContentMain = `
+content.part1 = `
 
 <div>
   <div>10 minute read</div>
@@ -214,7 +234,7 @@ I built a high level of confidence creating complex UIs, charts, trading functio
 The company's culture and community were incredible, giving us the space to experiment and build our own tools and become more efficient. I'm grateful for the experience. I still miss it.
 `;
 
-const aboutContentMainPart2 = `
+content.part2 = `
 ### Moving to full-time software engineering
 
 By 2018, I wanted to get more serious about engineering and move beyond prototypes to real, production-grade software. Since I'd already built strong connections with our developers at Markit, I interviewed internally and joined a component team dedicated to supporting our feature teams, with a goal of writing shared libraries and components to help reduce our time to market.
@@ -243,7 +263,7 @@ I served as a central point of contact to keep our product team aligned, our bac
 It's commonly known that working at a startup is a rollercoaster, and needless to say, it put me through the ringer in the best ways possible. It filled a lot of the knowledge gaps I had in front-end development that my more siloed work couldn't provide at previous jobs. I got to work with a lot of talented folks, and had the autonomy to help drive product decisions and choose cutting-edge technologies, like migrating to Tailwind CSS.
 `;
 
-const aboutContentMainPart3 = `
+content.part3 = `
 ## Onward to Living Security!
 
 Towards the end of my time at CyberGRX, our product planning was beginning to stagnate, leading to a complete standstill in engineering for a few months. Around the same time, a previous manager reached out to me to see if I'd be interested in a more senior UX / UI engineering role at **Living Security** based in Austin, TX. I was immediately interested, and after a few interviews, I was offered the role with haste!
@@ -264,7 +284,7 @@ Living Security was one of the most formative times in my career, with a culture
 This led to an estimated **~40% reduction in development time** (roughly 12-15 hours per week of tedium eliminated per engineer). **Vite reduced our build times by up to 70%** in our CI/CD pipelines, reducing build-time costs in GitHub Actions and Vercel, and a much more pleasant developer experience.
 `;
 
-const aboutContentMainPart4 = `
+content.part4 = `
 I was soon asked to take ownership of the frontend development and help guide our architecture decisions, code quality, and the dev experience. I was responsible for coordinating with our product owners to help assess level of effort for new features in conjunction with our backend team. I also bridged the gap between our design team and engineers to help ensure their vision was fulfilled as we iterated.
 
 <img src="${optimizedImages.livingSecurityTeam.src}" srcset="${optimizedImages.livingSecurityTeam.srcSet?.attribute}" sizes="${optimizedImages.livingSecurityTeam.attributes.sizes}" alt="Living Security onsite photo" loading="lazy" decoding="async" />
@@ -275,16 +295,16 @@ In 2024, [we took the lead in **The Forrester Wave™**](https://www.livingsecur
 
 >Living Security punches above its weight to drive HRM adoption... Its vision clearly states how HRM works with adjacent security categories, receiving risk data and providing actionable insight. <span class="not-italic!">— The Forrester Wave</span>
 
-### Living Security's future
+### Shifting gears
 
-As Unify inspired the market to catch up, Living Security needed to ensure they kept the lead in HRM, and decided to consolidate their products more, so with the help of LLMs, the engineering leadership pivoted to vibe-code (risky move!) the new Living Security Platform as quickly as possible, using everything we had learned from Unify, with AI-native features baked in.
+As Living Security further embraced AI-driven development, the need to consolidate their products was becoming more apparent, and the engineering leadership decided to pivot to vibe-code a full rewrite of the entire platform as quickly as possible, using everything we had learned from Unify, with AI-native features baked in.
 
-This also meant that our engineering team needed fewer people to fulfill that vision with the efficiency gains they'd built into their new process, and they decided to let me go despite being a top-performer and a key contributor to the success of Unify. I knew layoffs were inevitable, so it came as no surprise to me. The areas I wanted to grow in my career were already covered really well, and my role was effectively redundant with so many senior-level engineers on the team.
+This also meant they needed fewer engineers to fulfill that vision with the efficiency gains, so unfortunately they laid me off since my role was effectively redundant with enough top-level engineers on the team who had been there longer.
 
-I was given generous severance pay to help ease me into whatever's next. I'm grateful for the 4 years of growth I had there, and for the leadership's willingness to take care of me as I transitioned off the team. 💪
+This was the perfect time for me to move on and hone new skills in leadership and full-stack development elsewhere—and there's never been a better time to accelerate that growth with AI.
 `;
 
-const aboutContentMainPart5 = `
+content.outro = `
 ## What's next?
 
 Now I'm seeking a new **Principal UX / UI Engineer** role (Staff roles are welcome too, if the compensation is right!). As someone who follows Jesus Christ 🙏, I fully trust He's got something carved out for me, so I'm leaning on Him to orchestrate the right opportunities.
@@ -301,19 +321,13 @@ Cheers, and thanks for reading! 🙌
 <img src="${signature.src}" alt="Signed, Andy Merskin" class="my-0! w-20 dark:invert" /></div>
 `;
 
-const { code: aboutHtmlIntro } = await markdown.render(aboutContentIntro);
-const { code: aboutHtmlMain } = await markdown.render(aboutContentMain);
-const { code: aboutHtmlMainPart2 } = await markdown.render(
-  aboutContentMainPart2
-);
-const { code: aboutHtmlMainPart3 } = await markdown.render(
-  aboutContentMainPart3
-);
-const { code: aboutHtmlMainPart4 } = await markdown.render(
-  aboutContentMainPart4
-);
-const { code: aboutHtmlMainPart5 } = await markdown.render(
-  aboutContentMainPart5
+const renderedContent = Object.fromEntries(
+  await Promise.all(
+    Object.entries(content).map(async ([key, value]) => {
+      const result = await markdown.render(value);
+      return [key, result.code];
+    }),
+  ),
 );
 
 const hobbies = [
@@ -338,10 +352,10 @@ const hobbies = [
   <h2 class="mt-6 text-xl leading-relaxed"></h2>
   <div class="mt-8">
     <Prose>
-      <div set:html={aboutHtmlIntro} />
+      <div set:html={renderedContent.intro} />
     </Prose>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
       {
         hobbies.map((hobby) => (
           <SkillCard
@@ -357,7 +371,7 @@ const hobbies = [
     <HRule class="my-8" />
 
     <Prose>
-      <div set:html={aboutHtmlMain} />
+      <div set:html={renderedContent.part1} />
     </Prose>
 
     <div class="my-12">
@@ -375,7 +389,7 @@ const hobbies = [
     </div>
 
     <Prose>
-      <div set:html={aboutHtmlMainPart2} />
+      <div set:html={renderedContent.part2} />
     </Prose>
 
     <div class="my-12">
@@ -393,7 +407,7 @@ const hobbies = [
     </div>
 
     <Prose>
-      <div set:html={aboutHtmlMainPart3} />
+      <div set:html={renderedContent.part3} />
     </Prose>
 
     <div class="my-12">
@@ -411,7 +425,7 @@ const hobbies = [
     </div>
 
     <Prose>
-      <div set:html={aboutHtmlMainPart4} />
+      <div set:html={renderedContent.part4} />
     </Prose>
 
     <div class="my-12">
@@ -429,7 +443,11 @@ const hobbies = [
     </div>
 
     <Prose>
-      <div set:html={aboutHtmlMainPart5} />
+      <div set:html={renderedContent.part5} />
+    </Prose>
+
+    <Prose>
+      <div set:html={renderedContent.outro} />
     </Prose>
   </div>
 </Layout>
