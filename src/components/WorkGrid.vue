@@ -73,7 +73,7 @@ const props = defineProps<{
 }>();
 
 const gridRef = ref<HTMLElement | null>(null);
-let gsapLib: typeof import("gsap")["gsap"] | null = null;
+let gsapLib: (typeof import("gsap"))["gsap"] | null = null;
 
 const loadGsap = async () => {
   if (gsapLib) return gsapLib;

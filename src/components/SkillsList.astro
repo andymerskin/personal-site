@@ -26,9 +26,7 @@ allSkills.forEach((skill) => {
 const skillData = skillSlugs
   .map((slug) => skillsMap.get(slug))
   .filter(isSkill)
-  .sort((a: Skill, b: Skill) =>
-    a.data.name.localeCompare(b.data.name),
-  );
+  .sort((a: Skill, b: Skill) => a.data.name.localeCompare(b.data.name));
 ---
 
 <div>

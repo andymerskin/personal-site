@@ -78,11 +78,7 @@ const collectionSchema = {
   </div>
 
   {/* Recommendation items */}
-  <InfiniteScroller
-    itemClass="recommendation-entry"
-    batchSize={5}
-    client:idle
-  >
+  <InfiniteScroller itemClass="recommendation-entry" batchSize={5} client:idle>
     <div class="space-y-12">
       {
         recommendations.map((recommendation) => (
