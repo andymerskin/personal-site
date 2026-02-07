@@ -442,11 +442,12 @@ onMounted(() => {
       slide.classList.contains("w-full") &&
       slide.classList.contains("flex-none")
     ) {
+      slide.classList.add("justify-center");
       wrappedSlides.push(slide);
     } else {
       // Wrap the slide
       const wrapper = document.createElement("div");
-      wrapper.className = "flex w-full flex-none";
+      wrapper.className = "flex w-full flex-none justify-center";
       slide.parentNode?.insertBefore(wrapper, slide);
       wrapper.appendChild(slide);
       wrappedSlides.push(wrapper);
