@@ -86,14 +86,13 @@ const collectionSchema = {
     <div class="space-y-12">
       {
         recommendations.map((recommendation) => (
-          <div class="recommendation-entry">
-            <RecommendationCard
-              recommendation={recommendation.data}
-              id={recommendation.id}
-            >
-              <div set:html={recommendation.body} />
-            </RecommendationCard>
-          </div>
+          <RecommendationCard
+            class="recommendation-entry"
+            recommendation={recommendation.data}
+            id={recommendation.id}
+          >
+            <div set:html={recommendation.body} />
+          </RecommendationCard>
         ))
       }
     </div>

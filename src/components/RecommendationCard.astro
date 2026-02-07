@@ -7,9 +7,10 @@ export interface Props {
   recommendation: CollectionEntry<"recommendations">["data"];
   id?: string;
   linkTo?: boolean;
+  class?: string;
 }
 
-const { recommendation, id, linkTo = false } = Astro.props;
+const { recommendation, id, linkTo = false, class: className } = Astro.props;
 const { author, photo, job, position } = recommendation;
 const linkUrl = linkTo && id ? `/colleagues#${id}` : null;
 ---
@@ -18,37 +19,41 @@ const linkUrl = linkTo && id ? `/colleagues#${id}` : null;
   linkUrl ? (
     <a
       href={linkUrl}
-      class="block transition-transform duration-300 ease-in-out hover:scale-105"
+      class:list={[
+        "group relative flex items-start gap-4 transition-transform duration-300 ease-in-out even:flex-row-reverse hover:scale-105",
+        className,
+      ]}
+      id={id}
     >
-      <div
-        class="group relative flex items-start gap-4 even:flex-row-reverse"
-        id={id}
-      >
-        <Image
-          src={photo}
-          densities={[2, 3]}
-          width={64}
-          height={64}
-          quality="max"
-          alt={author}
-          class="not-prose absolute mt-3 rounded-full group-odd:left-2 group-even:right-2"
-        />
-        <div class="bg-shade-primary/3 rounded-lg p-6 group-odd:ml-12 group-odd:pl-10 group-even:mr-12 group-even:pr-10 dark:bg-neutral-800">
-          <Prose class="prose-sm leading-relaxed [&_p:first-child]:mt-0">
-            <slot />
-          </Prose>
-          <div class="mt-2">
-            <div class="font-display text-2xl font-bold">{author}</div>
-            <div class="text-sm text-neutral-500 dark:text-neutral-400">
-              {position} • {job}
-            </div>
+      <Image
+        src={photo}
+        densities={[2, 3]}
+        width={64}
+        height={64}
+        quality="max"
+        alt={author}
+        class="not-prose absolute mt-3 rounded-full group-odd:left-2 group-even:right-2"
+      />
+      <div class="bg-shade-primary/3 rounded-lg p-6 group-odd:ml-12 group-odd:pl-10 group-even:mr-12 group-even:pr-10 dark:bg-neutral-800">
+        <Prose class="prose-sm leading-relaxed [&_p:first-child]:mt-0">
+          <slot />
+        </Prose>
+        <div class="mt-2">
+          <div class="font-display text-2xl font-bold">{author}</div>
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">
+            {position} • {job}
           </div>
         </div>
       </div>
     </a>
   ) : (
     <div
-      class="group relative flex items-start gap-4 even:flex-row-reverse"
+      class={[
+        "group relative flex items-start gap-4 even:flex-row-reverse",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       id={id}
     >
       <Image
